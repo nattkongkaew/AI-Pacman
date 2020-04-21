@@ -1,9 +1,12 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://BoardScoreboard.gd" type="Script" id=1]
 
 [node name="BoardScoreboard" type="GridContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 columns = 2
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

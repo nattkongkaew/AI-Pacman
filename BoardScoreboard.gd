@@ -23,8 +23,7 @@ func _ready():
 func _process( delta ):
 	# Update time
 	if time_updating:
-		current_time += delta
-		update_time_display()
+		set_current_time( get_current_time() + delta )
 
 
 # Get the current playtime

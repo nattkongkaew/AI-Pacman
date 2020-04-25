@@ -18,6 +18,11 @@ _global_script_class_icons={
 config/name="Pacman AI"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=1250
+window/size/height=800
+
 [rendering]
 
 quality/driver/driver_name="GLES2"

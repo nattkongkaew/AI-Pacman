@@ -1,13 +1,13 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://images/pacman-player-maze.png" type="Texture" id=1]
 [ext_resource path="res://images/pacman-ai-maze.png" type="Texture" id=2]
 [ext_resource path="res://images/pellet.png" type="Texture" id=3]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="ConvexPolygonShape2D" id=9]
 points = PoolVector2Array( 0, 0, 9.83328, 0, 9.83328, 9, 0, 9 )
 
-[sub_resource type="TileSet" id=2]
+[sub_resource type="TileSet" id=10]
 0/name = "pellet.png 0"
 0/texture = ExtResource( 3 )
 0/tex_offset = Vector2( 0, 0 )
@@ -18,29 +18,29 @@ points = PoolVector2Array( 0, 0, 9.83328, 0, 9.83328, 9, 0, 9 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 1 )
+0/shape = SubResource( 9 )
 0/shape_one_way = true
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": true,
 "one_way_margin": 1.0,
-"shape": SubResource( 1 ),
+"shape": SubResource( 9 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
 
-[sub_resource type="CapsuleShape2D" id=3]
+[sub_resource type="CapsuleShape2D" id=11]
 radius = 10.5844
 height = 55.746
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 28.038, 9.61479 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 37.0949, 18.6973 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 28.0009, 18.723 )
 
 [sub_resource type="DynamicFontData" id=7]
@@ -50,16 +50,9 @@ font_path = "res://sansation/Sansation-Light.ttf"
 size = 30
 font_data = SubResource( 7 )
 
-[sub_resource type="DynamicFontData" id=9]
-font_path = "res://sansation/Sansation-Light.ttf"
-
-[sub_resource type="DynamicFont" id=10]
-size = 30
-font_data = SubResource( 9 )
-
 [node name="UI" type="TileMap"]
 position = Vector2( 1, 0 )
-tile_set = SubResource( 2 )
+tile_set = SubResource( 10 )
 cell_size = Vector2( 6, 6 )
 cell_custom_transform = Transform2D( 13, 0, 0, 13, 0, 0 )
 format = 1
@@ -89,20 +82,20 @@ polygon = PoolVector2Array( 124.024, 499.916, 168.758, 499.747, 174.181, 505, 17
 [node name="player-right-horizontal-oval" type="CollisionShape2D" parent="Player"]
 position = Vector2( 413, 509.5 )
 rotation = 1.5708
-shape = SubResource( 3 )
+shape = SubResource( 11 )
 
 [node name="player-left-horizontal-oval" type="CollisionShape2D" parent="Player"]
 position = Vector2( 247.471, 509.998 )
 rotation = 1.5708
-shape = SubResource( 3 )
+shape = SubResource( 11 )
 
 [node name="player-right-vertical-oval" type="CollisionShape2D" parent="Player"]
 position = Vector2( 440.471, 426.998 )
-shape = SubResource( 3 )
+shape = SubResource( 11 )
 
 [node name="player-left-vertical-oval" type="CollisionShape2D" parent="Player"]
 position = Vector2( 219.471, 426.998 )
-shape = SubResource( 3 )
+shape = SubResource( 11 )
 
 [node name="player-ghost-box" type="CollisionPolygon2D" parent="Player"]
 polygon = PoolVector2Array( 311.363, 334.444, 265.057, 334.795, 264.882, 408.287, 394.853, 408.287, 393.449, 334.094, 347.846, 334.094, 348.547, 345.319, 383.627, 345.144, 384.329, 398.114, 275.23, 398.991, 275.406, 344.968, 312.24, 345.144 )
@@ -128,27 +121,27 @@ polygon = PoolVector2Array( 210.445, 229.402, 210.449, 349.157, 214.569, 352.865
 
 [node name="player-right-small-rectangle" type="CollisionShape2D" parent="Player"]
 position = Vector2( 514.047, 233.666 )
-shape = SubResource( 4 )
+shape = SubResource( 12 )
 
 [node name="player-left-small-rectangle" type="CollisionShape2D" parent="Player"]
 position = Vector2( 145.969, 233.666 )
-shape = SubResource( 4 )
+shape = SubResource( 12 )
 
 [node name="player-right-large-rectangle" type="CollisionShape2D" parent="Player"]
 position = Vector2( 412.766, 169.304 )
-shape = SubResource( 5 )
+shape = SubResource( 13 )
 
 [node name="player-left-large-rectangle" type="CollisionShape2D" parent="Player"]
 position = Vector2( 247.192, 169.234 )
-shape = SubResource( 5 )
+shape = SubResource( 13 )
 
 [node name="player-right-med-rectangle" type="CollisionShape2D" parent="Player"]
 position = Vector2( 513.972, 169.328 )
-shape = SubResource( 6 )
+shape = SubResource( 14 )
 
 [node name="player-left-med-rectangle" type="CollisionShape2D" parent="Player"]
 position = Vector2( 146.012, 169.328 )
-shape = SubResource( 6 )
+shape = SubResource( 14 )
 
 [node name="player-bottom-border" type="CollisionPolygon2D" parent="Player"]
 polygon = PoolVector2Array( 72.7414, 390.075, 168.224, 389.65, 172.757, 395.175, 173.749, 459.066, 168.791, 463.883, 85.633, 464.449, 82.0913, 467.424, 81.5247, 552.509, 85.208, 555.625, 113.116, 555.909, 118.074, 561.15, 118.924, 570.245, 113.541, 574.92, 85.0664, 574.92, 81.9497, 578.179, 81.9497, 661.959, 85.208, 665.643, 574.124, 666.323, 577.808, 663.206, 577.978, 577.669, 574.578, 575.403, 547.52, 575.403, 541.712, 570.019, 541.428, 560.669, 546.245, 556.278, 574.72, 555.994, 578.12, 552.878, 578.828, 468.218, 575.145, 465.243, 574.153, 464.11, 491.279, 463.826, 486.462, 459.151, 486.179, 394.892, 491.42, 389.934, 587.47, 390.217, 587.611, 399.85, 495.67, 399.567, 495.812, 454.25, 577.978, 454.25, 586.053, 459.491, 588.036, 463.741, 588.376, 666.663, 578.176, 676.013, 81.0434, 675.702, 72.2602, 666.494, 71.8352, 463.005, 80.9018, 454.222, 163.918, 454.364, 163.663, 399.341, 72.0051, 399.766 )
@@ -157,11 +150,10 @@ polygon = PoolVector2Array( 72.7414, 390.075, 168.224, 389.65, 172.757, 395.175,
 polygon = PoolVector2Array( 86.5007, 115.39, 318.23, 115.451, 320.001, 119.583, 320.985, 183.338, 325.707, 187.667, 333.775, 187.863, 338.694, 182.55, 338.694, 118.206, 343.023, 114.861, 575.096, 114.821, 577.654, 119.347, 578.48, 276.411, 574.348, 279.559, 491.704, 280.346, 486.588, 285.462, 486.628, 349.492, 491.744, 354.017, 587.768, 354.411, 587.69, 344.336, 496.191, 343.549, 496.309, 290.106, 577.576, 290.106, 588.005, 280.071, 587.886, 114.9, 576.867, 104.275, 78.365, 104.55, 72.6586, 115.176, 72.6193, 280.74, 81.474, 289.594, 163.921, 289.988, 163.528, 342.526, 73.0128, 343.313, 72.7374, 354.293, 168.762, 354.686, 173.681, 349.177, 173.878, 285.226, 167.581, 279.126, 86.1178, 279.519, 82.3792, 275.584, 82.025, 119.19 )
 
 [node name="player-label" type="Label" parent="Player"]
-margin_left = 72.0
-margin_top = 686.0
-margin_right = 588.0
-margin_bottom = 734.0
-custom_fonts/font = SubResource( 8 )
+margin_left = 74.3807
+margin_top = 684.81
+margin_right = 590.381
+margin_bottom = 732.81
 text = "Player"
 align = 1
 __meta__ = {
@@ -183,12 +175,12 @@ polygon = PoolVector2Array( 210.445, 229.402, 210.449, 349.157, 214.569, 352.865
 [node name="ai-right-small-rectangle" type="CollisionShape2D" parent="AI"]
 position = Vector2( 1107.86, 232.329 )
 scale = Vector2( 0.99, 0.99 )
-shape = SubResource( 4 )
+shape = SubResource( 12 )
 
 [node name="ai-left-small-rectangle" type="CollisionShape2D" parent="AI"]
 position = Vector2( 743.459, 232.329 )
 scale = Vector2( 0.99, 0.99 )
-shape = SubResource( 4 )
+shape = SubResource( 12 )
 
 [node name="ai-top-border" type="CollisionPolygon2D" parent="AI"]
 position = Vector2( 598.95, 1 )
@@ -203,22 +195,22 @@ polygon = PoolVector2Array( 72.7414, 390.075, 168.224, 389.65, 172.757, 395.175,
 [node name="ai-left-med-rectangle" type="CollisionShape2D" parent="AI"]
 position = Vector2( 743.502, 168.635 )
 scale = Vector2( 0.99, 0.99 )
-shape = SubResource( 6 )
+shape = SubResource( 14 )
 
 [node name="ai-right-med-rectangle" type="CollisionShape2D" parent="AI"]
 position = Vector2( 1107.78, 168.635 )
 scale = Vector2( 0.99, 0.99 )
-shape = SubResource( 6 )
+shape = SubResource( 14 )
 
 [node name="ai-left-large-rectangle2" type="CollisionShape2D" parent="AI"]
 position = Vector2( 843.67, 168.542 )
 scale = Vector2( 0.99, 0.99 )
-shape = SubResource( 5 )
+shape = SubResource( 13 )
 
 [node name="ai-right-large-rectangle2" type="CollisionShape2D" parent="AI"]
 position = Vector2( 1007.59, 168.611 )
 scale = Vector2( 0.99, 0.99 )
-shape = SubResource( 5 )
+shape = SubResource( 13 )
 
 [node name="ai-right-side-t" type="CollisionPolygon2D" parent="AI"]
 position = Vector2( 1252.35, 573.22 )
@@ -250,13 +242,13 @@ polygon = PoolVector2Array( 311.363, 334.444, 265.057, 334.795, 264.882, 408.287
 position = Vector2( 843.946, 505.898 )
 rotation = 1.5708
 scale = Vector2( 0.99, 0.99 )
-shape = SubResource( 3 )
+shape = SubResource( 11 )
 
 [node name="ai-right-horizontal-oval" type="CollisionShape2D" parent="AI"]
 position = Vector2( 1007.82, 505.405 )
 rotation = 1.5708
 scale = Vector2( 0.99, 0.99 )
-shape = SubResource( 3 )
+shape = SubResource( 11 )
 
 [node name="ai-left-l" type="CollisionPolygon2D" parent="AI"]
 position = Vector2( 598.95, 1 )
@@ -281,19 +273,31 @@ polygon = PoolVector2Array( 452.505, 610.34, 536.792, 610.223, 541.789, 615.897,
 [node name="ai-right-vertical-oval" type="CollisionShape2D" parent="AI"]
 position = Vector2( 1035.02, 423.728 )
 scale = Vector2( 0.99, 0.99 )
-shape = SubResource( 3 )
+shape = SubResource( 11 )
 
 [node name="ai-left-vertical-oval" type="CollisionShape2D" parent="AI"]
 position = Vector2( 816.226, 423.728 )
 scale = Vector2( 0.99, 0.99 )
-shape = SubResource( 3 )
+shape = SubResource( 11 )
 
 [node name="ai-label" type="Label" parent="AI"]
 margin_left = 671.0
 margin_top = 672.0
 margin_right = 1181.0
 margin_bottom = 718.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 8 )
+text = "AI"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ai-label2" type="Label" parent="AI"]
+margin_left = 89.1754
+margin_top = 764.377
+margin_right = 599.175
+margin_bottom = 810.377
+custom_fonts/font = SubResource( 8 )
 text = "AI"
 align = 1
 __meta__ = {

@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://images/pacman-player-maze.png" type="Texture" id=1]
 [ext_resource path="res://images/pacman-ai-maze.png" type="Texture" id=2]
 [ext_resource path="res://images/pellet.png" type="Texture" id=3]
 [ext_resource path="res://images/background_black_green.png" type="Texture" id=4]
+[ext_resource path="res://BoardScoreboard.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 9.83328, 0, 9.83328, 9, 0, 9 )
@@ -43,6 +44,13 @@ extents = Vector2( 37.0949, 18.6973 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 28.0009, 18.723 )
+
+[sub_resource type="DynamicFontData" id=7]
+font_path = "res://sansation/Sansation-Light.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+size = 30
+font_data = SubResource( 7 )
 
 [node name="UI" type="TileMap"]
 position = Vector2( 16, -8 )
@@ -149,8 +157,20 @@ polygon = PoolVector2Array( 72.7414, 390.075, 168.224, 389.65, 172.757, 395.175,
 [node name="player-top-border" type="CollisionPolygon2D" parent="Player"]
 polygon = PoolVector2Array( 86.5007, 115.39, 318.23, 115.451, 320.001, 119.583, 320.985, 183.338, 325.707, 187.667, 333.775, 187.863, 338.694, 182.55, 338.694, 118.206, 343.023, 114.861, 575.096, 114.821, 577.654, 119.347, 578.48, 276.411, 574.348, 279.559, 491.704, 280.346, 486.588, 285.462, 486.628, 349.492, 491.744, 354.017, 587.768, 354.411, 587.69, 344.336, 496.191, 343.549, 496.309, 290.106, 577.576, 290.106, 588.005, 280.071, 587.886, 114.9, 576.867, 104.275, 78.365, 104.55, 72.6586, 115.176, 72.6193, 280.74, 81.474, 289.594, 163.921, 289.988, 163.528, 342.526, 73.0128, 343.313, 72.7374, 354.293, 168.762, 354.686, 173.681, 349.177, 173.878, 285.226, 167.581, 279.126, 86.1178, 279.519, 82.3792, 275.584, 82.025, 119.19 )
 
+[node name="player-label" type="Label" parent="Player"]
+margin_left = 677.4
+margin_top = 685.859
+margin_right = 1187.4
+margin_bottom = 731.859
+custom_fonts/font = SubResource( 8 )
+text = "AI"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
 [node name="Area2D" type="Area2D" parent="."]
-scale = Vector2( 1, 1 )
 
 [node name="ai-maze" type="Sprite" parent="Area2D"]
 position = Vector2( 925.65, 387.1 )
@@ -270,9 +290,21 @@ position = Vector2( 598.95, 1 )
 scale = Vector2( 0.99, 0.99 )
 polygon = PoolVector2Array( 86.5007, 115.39, 318.23, 115.451, 320.001, 119.583, 320.985, 183.338, 325.707, 187.667, 333.775, 187.863, 338.694, 182.55, 338.694, 118.206, 343.023, 114.861, 575.096, 114.821, 577.654, 119.347, 578.48, 276.411, 574.348, 279.559, 491.704, 280.346, 486.588, 285.462, 486.628, 349.492, 491.744, 354.017, 587.768, 354.411, 587.69, 344.336, 496.191, 343.549, 496.309, 290.106, 577.576, 290.106, 588.005, 280.071, 587.886, 114.9, 576.867, 104.275, 78.365, 104.55, 72.6586, 115.176, 72.6193, 280.74, 81.474, 289.594, 163.921, 289.988, 163.528, 342.526, 73.0128, 343.313, 72.7374, 354.293, 168.762, 354.686, 173.681, 349.177, 173.878, 285.226, 167.581, 279.126, 86.1178, 279.519, 82.3792, 275.584, 82.025, 119.19 )
 
-[node name="Label" type="Label" parent="Area2D"]
-margin_right = 40.0
-margin_bottom = 14.0
+[node name="ai-label" type="Label" parent="Area2D"]
+margin_left = 72.0
+margin_top = 680.0
+margin_right = 582.0
+margin_bottom = 726.0
+custom_fonts/font = SubResource( 8 )
+text = "Player"
+align = 1
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_editor_description_": ""
 }
+
+[node name="BoardScoreboard" parent="." instance=ExtResource( 5 )]
+margin_left = 264.0
+margin_top = 36.0
+margin_right = 355.0
+margin_bottom = 68.0

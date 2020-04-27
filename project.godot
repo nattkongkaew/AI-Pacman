@@ -16,13 +16,20 @@ _global_script_class_icons={
 [application]
 
 config/name="Pacman AI"
+<<<<<<< HEAD
 run/main_scene="res://TileMap.tscn"
+=======
+run/main_scene="res://Pacman.tscn"
+>>>>>>> d16d5483fe180accbe9192182bbcc95af2f514f4
 config/icon="res://icon.png"
 
 [display]
 
-window/size/width=1250
-window/size/height=800
+window/size/width=1280
+window/size/height=720
+window/size/fullscreen=true
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [rendering]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://m7Ppkr.jpg" type="Texture" id=1]
-[ext_resource path="res://22.jpg" type="Texture" id=2]
-[ext_resource path="res://zxxxc.png" type="Texture" id=3]
+[ext_resource path="res://images/m7Ppkr.jpg" type="Texture" id=1]
+[ext_resource path="res://images/22.jpg" type="Texture" id=2]
+[ext_resource path="res://images/zxxxc.png" type="Texture" id=3]
 
 [node name="Title screen" type="Node"]
 
@@ -26,10 +26,10 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_left = 262.0
+margin_left = 390.0
 margin_top = 20.0
-margin_right = 762.0
-margin_bottom = 580.0
+margin_right = 890.0
+margin_bottom = 700.0
 size_flags_horizontal = 4
 custom_constants/separation = 20
 

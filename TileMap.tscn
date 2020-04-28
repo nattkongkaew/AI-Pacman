@@ -1,0 +1,2084 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://images/pacman-player-maze.png" type="Texture" id=1]
+[ext_resource path="res://images/pacman-ai-maze.png" type="Texture" id=2]
+[ext_resource path="res://Pellet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://images/background_black_green.png" type="Texture" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 10.5844
+height = 55.746
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 28.038, 9.61479 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 37.0949, 18.6973 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 28.0009, 18.723 )
+
+[sub_resource type="DynamicFontData" id=5]
+font_path = "res://sansation/Sansation-Light.ttf"
+
+[sub_resource type="DynamicFont" id=6]
+size = 30
+font_data = SubResource( 5 )
+
+[sub_resource type="DynamicFontData" id=7]
+font_path = "res://sansation/Sansation-Light.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+size = 30
+font_data = SubResource( 7 )
+
+[node name="UI" type="Node2D"]
+show_behind_parent = true
+
+[node name="Player" type="Area2D" parent="."]
+position = Vector2( 16, 0 )
+scale = Vector2( 0.984, 0.985 )
+
+[node name="player-maze" type="Sprite" parent="Player"]
+position = Vector2( 330, 390 )
+scale = Vector2( 1.15, 1.15 )
+texture = ExtResource( 1 )
+
+[node name="player-right-flipped-t" type="CollisionPolygon2D" parent="Player"]
+polygon = PoolVector2Array( 452.505, 610.34, 536.792, 610.223, 541.789, 615.897, 542.139, 624.769, 537.002, 629.789, 380.943, 630.163, 375.456, 624.443, 375.456, 615.804, 380.709, 610.317, 427.172, 610.2, 430.674, 607.165, 430.558, 559.931, 436.044, 555.495, 445.267, 555.145, 449.47, 560.398, 449.796, 607.001 )
+
+[node name="player-left-flipped-t" type="CollisionPolygon2D" parent="Player"]
+polygon = PoolVector2Array( 206.535, 610.673, 122.825, 610.32, 118.067, 615.607, 117.715, 624.419, 122.473, 630.234, 278.965, 630.234, 284.076, 625.3, 284.605, 615.255, 278.789, 610.32, 233.674, 610.673, 229.092, 606.796, 229.269, 561.152, 223.453, 555.16, 215.699, 555.336, 209.883, 560.095, 209.707, 605.914 )
+
+[node name="player-right-l" type="CollisionPolygon2D" parent="Player"]
+polygon = PoolVector2Array( 491.114, 499.99, 537.578, 499.569, 541.79, 505.465, 542.492, 514.449, 536.736, 519.221, 508.38, 519.502, 505.573, 522.59, 505.685, 568.606, 500.772, 574.221, 491.507, 574.782, 486.032, 569.589, 486.313, 505.156 )
+
+[node name="player-left-l" type="CollisionPolygon2D" parent="Player"]
+polygon = PoolVector2Array( 124.024, 499.916, 168.758, 499.747, 174.181, 505, 174.689, 568.781, 169.436, 574.542, 160.794, 574.881, 154.525, 569.967, 154.186, 522.521, 151.136, 520.488, 124.193, 520.827, 117.754, 514.557, 117.246, 505.407 )
+
+[node name="player-right-horizontal-oval" type="CollisionShape2D" parent="Player"]
+position = Vector2( 413, 509.5 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="player-left-horizontal-oval" type="CollisionShape2D" parent="Player"]
+position = Vector2( 247.471, 509.998 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="player-right-vertical-oval" type="CollisionShape2D" parent="Player"]
+position = Vector2( 440.471, 426.998 )
+shape = SubResource( 1 )
+
+[node name="player-left-vertical-oval" type="CollisionShape2D" parent="Player"]
+position = Vector2( 219.471, 426.998 )
+shape = SubResource( 1 )
+
+[node name="player-ghost-box" type="CollisionPolygon2D" parent="Player"]
+polygon = PoolVector2Array( 311.363, 334.444, 265.057, 334.795, 264.882, 408.287, 394.853, 408.287, 393.449, 334.094, 347.846, 334.094, 348.547, 345.319, 383.627, 345.144, 384.329, 398.114, 275.23, 398.991, 275.406, 344.968, 312.24, 345.144 )
+
+[node name="player-lower-t" type="CollisionPolygon2D" parent="Player"]
+position = Vector2( 0, 331 )
+polygon = PoolVector2Array( 270.247, 224.338, 389.84, 224.224, 394.624, 229.349, 394.852, 238.233, 389.726, 243.359, 342.686, 243.473, 339.725, 246.548, 339.759, 293.689, 334.855, 298.387, 325.736, 298.594, 320.278, 293.275, 320.044, 246.272, 316.907, 243.412, 270.415, 243.757, 265.303, 238.3, 265.165, 228.835 )
+
+[node name="player-middle-t" type="CollisionPolygon2D" parent="Player"]
+position = Vector2( 0, 221 )
+polygon = PoolVector2Array( 270.247, 224.338, 389.84, 224.224, 394.624, 229.349, 394.852, 238.233, 389.726, 243.359, 342.686, 243.473, 339.725, 246.548, 339.759, 293.689, 334.855, 298.387, 325.736, 298.594, 320.278, 293.275, 320.044, 246.272, 316.907, 243.412, 270.415, 243.757, 265.303, 238.3, 265.165, 228.835 )
+
+[node name="player-upper-t" type="CollisionPolygon2D" parent="Player"]
+polygon = PoolVector2Array( 270.247, 224.338, 389.84, 224.224, 394.624, 229.349, 394.852, 238.233, 389.726, 243.359, 342.686, 243.473, 339.725, 246.548, 339.759, 293.689, 334.855, 298.387, 325.736, 298.594, 320.278, 293.275, 320.044, 246.272, 316.907, 243.412, 270.415, 243.757, 265.303, 238.3, 265.165, 228.835 )
+
+[node name="player-right-side-t" type="CollisionPolygon2D" parent="Player"]
+position = Vector2( 660, 578 )
+rotation = 3.14159
+polygon = PoolVector2Array( 210.445, 229.402, 210.449, 349.157, 214.569, 352.865, 223.771, 352.727, 228.852, 348.47, 228.715, 301.364, 231.874, 298.617, 279.392, 298.754, 284.336, 293.673, 284.336, 284.609, 278.568, 279.39, 232.972, 279.665, 229.402, 276.231, 229.209, 229.537, 224.128, 224.593, 215.201, 224.455 )
+
+[node name="player-left-side-t" type="CollisionPolygon2D" parent="Player"]
+polygon = PoolVector2Array( 210.445, 229.402, 210.449, 349.157, 214.569, 352.865, 223.771, 352.727, 228.852, 348.47, 228.715, 301.364, 231.874, 298.617, 279.392, 298.754, 284.336, 293.673, 284.336, 284.609, 278.568, 279.39, 232.972, 279.665, 229.402, 276.231, 229.209, 229.537, 224.128, 224.593, 215.201, 224.455 )
+
+[node name="player-right-small-rectangle" type="CollisionShape2D" parent="Player"]
+position = Vector2( 514.047, 233.666 )
+shape = SubResource( 2 )
+
+[node name="player-left-small-rectangle" type="CollisionShape2D" parent="Player"]
+position = Vector2( 145.969, 233.666 )
+shape = SubResource( 2 )
+
+[node name="player-right-large-rectangle" type="CollisionShape2D" parent="Player"]
+position = Vector2( 412.766, 169.304 )
+shape = SubResource( 3 )
+
+[node name="player-left-large-rectangle" type="CollisionShape2D" parent="Player"]
+position = Vector2( 247.192, 169.234 )
+shape = SubResource( 3 )
+
+[node name="player-right-med-rectangle" type="CollisionShape2D" parent="Player"]
+position = Vector2( 513.972, 169.328 )
+shape = SubResource( 4 )
+
+[node name="player-left-med-rectangle" type="CollisionShape2D" parent="Player"]
+position = Vector2( 146.012, 169.328 )
+shape = SubResource( 4 )
+
+[node name="player-bottom-border" type="CollisionPolygon2D" parent="Player"]
+polygon = PoolVector2Array( 72.7414, 390.075, 168.224, 389.65, 172.757, 395.175, 173.749, 459.066, 168.791, 463.883, 85.633, 464.449, 82.0913, 467.424, 81.5247, 552.509, 85.208, 555.625, 113.116, 555.909, 118.074, 561.15, 118.924, 570.245, 113.541, 574.92, 85.0664, 574.92, 81.9497, 578.179, 81.9497, 661.959, 85.208, 665.643, 574.124, 666.323, 577.808, 663.206, 577.978, 577.669, 574.578, 575.403, 547.52, 575.403, 541.712, 570.019, 541.428, 560.669, 546.245, 556.278, 574.72, 555.994, 578.12, 552.878, 578.828, 468.218, 575.145, 465.243, 574.153, 464.11, 491.279, 463.826, 486.462, 459.151, 486.179, 394.892, 491.42, 389.934, 587.47, 390.217, 587.611, 399.85, 495.67, 399.567, 495.812, 454.25, 577.978, 454.25, 586.053, 459.491, 588.036, 463.741, 588.376, 666.663, 578.176, 676.013, 81.0434, 675.702, 72.2602, 666.494, 71.8352, 463.005, 80.9018, 454.222, 163.918, 454.364, 163.663, 399.341, 72.0051, 399.766 )
+
+[node name="player-top-border" type="CollisionPolygon2D" parent="Player"]
+polygon = PoolVector2Array( 86.5007, 115.39, 318.23, 115.451, 320.001, 119.583, 320.985, 183.338, 325.707, 187.667, 333.775, 187.863, 338.694, 182.55, 338.694, 118.206, 343.023, 114.861, 575.096, 114.821, 577.654, 119.347, 578.48, 276.411, 574.348, 279.559, 491.704, 280.346, 486.588, 285.462, 486.628, 349.492, 491.744, 354.017, 587.768, 354.411, 587.69, 344.336, 496.191, 343.549, 496.309, 290.106, 577.576, 290.106, 588.005, 280.071, 587.886, 114.9, 576.867, 104.275, 78.365, 104.55, 72.6586, 115.176, 72.6193, 280.74, 81.474, 289.594, 163.921, 289.988, 163.528, 342.526, 73.0128, 343.313, 72.7374, 354.293, 168.762, 354.686, 173.681, 349.177, 173.878, 285.226, 167.581, 279.126, 86.1178, 279.519, 82.3792, 275.584, 82.025, 119.19 )
+
+[node name="player-label" type="Label" parent="Player"]
+margin_left = 72.0
+margin_top = 686.0
+margin_right = 588.0
+margin_bottom = 734.0
+custom_fonts/font = SubResource( 6 )
+text = "Player"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AI" type="Area2D" parent="."]
+position = Vector2( 16, 0 )
+
+[node name="ai-maze" type="Sprite" parent="AI"]
+position = Vector2( 925.65, 387.1 )
+scale = Vector2( 1.1385, 1.1385 )
+texture = ExtResource( 2 )
+
+[node name="ai-left-side-t" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 598.95, 1 )
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 210.445, 229.402, 210.449, 349.157, 214.569, 352.865, 223.771, 352.727, 228.852, 348.47, 228.715, 301.364, 231.874, 298.617, 279.392, 298.754, 284.336, 293.673, 284.336, 284.609, 278.568, 279.39, 232.972, 279.665, 229.402, 276.231, 229.209, 229.537, 224.128, 224.593, 215.201, 224.455 )
+
+[node name="ai-right-small-rectangle" type="CollisionShape2D" parent="AI"]
+position = Vector2( 1107.86, 232.329 )
+scale = Vector2( 0.99, 0.99 )
+shape = SubResource( 2 )
+
+[node name="ai-left-small-rectangle" type="CollisionShape2D" parent="AI"]
+position = Vector2( 743.459, 232.329 )
+scale = Vector2( 0.99, 0.99 )
+shape = SubResource( 2 )
+
+[node name="ai-top-border" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 598.95, 1 )
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 86.5007, 115.39, 318.23, 115.451, 320.001, 119.583, 320.985, 183.338, 325.707, 187.667, 333.775, 187.863, 338.694, 182.55, 338.694, 118.206, 343.023, 114.861, 575.096, 114.821, 577.654, 119.347, 578.48, 276.411, 574.348, 279.559, 491.704, 280.346, 486.588, 285.462, 486.628, 349.492, 491.744, 354.017, 587.768, 354.411, 587.69, 344.336, 496.191, 343.549, 496.309, 290.106, 577.576, 290.106, 588.005, 280.071, 587.886, 114.9, 576.867, 104.275, 78.365, 104.55, 72.6586, 115.176, 72.6193, 280.74, 81.474, 289.594, 163.921, 289.988, 163.528, 342.526, 73.0128, 343.313, 72.7374, 354.293, 168.762, 354.686, 173.681, 349.177, 173.878, 285.226, 167.581, 279.126, 86.1178, 279.519, 82.3792, 275.584, 82.025, 119.19 )
+
+[node name="ai-bottom-border" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 598.95, 1 )
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 72.7414, 390.075, 168.224, 389.65, 172.757, 395.175, 173.749, 459.066, 168.791, 463.883, 85.633, 464.449, 82.0913, 467.424, 81.5247, 552.509, 85.208, 555.625, 113.116, 555.909, 118.074, 561.15, 118.924, 570.245, 113.541, 574.92, 85.0664, 574.92, 81.9497, 578.179, 81.9497, 661.959, 85.208, 665.643, 574.124, 666.323, 577.808, 663.206, 577.978, 577.669, 574.578, 575.403, 547.52, 575.403, 541.712, 570.019, 541.428, 560.669, 546.245, 556.278, 574.72, 555.994, 578.12, 552.878, 578.828, 468.218, 575.145, 465.243, 574.153, 464.11, 491.279, 463.826, 486.462, 459.151, 486.179, 394.892, 491.42, 389.934, 587.47, 390.217, 587.611, 399.85, 495.67, 399.567, 495.812, 454.25, 577.978, 454.25, 586.053, 459.491, 588.036, 463.741, 588.376, 666.663, 578.176, 676.013, 81.0434, 675.702, 72.2602, 666.494, 71.8352, 463.005, 80.9018, 454.222, 163.918, 454.364, 163.663, 399.341, 72.0051, 399.766 )
+
+[node name="ai-left-med-rectangle" type="CollisionShape2D" parent="AI"]
+position = Vector2( 743.502, 168.635 )
+scale = Vector2( 0.99, 0.99 )
+shape = SubResource( 4 )
+
+[node name="ai-right-med-rectangle" type="CollisionShape2D" parent="AI"]
+position = Vector2( 1107.78, 168.635 )
+scale = Vector2( 0.99, 0.99 )
+shape = SubResource( 4 )
+
+[node name="ai-left-large-rectangle2" type="CollisionShape2D" parent="AI"]
+position = Vector2( 843.67, 168.542 )
+scale = Vector2( 0.99, 0.99 )
+shape = SubResource( 3 )
+
+[node name="ai-right-large-rectangle2" type="CollisionShape2D" parent="AI"]
+position = Vector2( 1007.59, 168.611 )
+scale = Vector2( 0.99, 0.99 )
+shape = SubResource( 3 )
+
+[node name="ai-right-side-t" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 1252.35, 573.22 )
+rotation = 3.14159
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 210.445, 229.402, 210.449, 349.157, 214.569, 352.865, 223.771, 352.727, 228.852, 348.47, 228.715, 301.364, 231.874, 298.617, 279.392, 298.754, 284.336, 293.673, 284.336, 284.609, 278.568, 279.39, 232.972, 279.665, 229.402, 276.231, 229.209, 229.537, 224.128, 224.593, 215.201, 224.455 )
+
+[node name="ai-upper-t" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 598.95, 1 )
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 270.247, 224.338, 389.84, 224.224, 394.624, 229.349, 394.852, 238.233, 389.726, 243.359, 342.686, 243.473, 339.725, 246.548, 339.759, 293.689, 334.855, 298.387, 325.736, 298.594, 320.278, 293.275, 320.044, 246.272, 316.907, 243.412, 270.415, 243.757, 265.303, 238.3, 265.165, 228.835 )
+
+[node name="ai-middle-t" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 598.95, 219.79 )
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 270.247, 224.338, 389.84, 224.224, 394.624, 229.349, 394.852, 238.233, 389.726, 243.359, 342.686, 243.473, 339.725, 246.548, 339.759, 293.689, 334.855, 298.387, 325.736, 298.594, 320.278, 293.275, 320.044, 246.272, 316.907, 243.412, 270.415, 243.757, 265.303, 238.3, 265.165, 228.835 )
+
+[node name="ai-lower-t" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 598.95, 328.69 )
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 270.247, 224.338, 389.84, 224.224, 394.624, 229.349, 394.852, 238.233, 389.726, 243.359, 342.686, 243.473, 339.725, 246.548, 339.759, 293.689, 334.855, 298.387, 325.736, 298.594, 320.278, 293.275, 320.044, 246.272, 316.907, 243.412, 270.415, 243.757, 265.303, 238.3, 265.165, 228.835 )
+
+[node name="ai-ghost-box" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 598.95, 1 )
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 311.363, 334.444, 265.057, 334.795, 264.882, 408.287, 394.853, 408.287, 393.449, 334.094, 347.846, 334.094, 348.547, 345.319, 383.627, 345.144, 384.329, 398.114, 275.23, 398.991, 275.406, 344.968, 312.24, 345.144 )
+
+[node name="ai-left-horizontal-oval" type="CollisionShape2D" parent="AI"]
+position = Vector2( 843.946, 505.898 )
+rotation = 1.5708
+scale = Vector2( 0.99, 0.99 )
+shape = SubResource( 1 )
+
+[node name="ai-right-horizontal-oval" type="CollisionShape2D" parent="AI"]
+position = Vector2( 1007.82, 505.405 )
+rotation = 1.5708
+scale = Vector2( 0.99, 0.99 )
+shape = SubResource( 1 )
+
+[node name="ai-left-l" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 598.95, 1 )
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 124.024, 499.916, 168.758, 499.747, 174.181, 505, 174.689, 568.781, 169.436, 574.542, 160.794, 574.881, 154.525, 569.967, 154.186, 522.521, 151.136, 520.488, 124.193, 520.827, 117.754, 514.557, 117.246, 505.407 )
+
+[node name="ai-right-l" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 598.95, 1 )
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 491.114, 499.99, 537.578, 499.569, 541.79, 505.465, 542.492, 514.449, 536.736, 519.221, 508.38, 519.502, 505.573, 522.59, 505.685, 568.606, 500.772, 574.221, 491.507, 574.782, 486.032, 569.589, 486.313, 505.156 )
+
+[node name="ai-left-flipped-t" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 598.95, 1 )
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 206.535, 610.673, 122.825, 610.32, 118.067, 615.607, 117.715, 624.419, 122.473, 630.234, 278.965, 630.234, 284.076, 625.3, 284.605, 615.255, 278.789, 610.32, 233.674, 610.673, 229.092, 606.796, 229.269, 561.152, 223.453, 555.16, 215.699, 555.336, 209.883, 560.095, 209.707, 605.914 )
+
+[node name="ai-right-flipped-t" type="CollisionPolygon2D" parent="AI"]
+position = Vector2( 598.95, 1 )
+scale = Vector2( 0.99, 0.99 )
+polygon = PoolVector2Array( 452.505, 610.34, 536.792, 610.223, 541.789, 615.897, 542.139, 624.769, 537.002, 629.789, 380.943, 630.163, 375.456, 624.443, 375.456, 615.804, 380.709, 610.317, 427.172, 610.2, 430.674, 607.165, 430.558, 559.931, 436.044, 555.495, 445.267, 555.145, 449.47, 560.398, 449.796, 607.001 )
+
+[node name="ai-right-vertical-oval" type="CollisionShape2D" parent="AI"]
+position = Vector2( 1035.02, 423.728 )
+scale = Vector2( 0.99, 0.99 )
+shape = SubResource( 1 )
+
+[node name="ai-left-vertical-oval" type="CollisionShape2D" parent="AI"]
+position = Vector2( 816.226, 423.728 )
+scale = Vector2( 0.99, 0.99 )
+shape = SubResource( 1 )
+
+[node name="ai-label" type="Label" parent="AI"]
+margin_left = 671.0
+margin_top = 672.0
+margin_right = 1181.0
+margin_bottom = 718.0
+custom_fonts/font = SubResource( 8 )
+text = "AI"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player_pellet" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 632 )
+
+[node name="Player_pellet2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 616 )
+
+[node name="Player_pellet3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 600 )
+
+[node name="Player_pellet4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 584 )
+
+[node name="Player_pellet5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 128, 584 )
+
+[node name="Player_pellet6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 584 )
+
+[node name="Player_pellet7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 568 )
+
+[node name="Player_pellet8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 160, 584 )
+
+[node name="Player_pellet9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 175, 584 )
+
+[node name="Player_pellet10" parent="." instance=ExtResource( 3 )]
+position = Vector2( 190, 584 )
+
+[node name="Player_pellet11" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 584 )
+
+[node name="Player_pellet12" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 568 )
+
+[node name="Player_pellet13" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 552 )
+
+[node name="Player_pellet14" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 536 )
+
+[node name="Player_pellet15" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 520 )
+
+[node name="Player_pellet18" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 536 )
+
+[node name="Player_pellet19" parent="." instance=ExtResource( 3 )]
+position = Vector2( 128, 632 )
+
+[node name="Player_pellet20" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 632 )
+
+[node name="Player_pellet21" parent="." instance=ExtResource( 3 )]
+position = Vector2( 160, 632 )
+
+[node name="Player_pellet22" parent="." instance=ExtResource( 3 )]
+position = Vector2( 176, 632 )
+
+[node name="Player_pellet23" parent="." instance=ExtResource( 3 )]
+position = Vector2( 192, 632 )
+
+[node name="Player_pellet24" parent="." instance=ExtResource( 3 )]
+position = Vector2( 208, 632 )
+
+[node name="Player_pellet25" parent="." instance=ExtResource( 3 )]
+position = Vector2( 224, 632 )
+
+[node name="Player_pellet26" parent="." instance=ExtResource( 3 )]
+position = Vector2( 240, 632 )
+
+[node name="Player_pellet27" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 632 )
+
+[node name="Player_pellet28" parent="." instance=ExtResource( 3 )]
+position = Vector2( 272, 632 )
+
+[node name="Player_pellet29" parent="." instance=ExtResource( 3 )]
+position = Vector2( 288, 632 )
+
+[node name="Player_pellet30" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 632 )
+
+[node name="Player_pellet31" parent="." instance=ExtResource( 3 )]
+position = Vector2( 320, 632 )
+
+[node name="Player_pellet32" parent="." instance=ExtResource( 3 )]
+position = Vector2( 336, 632 )
+
+[node name="Player_pellet33" parent="." instance=ExtResource( 3 )]
+position = Vector2( 352, 632 )
+
+[node name="Player_pellet34" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 632 )
+
+[node name="Player_pellet35" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 616 )
+
+[node name="Player_pellet36" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 600 )
+
+[node name="Player_pellet37" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 616 )
+
+[node name="Player_pellet38" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 584 )
+
+[node name="Player_pellet39" parent="." instance=ExtResource( 3 )]
+position = Vector2( 288, 584 )
+
+[node name="Player_pellet40" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 552 )
+
+[node name="Player_pellet41" parent="." instance=ExtResource( 3 )]
+position = Vector2( 272, 584 )
+
+[node name="Player_pellet42" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 568 )
+
+[node name="Player_pellet43" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 584 )
+
+[node name="Player_pellet48" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 520 )
+
+[node name="Player_pellet49" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 504 )
+
+[node name="Player_pellet50" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 488 )
+
+[node name="Player_pellet51" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 472 )
+
+[node name="Player_pellet52" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 504 )
+
+[node name="Player_pellet53" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 488 )
+
+[node name="Player_pellet54" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 472 )
+
+[node name="Player_pellet55" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 552 )
+
+[node name="Player_pellet56" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 536 )
+
+[node name="Player_pellet57" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 520 )
+
+[node name="Player_pellet58" parent="." instance=ExtResource( 3 )]
+position = Vector2( 128, 520 )
+
+[node name="Player_pellet59" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 520 )
+
+[node name="Player_pellet60" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 504 )
+
+[node name="Player_pellet61" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 488 )
+
+[node name="Player_pellet62" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 472 )
+
+[node name="Player_pellet63" parent="." instance=ExtResource( 3 )]
+position = Vector2( 128, 472 )
+
+[node name="Player_pellet64" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 472 )
+
+[node name="Player_pellet65" parent="." instance=ExtResource( 3 )]
+position = Vector2( 160, 472 )
+
+[node name="Player_pellet66" parent="." instance=ExtResource( 3 )]
+position = Vector2( 175, 472 )
+
+[node name="Player_pellet67" parent="." instance=ExtResource( 3 )]
+position = Vector2( 190, 472 )
+
+[node name="Player_pellet68" parent="." instance=ExtResource( 3 )]
+position = Vector2( 224, 472 )
+
+[node name="Player_pellet69" parent="." instance=ExtResource( 3 )]
+position = Vector2( 240, 472 )
+
+[node name="Player_pellet70" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 472 )
+
+[node name="Player_pellet71" parent="." instance=ExtResource( 3 )]
+position = Vector2( 272, 472 )
+
+[node name="Player_pellet72" parent="." instance=ExtResource( 3 )]
+position = Vector2( 288, 472 )
+
+[node name="Player_pellet73" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 456 )
+
+[node name="Player_pellet74" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 440 )
+
+[node name="Player_pellet75" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 424 )
+
+[node name="Player_pellet76" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 408 )
+
+[node name="Player_pellet77" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 392 )
+
+[node name="Player_pellet78" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 376 )
+
+[node name="Player_pellet79" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 360 )
+
+[node name="Player_pellet80" parent="." instance=ExtResource( 3 )]
+position = Vector2( 190, 360 )
+
+[node name="Player_pellet81" parent="." instance=ExtResource( 3 )]
+position = Vector2( 175, 360 )
+
+[node name="Player_pellet82" parent="." instance=ExtResource( 3 )]
+position = Vector2( 160, 360 )
+
+[node name="Player_pellet83" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 360 )
+
+[node name="Player_pellet84" parent="." instance=ExtResource( 3 )]
+position = Vector2( 128, 360 )
+
+[node name="Player_pellet85" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 360 )
+
+[node name="Player_pellet86" parent="." instance=ExtResource( 3 )]
+position = Vector2( 96, 360 )
+
+[node name="Player_pellet87" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 344 )
+
+[node name="Player_pellet88" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 328 )
+
+[node name="Player_pellet89" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 312 )
+
+[node name="Player_pellet90" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 296 )
+
+[node name="Player_pellet91" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 280 )
+
+[node name="Player_pellet92" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 264 )
+
+[node name="Player_pellet93" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 248 )
+
+[node name="Player_pellet94" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 232 )
+
+[node name="Player_pellet95" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 216 )
+
+[node name="Player_pellet96" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 200 )
+
+[node name="Player_pellet97" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 184 )
+
+[node name="Player_pellet98" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 168 )
+
+[node name="Player_pellet99" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 152 )
+
+[node name="Player_pellet100" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 123 )
+
+[node name="Player_pellet101" parent="." instance=ExtResource( 3 )]
+position = Vector2( 191, 123 )
+
+[node name="Player_pellet102" parent="." instance=ExtResource( 3 )]
+position = Vector2( 176, 123 )
+
+[node name="Player_pellet103" parent="." instance=ExtResource( 3 )]
+position = Vector2( 160, 123 )
+
+[node name="Player_pellet104" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 123 )
+
+[node name="Player_pellet105" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 123 )
+
+[node name="Player_pellet106" parent="." instance=ExtResource( 3 )]
+position = Vector2( 222, 123 )
+
+[node name="Player_pellet107" parent="." instance=ExtResource( 3 )]
+position = Vector2( 160, 200 )
+
+[node name="Player_pellet108" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 136 )
+
+[node name="Player_pellet109" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 152 )
+
+[node name="Player_pellet110" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 168 )
+
+[node name="Player_pellet111" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 184 )
+
+[node name="Player_pellet112" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 200 )
+
+[node name="Player_pellet113" parent="." instance=ExtResource( 3 )]
+position = Vector2( 128, 200 )
+
+[node name="Player_pellet114" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 200 )
+
+[node name="Player_pellet115" parent="." instance=ExtResource( 3 )]
+position = Vector2( 176, 200 )
+
+[node name="Player_pellet116" parent="." instance=ExtResource( 3 )]
+position = Vector2( 192, 200 )
+
+[node name="Player_pellet117" parent="." instance=ExtResource( 3 )]
+position = Vector2( 240, 123 )
+
+[node name="Player_pellet118" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 123 )
+
+[node name="Player_pellet119" parent="." instance=ExtResource( 3 )]
+position = Vector2( 272, 123 )
+
+[node name="Player_pellet120" parent="." instance=ExtResource( 3 )]
+position = Vector2( 288, 123 )
+
+[node name="Player_pellet121" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 123 )
+
+[node name="Player_pellet122" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 152 )
+
+[node name="Player_pellet123" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 168 )
+
+[node name="Player_pellet124" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 184 )
+
+[node name="Player_pellet125" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 200 )
+
+[node name="Player_pellet126" parent="." instance=ExtResource( 3 )]
+position = Vector2( 288, 200 )
+
+[node name="Player_pellet127" parent="." instance=ExtResource( 3 )]
+position = Vector2( 272, 200 )
+
+[node name="Player_pellet128" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 200 )
+
+[node name="Player_pellet129" parent="." instance=ExtResource( 3 )]
+position = Vector2( 240, 200 )
+
+[node name="Player_pellet130" parent="." instance=ExtResource( 3 )]
+position = Vector2( 224, 200 )
+
+[node name="Player_pellet131" parent="." instance=ExtResource( 3 )]
+position = Vector2( 320, 200 )
+
+[node name="Player_pellet132" parent="." instance=ExtResource( 3 )]
+position = Vector2( 336, 200 )
+
+[node name="Player_pellet133" parent="." instance=ExtResource( 3 )]
+position = Vector2( 352, 200 )
+
+[node name="Player_pellet134" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 200 )
+
+[node name="Player_pellet135" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 184 )
+
+[node name="Player_pellet136" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 168 )
+
+[node name="Player_pellet137" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 152 )
+
+[node name="Player_pellet138" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 123 )
+
+[node name="Player_pellet139" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, 123 )
+
+[node name="Player_pellet140" parent="." instance=ExtResource( 3 )]
+position = Vector2( 400, 123 )
+
+[node name="Player_pellet141" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 123 )
+
+[node name="Player_pellet142" parent="." instance=ExtResource( 3 )]
+position = Vector2( 433, 123 )
+
+[node name="Player_pellet143" parent="." instance=ExtResource( 3 )]
+position = Vector2( 451, 123 )
+
+[node name="Player_pellet144" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 123 )
+
+[node name="Player_pellet145" parent="." instance=ExtResource( 3 )]
+position = Vector2( 481, 123 )
+
+[node name="Player_pellet146" parent="." instance=ExtResource( 3 )]
+position = Vector2( 496, 123 )
+
+[node name="Player_pellet147" parent="." instance=ExtResource( 3 )]
+position = Vector2( 512, 123 )
+
+[node name="Player_pellet148" parent="." instance=ExtResource( 3 )]
+position = Vector2( 528, 123 )
+
+[node name="Player_pellet149" parent="." instance=ExtResource( 3 )]
+position = Vector2( 544, 123 )
+
+[node name="Player_pellet150" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 136 )
+
+[node name="Player_pellet151" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 152 )
+
+[node name="Player_pellet152" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 168 )
+
+[node name="Player_pellet153" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 184 )
+
+[node name="Player_pellet154" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 200 )
+
+[node name="Player_pellet155" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 216 )
+
+[node name="Player_pellet156" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 232 )
+
+[node name="Player_pellet158" parent="." instance=ExtResource( 3 )]
+position = Vector2( 544, 248 )
+
+[node name="Player_pellet159" parent="." instance=ExtResource( 3 )]
+position = Vector2( 528, 248 )
+
+[node name="Player_pellet160" parent="." instance=ExtResource( 3 )]
+position = Vector2( 512, 248 )
+
+[node name="Player_pellet161" parent="." instance=ExtResource( 3 )]
+position = Vector2( 192, 248 )
+
+[node name="Player_pellet162" parent="." instance=ExtResource( 3 )]
+position = Vector2( 176, 248 )
+
+[node name="Player_pellet163" parent="." instance=ExtResource( 3 )]
+position = Vector2( 160, 248 )
+
+[node name="Player_pellet164" parent="." instance=ExtResource( 3 )]
+position = Vector2( 144, 248 )
+
+[node name="Player_pellet165" parent="." instance=ExtResource( 3 )]
+position = Vector2( 128, 248 )
+
+[node name="Player_pellet166" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 248 )
+
+[node name="Player_pellet167" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 232 )
+
+[node name="Player_pellet168" parent="." instance=ExtResource( 3 )]
+position = Vector2( 112, 216 )
+
+[node name="Player_pellet169" parent="." instance=ExtResource( 3 )]
+position = Vector2( 128, 123 )
+
+[node name="Player_pellet170" parent="." instance=ExtResource( 3 )]
+position = Vector2( 205, 136 )
+
+[node name="Player_pellet171" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 136 )
+
+[node name="Player_pellet172" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 123 )
+
+[node name="Player_pellet173" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, 200 )
+
+[node name="Player_pellet174" parent="." instance=ExtResource( 3 )]
+position = Vector2( 400, 200 )
+
+[node name="Player_pellet175" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 200 )
+
+[node name="Player_pellet176" parent="." instance=ExtResource( 3 )]
+position = Vector2( 432, 200 )
+
+[node name="Player_pellet177" parent="." instance=ExtResource( 3 )]
+position = Vector2( 450, 200 )
+
+[node name="Player_pellet178" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 200 )
+
+[node name="Player_pellet179" parent="." instance=ExtResource( 3 )]
+position = Vector2( 481, 200 )
+
+[node name="Player_pellet180" parent="." instance=ExtResource( 3 )]
+position = Vector2( 496, 200 )
+
+[node name="Player_pellet181" parent="." instance=ExtResource( 3 )]
+position = Vector2( 512, 200 )
+
+[node name="Player_pellet182" parent="." instance=ExtResource( 3 )]
+position = Vector2( 528, 200 )
+
+[node name="Player_pellet183" parent="." instance=ExtResource( 3 )]
+position = Vector2( 544, 200 )
+
+[node name="Player_pellet184" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 184 )
+
+[node name="Player_pellet185" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 168 )
+
+[node name="Player_pellet186" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 152 )
+
+[node name="Player_pellet187" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 136 )
+
+[node name="Player_pellet188" parent="." instance=ExtResource( 3 )]
+position = Vector2( 496, 248 )
+
+[node name="Player_pellet189" parent="." instance=ExtResource( 3 )]
+position = Vector2( 481, 248 )
+
+[node name="Player_pellet190" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 248 )
+
+[node name="Player_pellet191" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 232 )
+
+[node name="Player_pellet192" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 216 )
+
+[node name="Player_pellet193" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 216 )
+
+[node name="Player_pellet194" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 232 )
+
+[node name="Player_pellet195" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 248 )
+
+[node name="Player_pellet196" parent="." instance=ExtResource( 3 )]
+position = Vector2( 400, 248 )
+
+[node name="Player_pellet197" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, 248 )
+
+[node name="Player_pellet198" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 248 )
+
+[node name="Player_pellet199" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 264 )
+
+[node name="Player_pellet200" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 280 )
+
+[node name="Player_pellet201" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 216 )
+
+[node name="Player_pellet202" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 232 )
+
+[node name="Player_pellet203" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 248 )
+
+[node name="Player_pellet204" parent="." instance=ExtResource( 3 )]
+position = Vector2( 272, 248 )
+
+[node name="Player_pellet205" parent="." instance=ExtResource( 3 )]
+position = Vector2( 288, 248 )
+
+[node name="Player_pellet206" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 248 )
+
+[node name="Player_pellet207" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 264 )
+
+[node name="Player_pellet208" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 280 )
+
+[node name="Player_pellet209" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 262 )
+
+[node name="Player_pellet210" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 279 )
+
+[node name="Player_pellet211" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 296 )
+
+[node name="Player_pellet212" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 312 )
+
+[node name="Player_pellet213" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 328 )
+
+[node name="Player_pellet214" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 344 )
+
+[node name="Player_pellet215" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 360 )
+
+[node name="Player_pellet216" parent="." instance=ExtResource( 3 )]
+position = Vector2( 482, 360 )
+
+[node name="Player_pellet217" parent="." instance=ExtResource( 3 )]
+position = Vector2( 497, 360 )
+
+[node name="Player_pellet218" parent="." instance=ExtResource( 3 )]
+position = Vector2( 512, 360 )
+
+[node name="Player_pellet219" parent="." instance=ExtResource( 3 )]
+position = Vector2( 528, 360 )
+
+[node name="Player_pellet220" parent="." instance=ExtResource( 3 )]
+position = Vector2( 544, 360 )
+
+[node name="Player_pellet221" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 360 )
+
+[node name="Player_pellet222" parent="." instance=ExtResource( 3 )]
+position = Vector2( 576, 360 )
+
+[node name="Player_pellet223" parent="." instance=ExtResource( 3 )]
+position = Vector2( 448, 360 )
+
+[node name="Player_pellet224" parent="." instance=ExtResource( 3 )]
+position = Vector2( 224, 360 )
+
+[node name="Player_pellet225" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 376 )
+
+[node name="Player_pellet226" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 392 )
+
+[node name="Player_pellet227" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 408 )
+
+[node name="Player_pellet228" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 424 )
+
+[node name="Player_pellet229" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 440 )
+
+[node name="Player_pellet230" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 456 )
+
+[node name="Player_pellet231" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 472 )
+
+[node name="Player_pellet232" parent="." instance=ExtResource( 3 )]
+position = Vector2( 482, 472 )
+
+[node name="Player_pellet233" parent="." instance=ExtResource( 3 )]
+position = Vector2( 497, 472 )
+
+[node name="Player_pellet234" parent="." instance=ExtResource( 3 )]
+position = Vector2( 512, 472 )
+
+[node name="Player_pellet235" parent="." instance=ExtResource( 3 )]
+position = Vector2( 528, 472 )
+
+[node name="Player_pellet236" parent="." instance=ExtResource( 3 )]
+position = Vector2( 544, 472 )
+
+[node name="Player_pellet237" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 472 )
+
+[node name="Player_pellet238" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 488 )
+
+[node name="Player_pellet239" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 504 )
+
+[node name="Player_pellet240" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 520 )
+
+[node name="Player_pellet241" parent="." instance=ExtResource( 3 )]
+position = Vector2( 544, 520 )
+
+[node name="Player_pellet242" parent="." instance=ExtResource( 3 )]
+position = Vector2( 528, 520 )
+
+[node name="Player_pellet243" parent="." instance=ExtResource( 3 )]
+position = Vector2( 528, 536 )
+
+[node name="Player_pellet244" parent="." instance=ExtResource( 3 )]
+position = Vector2( 528, 552 )
+
+[node name="Player_pellet245" parent="." instance=ExtResource( 3 )]
+position = Vector2( 528, 568 )
+
+[node name="Player_pellet246" parent="." instance=ExtResource( 3 )]
+position = Vector2( 528, 584 )
+
+[node name="Player_pellet247" parent="." instance=ExtResource( 3 )]
+position = Vector2( 512, 584 )
+
+[node name="Player_pellet248" parent="." instance=ExtResource( 3 )]
+position = Vector2( 497, 584 )
+
+[node name="Player_pellet249" parent="." instance=ExtResource( 3 )]
+position = Vector2( 482, 584 )
+
+[node name="Player_pellet250" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 584 )
+
+[node name="Player_pellet251" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 568 )
+
+[node name="Player_pellet252" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 552 )
+
+[node name="Player_pellet253" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 536 )
+
+[node name="Player_pellet254" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 520 )
+
+[node name="Player_pellet255" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 504 )
+
+[node name="Player_pellet256" parent="." instance=ExtResource( 3 )]
+position = Vector2( 467, 488 )
+
+[node name="Player_pellet257" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 600 )
+
+[node name="Player_pellet258" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 584 )
+
+[node name="Player_pellet259" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, 584 )
+
+[node name="Player_pellet260" parent="." instance=ExtResource( 3 )]
+position = Vector2( 400, 584 )
+
+[node name="Player_pellet261" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 584 )
+
+[node name="Player_pellet262" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 568 )
+
+[node name="Player_pellet263" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 552 )
+
+[node name="Player_pellet264" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 536 )
+
+[node name="Player_pellet272" parent="." instance=ExtResource( 3 )]
+position = Vector2( 352, 520 )
+
+[node name="Player_pellet273" parent="." instance=ExtResource( 3 )]
+position = Vector2( 336, 520 )
+
+[node name="Player_pellet274" parent="." instance=ExtResource( 3 )]
+position = Vector2( 320, 520 )
+
+[node name="Player_pellet275" parent="." instance=ExtResource( 3 )]
+position = Vector2( 288, 520 )
+
+[node name="Player_pellet276" parent="." instance=ExtResource( 3 )]
+position = Vector2( 272, 520 )
+
+[node name="Player_pellet277" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 520 )
+
+[node name="Player_pellet278" parent="." instance=ExtResource( 3 )]
+position = Vector2( 240, 520 )
+
+[node name="Player_pellet279" parent="." instance=ExtResource( 3 )]
+position = Vector2( 224, 520 )
+
+[node name="Player_pellet280" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 520 )
+
+[node name="Player_pellet281" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, 520 )
+
+[node name="Player_pellet282" parent="." instance=ExtResource( 3 )]
+position = Vector2( 400, 520 )
+
+[node name="Player_pellet283" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 520 )
+
+[node name="Player_pellet284" parent="." instance=ExtResource( 3 )]
+position = Vector2( 433, 520 )
+
+[node name="Player_pellet285" parent="." instance=ExtResource( 3 )]
+position = Vector2( 450, 520 )
+
+[node name="Player_pellet265" parent="." instance=ExtResource( 3 )]
+position = Vector2( 304, 136 )
+
+[node name="Player_pellet16" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 456 )
+
+[node name="Player_pellet17" parent="." instance=ExtResource( 3 )]
+position = Vector2( 256, 440 )
+
+[node name="Player_pellet44" parent="." instance=ExtResource( 3 )]
+position = Vector2( 448, 472 )
+
+[node name="Player_pellet45" parent="." instance=ExtResource( 3 )]
+position = Vector2( 432, 472 )
+
+[node name="Player_pellet46" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 472 )
+
+[node name="Player_pellet47" parent="." instance=ExtResource( 3 )]
+position = Vector2( 400, 472 )
+
+[node name="Player_pellet266" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, 472 )
+
+[node name="Player_pellet267" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 472 )
+
+[node name="Player_pellet268" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 488 )
+
+[node name="Player_pellet269" parent="." instance=ExtResource( 3 )]
+position = Vector2( 368, 504 )
+
+[node name="Player_pellet270" parent="." instance=ExtResource( 3 )]
+position = Vector2( 544, 584 )
+
+[node name="Player_pellet271" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 584 )
+
+[node name="Player_pellet286" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 600 )
+
+[node name="Player_pellet287" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 616 )
+
+[node name="Player_pellet288" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 632 )
+
+[node name="Player_pellet289" parent="." instance=ExtResource( 3 )]
+position = Vector2( 544, 632 )
+
+[node name="Player_pellet290" parent="." instance=ExtResource( 3 )]
+position = Vector2( 528, 632 )
+
+[node name="Player_pellet291" parent="." instance=ExtResource( 3 )]
+position = Vector2( 512, 632 )
+
+[node name="Player_pellet292" parent="." instance=ExtResource( 3 )]
+position = Vector2( 496, 632 )
+
+[node name="Player_pellet293" parent="." instance=ExtResource( 3 )]
+position = Vector2( 480, 632 )
+
+[node name="Player_pellet294" parent="." instance=ExtResource( 3 )]
+position = Vector2( 464, 632 )
+
+[node name="Player_pellet295" parent="." instance=ExtResource( 3 )]
+position = Vector2( 448, 632 )
+
+[node name="Player_pellet296" parent="." instance=ExtResource( 3 )]
+position = Vector2( 432, 632 )
+
+[node name="Player_pellet297" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 632 )
+
+[node name="Player_pellet298" parent="." instance=ExtResource( 3 )]
+position = Vector2( 400, 632 )
+
+[node name="Player_pellet299" parent="." instance=ExtResource( 3 )]
+position = Vector2( 384, 632 )
+
+[node name="Player_pellet300" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 456 )
+
+[node name="Player_pellet301" parent="." instance=ExtResource( 3 )]
+position = Vector2( 416, 440 )
+
+[node name="Player_pellet302" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 246 )
+
+[node name="AI_pellet602" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 632 )
+
+[node name="AI_pellet601" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 616 )
+
+[node name="AI_pellet600" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 600 )
+
+[node name="AI_pellet599" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 584 )
+
+[node name="AI_pellet598" parent="." instance=ExtResource( 3 )]
+position = Vector2( 729.5, 584 )
+
+[node name="AI_pellet597" parent="." instance=ExtResource( 3 )]
+position = Vector2( 745.5, 584 )
+
+[node name="AI_pellet596" parent="." instance=ExtResource( 3 )]
+position = Vector2( 745.5, 568 )
+
+[node name="AI_pellet595" parent="." instance=ExtResource( 3 )]
+position = Vector2( 761.5, 584 )
+
+[node name="AI_pellet594" parent="." instance=ExtResource( 3 )]
+position = Vector2( 776.5, 584 )
+
+[node name="AI_pellet593" parent="." instance=ExtResource( 3 )]
+position = Vector2( 791.5, 584 )
+
+[node name="AI_pellet592" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 584 )
+
+[node name="AI_pellet591" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 568 )
+
+[node name="AI_pellet590" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 552 )
+
+[node name="AI_pellet589" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 536 )
+
+[node name="AI_pellet588" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 520 )
+
+[node name="AI_pellet587" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 536 )
+
+[node name="AI_pellet586" parent="." instance=ExtResource( 3 )]
+position = Vector2( 729.5, 632 )
+
+[node name="AI_pellet585" parent="." instance=ExtResource( 3 )]
+position = Vector2( 745.5, 632 )
+
+[node name="AI_pellet584" parent="." instance=ExtResource( 3 )]
+position = Vector2( 761.5, 632 )
+
+[node name="AI_pellet583" parent="." instance=ExtResource( 3 )]
+position = Vector2( 777.5, 632 )
+
+[node name="AI_pellet582" parent="." instance=ExtResource( 3 )]
+position = Vector2( 793.5, 632 )
+
+[node name="AI_pellet581" parent="." instance=ExtResource( 3 )]
+position = Vector2( 809.5, 632 )
+
+[node name="AI_pellet580" parent="." instance=ExtResource( 3 )]
+position = Vector2( 825.5, 632 )
+
+[node name="AI_pellet579" parent="." instance=ExtResource( 3 )]
+position = Vector2( 841.5, 632 )
+
+[node name="AI_pellet578" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 632 )
+
+[node name="AI_pellet577" parent="." instance=ExtResource( 3 )]
+position = Vector2( 873.5, 632 )
+
+[node name="AI_pellet576" parent="." instance=ExtResource( 3 )]
+position = Vector2( 889.5, 632 )
+
+[node name="AI_pellet575" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 632 )
+
+[node name="AI_pellet574" parent="." instance=ExtResource( 3 )]
+position = Vector2( 921.5, 632 )
+
+[node name="AI_pellet573" parent="." instance=ExtResource( 3 )]
+position = Vector2( 937.5, 632 )
+
+[node name="AI_pellet572" parent="." instance=ExtResource( 3 )]
+position = Vector2( 953.5, 632 )
+
+[node name="AI_pellet571" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 632 )
+
+[node name="AI_pellet570" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 616 )
+
+[node name="AI_pellet569" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 600 )
+
+[node name="AI_pellet568" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 616 )
+
+[node name="AI_pellet567" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 584 )
+
+[node name="AI_pellet566" parent="." instance=ExtResource( 3 )]
+position = Vector2( 889.5, 584 )
+
+[node name="AI_pellet565" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 552 )
+
+[node name="AI_pellet564" parent="." instance=ExtResource( 3 )]
+position = Vector2( 873.5, 584 )
+
+[node name="AI_pellet563" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 568 )
+
+[node name="AI_pellet562" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 584 )
+
+[node name="AI_pellet561" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 520 )
+
+[node name="AI_pellet560" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 504 )
+
+[node name="AI_pellet559" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 488 )
+
+[node name="AI_pellet558" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 472 )
+
+[node name="AI_pellet557" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 504 )
+
+[node name="AI_pellet556" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 488 )
+
+[node name="AI_pellet555" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 472 )
+
+[node name="AI_pellet554" parent="." instance=ExtResource( 3 )]
+position = Vector2( 745.5, 552 )
+
+[node name="AI_pellet553" parent="." instance=ExtResource( 3 )]
+position = Vector2( 745.5, 536 )
+
+[node name="AI_pellet552" parent="." instance=ExtResource( 3 )]
+position = Vector2( 745.5, 520 )
+
+[node name="AI_pellet551" parent="." instance=ExtResource( 3 )]
+position = Vector2( 729.5, 520 )
+
+[node name="AI_pellet550" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 520 )
+
+[node name="AI_pellet549" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 504 )
+
+[node name="AI_pellet548" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 488 )
+
+[node name="AI_pellet547" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 472 )
+
+[node name="AI_pellet546" parent="." instance=ExtResource( 3 )]
+position = Vector2( 729.5, 472 )
+
+[node name="AI_pellet545" parent="." instance=ExtResource( 3 )]
+position = Vector2( 745.5, 472 )
+
+[node name="AI_pellet544" parent="." instance=ExtResource( 3 )]
+position = Vector2( 761.5, 472 )
+
+[node name="AI_pellet543" parent="." instance=ExtResource( 3 )]
+position = Vector2( 776.5, 472 )
+
+[node name="AI_pellet542" parent="." instance=ExtResource( 3 )]
+position = Vector2( 791.5, 472 )
+
+[node name="AI_pellet541" parent="." instance=ExtResource( 3 )]
+position = Vector2( 825.5, 472 )
+
+[node name="AI_pellet540" parent="." instance=ExtResource( 3 )]
+position = Vector2( 841.5, 472 )
+
+[node name="AI_pellet539" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 472 )
+
+[node name="AI_pellet538" parent="." instance=ExtResource( 3 )]
+position = Vector2( 873.5, 472 )
+
+[node name="AI_pellet537" parent="." instance=ExtResource( 3 )]
+position = Vector2( 889.5, 472 )
+
+[node name="AI_pellet536" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 456 )
+
+[node name="AI_pellet535" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 440 )
+
+[node name="AI_pellet534" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 424 )
+
+[node name="AI_pellet533" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 408 )
+
+[node name="AI_pellet532" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 392 )
+
+[node name="AI_pellet531" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 376 )
+
+[node name="AI_pellet530" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 360 )
+
+[node name="AI_pellet529" parent="." instance=ExtResource( 3 )]
+position = Vector2( 791.5, 360 )
+
+[node name="AI_pellet528" parent="." instance=ExtResource( 3 )]
+position = Vector2( 776.5, 360 )
+
+[node name="AI_pellet527" parent="." instance=ExtResource( 3 )]
+position = Vector2( 761.5, 360 )
+
+[node name="AI_pellet526" parent="." instance=ExtResource( 3 )]
+position = Vector2( 745.5, 360 )
+
+[node name="AI_pellet525" parent="." instance=ExtResource( 3 )]
+position = Vector2( 729.5, 360 )
+
+[node name="AI_pellet524" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 360 )
+
+[node name="AI_pellet523" parent="." instance=ExtResource( 3 )]
+position = Vector2( 697.5, 360 )
+
+[node name="AI_pellet522" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 344 )
+
+[node name="AI_pellet521" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 328 )
+
+[node name="AI_pellet520" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 312 )
+
+[node name="AI_pellet519" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 296 )
+
+[node name="AI_pellet518" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 280 )
+
+[node name="AI_pellet517" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 264 )
+
+[node name="AI_pellet516" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 248 )
+
+[node name="AI_pellet515" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 232 )
+
+[node name="AI_pellet514" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 216 )
+
+[node name="AI_pellet513" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 200 )
+
+[node name="AI_pellet512" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 184 )
+
+[node name="AI_pellet511" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 168 )
+
+[node name="AI_pellet510" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 152 )
+
+[node name="AI_pellet509" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 123 )
+
+[node name="AI_pellet508" parent="." instance=ExtResource( 3 )]
+position = Vector2( 792.5, 123 )
+
+[node name="AI_pellet507" parent="." instance=ExtResource( 3 )]
+position = Vector2( 777.5, 123 )
+
+[node name="AI_pellet506" parent="." instance=ExtResource( 3 )]
+position = Vector2( 761.5, 123 )
+
+[node name="AI_pellet505" parent="." instance=ExtResource( 3 )]
+position = Vector2( 745.5, 123 )
+
+[node name="AI_pellet504" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 123 )
+
+[node name="AI_pellet503" parent="." instance=ExtResource( 3 )]
+position = Vector2( 823.5, 123 )
+
+[node name="AI_pellet502" parent="." instance=ExtResource( 3 )]
+position = Vector2( 761.5, 200 )
+
+[node name="AI_pellet501" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 136 )
+
+[node name="AI_pellet500" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 152 )
+
+[node name="AI_pellet499" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 168 )
+
+[node name="AI_pellet498" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 184 )
+
+[node name="AI_pellet497" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 200 )
+
+[node name="AI_pellet496" parent="." instance=ExtResource( 3 )]
+position = Vector2( 729.5, 200 )
+
+[node name="AI_pellet495" parent="." instance=ExtResource( 3 )]
+position = Vector2( 745.5, 200 )
+
+[node name="AI_pellet494" parent="." instance=ExtResource( 3 )]
+position = Vector2( 777.5, 200 )
+
+[node name="AI_pellet493" parent="." instance=ExtResource( 3 )]
+position = Vector2( 793.5, 200 )
+
+[node name="AI_pellet492" parent="." instance=ExtResource( 3 )]
+position = Vector2( 841.5, 123 )
+
+[node name="AI_pellet491" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 123 )
+
+[node name="AI_pellet490" parent="." instance=ExtResource( 3 )]
+position = Vector2( 873.5, 123 )
+
+[node name="AI_pellet489" parent="." instance=ExtResource( 3 )]
+position = Vector2( 889.5, 123 )
+
+[node name="AI_pellet488" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 123 )
+
+[node name="AI_pellet487" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 152 )
+
+[node name="AI_pellet486" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 168 )
+
+[node name="AI_pellet485" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 184 )
+
+[node name="AI_pellet484" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 200 )
+
+[node name="AI_pellet483" parent="." instance=ExtResource( 3 )]
+position = Vector2( 889.5, 200 )
+
+[node name="AI_pellet482" parent="." instance=ExtResource( 3 )]
+position = Vector2( 873.5, 200 )
+
+[node name="AI_pellet481" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 200 )
+
+[node name="AI_pellet480" parent="." instance=ExtResource( 3 )]
+position = Vector2( 841.5, 200 )
+
+[node name="AI_pellet479" parent="." instance=ExtResource( 3 )]
+position = Vector2( 825.5, 200 )
+
+[node name="AI_pellet478" parent="." instance=ExtResource( 3 )]
+position = Vector2( 921.5, 200 )
+
+[node name="AI_pellet477" parent="." instance=ExtResource( 3 )]
+position = Vector2( 937.5, 200 )
+
+[node name="AI_pellet476" parent="." instance=ExtResource( 3 )]
+position = Vector2( 953.5, 200 )
+
+[node name="AI_pellet475" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 200 )
+
+[node name="AI_pellet474" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 184 )
+
+[node name="AI_pellet473" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 168 )
+
+[node name="AI_pellet472" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 152 )
+
+[node name="AI_pellet471" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 123 )
+
+[node name="AI_pellet470" parent="." instance=ExtResource( 3 )]
+position = Vector2( 985.5, 123 )
+
+[node name="AI_pellet469" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1001.5, 123 )
+
+[node name="AI_pellet468" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 123 )
+
+[node name="AI_pellet467" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1034.5, 123 )
+
+[node name="AI_pellet466" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1052.5, 123 )
+
+[node name="AI_pellet465" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 123 )
+
+[node name="AI_pellet464" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1082.5, 123 )
+
+[node name="AI_pellet463" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1097.5, 123 )
+
+[node name="AI_pellet462" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1113.5, 123 )
+
+[node name="AI_pellet461" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1129.5, 123 )
+
+[node name="AI_pellet460" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1145.5, 123 )
+
+[node name="AI_pellet459" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 136 )
+
+[node name="AI_pellet458" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 152 )
+
+[node name="AI_pellet457" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 168 )
+
+[node name="AI_pellet456" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 184 )
+
+[node name="AI_pellet455" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 200 )
+
+[node name="AI_pellet454" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 216 )
+
+[node name="AI_pellet453" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 232 )
+
+[node name="AI_pellet452" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1145.5, 248 )
+
+[node name="AI_pellet451" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1129.5, 248 )
+
+[node name="AI_pellet450" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1113.5, 248 )
+
+[node name="AI_pellet449" parent="." instance=ExtResource( 3 )]
+position = Vector2( 793.5, 248 )
+
+[node name="AI_pellet448" parent="." instance=ExtResource( 3 )]
+position = Vector2( 777.5, 248 )
+
+[node name="AI_pellet447" parent="." instance=ExtResource( 3 )]
+position = Vector2( 761.5, 248 )
+
+[node name="AI_pellet446" parent="." instance=ExtResource( 3 )]
+position = Vector2( 745.5, 248 )
+
+[node name="AI_pellet445" parent="." instance=ExtResource( 3 )]
+position = Vector2( 729.5, 248 )
+
+[node name="AI_pellet444" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 248 )
+
+[node name="AI_pellet443" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 232 )
+
+[node name="AI_pellet442" parent="." instance=ExtResource( 3 )]
+position = Vector2( 713.5, 216 )
+
+[node name="AI_pellet441" parent="." instance=ExtResource( 3 )]
+position = Vector2( 729.5, 123 )
+
+[node name="AI_pellet440" parent="." instance=ExtResource( 3 )]
+position = Vector2( 806.5, 136 )
+
+[node name="AI_pellet439" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 136 )
+
+[node name="AI_pellet438" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 123 )
+
+[node name="AI_pellet437" parent="." instance=ExtResource( 3 )]
+position = Vector2( 985.5, 200 )
+
+[node name="AI_pellet436" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1001.5, 200 )
+
+[node name="AI_pellet435" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 200 )
+
+[node name="AI_pellet434" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1033.5, 200 )
+
+[node name="AI_pellet433" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1051.5, 200 )
+
+[node name="AI_pellet432" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 200 )
+
+[node name="AI_pellet431" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1082.5, 200 )
+
+[node name="AI_pellet430" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1097.5, 200 )
+
+[node name="AI_pellet429" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1113.5, 200 )
+
+[node name="AI_pellet428" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1129.5, 200 )
+
+[node name="AI_pellet427" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1145.5, 200 )
+
+[node name="AI_pellet426" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 184 )
+
+[node name="AI_pellet425" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 168 )
+
+[node name="AI_pellet424" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 152 )
+
+[node name="AI_pellet423" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 136 )
+
+[node name="AI_pellet422" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1097.5, 248 )
+
+[node name="AI_pellet421" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1082.5, 248 )
+
+[node name="AI_pellet420" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 248 )
+
+[node name="AI_pellet419" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 232 )
+
+[node name="AI_pellet418" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 216 )
+
+[node name="AI_pellet417" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 216 )
+
+[node name="AI_pellet416" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 232 )
+
+[node name="AI_pellet415" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 248 )
+
+[node name="AI_pellet414" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1001.5, 248 )
+
+[node name="AI_pellet413" parent="." instance=ExtResource( 3 )]
+position = Vector2( 985.5, 248 )
+
+[node name="AI_pellet412" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 248 )
+
+[node name="AI_pellet411" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 264 )
+
+[node name="AI_pellet410" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 280 )
+
+[node name="AI_pellet409" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 216 )
+
+[node name="AI_pellet408" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 232 )
+
+[node name="AI_pellet407" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 248 )
+
+[node name="AI_pellet406" parent="." instance=ExtResource( 3 )]
+position = Vector2( 873.5, 248 )
+
+[node name="AI_pellet405" parent="." instance=ExtResource( 3 )]
+position = Vector2( 889.5, 248 )
+
+[node name="AI_pellet404" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 248 )
+
+[node name="AI_pellet403" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 264 )
+
+[node name="AI_pellet402" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 280 )
+
+[node name="AI_pellet401" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 262 )
+
+[node name="AI_pellet400" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 279 )
+
+[node name="AI_pellet399" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 296 )
+
+[node name="AI_pellet398" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 312 )
+
+[node name="AI_pellet397" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 328 )
+
+[node name="AI_pellet396" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 344 )
+
+[node name="AI_pellet395" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 360 )
+
+[node name="AI_pellet394" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1083.5, 360 )
+
+[node name="AI_pellet393" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1098.5, 360 )
+
+[node name="AI_pellet392" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1113.5, 360 )
+
+[node name="AI_pellet391" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1129.5, 360 )
+
+[node name="AI_pellet390" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1145.5, 360 )
+
+[node name="AI_pellet389" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 360 )
+
+[node name="AI_pellet388" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1177.5, 360 )
+
+[node name="AI_pellet387" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1049.5, 360 )
+
+[node name="AI_pellet386" parent="." instance=ExtResource( 3 )]
+position = Vector2( 825.5, 360 )
+
+[node name="AI_pellet385" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 376 )
+
+[node name="AI_pellet384" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 392 )
+
+[node name="AI_pellet383" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 408 )
+
+[node name="AI_pellet382" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 424 )
+
+[node name="AI_pellet381" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 440 )
+
+[node name="AI_pellet380" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 456 )
+
+[node name="AI_pellet379" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 472 )
+
+[node name="AI_pellet378" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1083.5, 472 )
+
+[node name="AI_pellet377" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1098.5, 472 )
+
+[node name="AI_pellet376" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1113.5, 472 )
+
+[node name="AI_pellet375" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1129.5, 472 )
+
+[node name="AI_pellet374" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1145.5, 472 )
+
+[node name="AI_pellet373" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 472 )
+
+[node name="AI_pellet372" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 488 )
+
+[node name="AI_pellet371" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 504 )
+
+[node name="AI_pellet370" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 520 )
+
+[node name="AI_pellet369" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1145.5, 520 )
+
+[node name="AI_pellet368" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1129.5, 520 )
+
+[node name="AI_pellet367" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1129.5, 536 )
+
+[node name="AI_pellet366" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1129.5, 552 )
+
+[node name="AI_pellet365" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1129.5, 568 )
+
+[node name="AI_pellet364" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1129.5, 584 )
+
+[node name="AI_pellet363" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1113.5, 584 )
+
+[node name="AI_pellet362" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1098.5, 584 )
+
+[node name="AI_pellet361" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1083.5, 584 )
+
+[node name="AI_pellet360" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 584 )
+
+[node name="AI_pellet359" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 568 )
+
+[node name="AI_pellet358" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 552 )
+
+[node name="AI_pellet357" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 536 )
+
+[node name="AI_pellet356" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 520 )
+
+[node name="AI_pellet355" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 504 )
+
+[node name="AI_pellet354" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1068.5, 488 )
+
+[node name="AI_pellet353" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 600 )
+
+[node name="AI_pellet352" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 584 )
+
+[node name="AI_pellet351" parent="." instance=ExtResource( 3 )]
+position = Vector2( 985.5, 584 )
+
+[node name="AI_pellet350" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1001.5, 584 )
+
+[node name="AI_pellet349" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 584 )
+
+[node name="AI_pellet348" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 568 )
+
+[node name="AI_pellet347" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 552 )
+
+[node name="AI_pellet346" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 536 )
+
+[node name="AI_pellet345" parent="." instance=ExtResource( 3 )]
+position = Vector2( 953.5, 520 )
+
+[node name="AI_pellet344" parent="." instance=ExtResource( 3 )]
+position = Vector2( 937.5, 520 )
+
+[node name="AI_pellet343" parent="." instance=ExtResource( 3 )]
+position = Vector2( 921.5, 520 )
+
+[node name="AI_pellet342" parent="." instance=ExtResource( 3 )]
+position = Vector2( 889.5, 520 )
+
+[node name="AI_pellet341" parent="." instance=ExtResource( 3 )]
+position = Vector2( 873.5, 520 )
+
+[node name="AI_pellet340" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 520 )
+
+[node name="AI_pellet339" parent="." instance=ExtResource( 3 )]
+position = Vector2( 841.5, 520 )
+
+[node name="AI_pellet338" parent="." instance=ExtResource( 3 )]
+position = Vector2( 825.5, 520 )
+
+[node name="AI_pellet337" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 520 )
+
+[node name="AI_pellet336" parent="." instance=ExtResource( 3 )]
+position = Vector2( 985.5, 520 )
+
+[node name="AI_pellet335" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1001.5, 520 )
+
+[node name="AI_pellet334" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 520 )
+
+[node name="AI_pellet333" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1034.5, 520 )
+
+[node name="AI_pellet332" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1051.5, 520 )
+
+[node name="AI_pellet331" parent="." instance=ExtResource( 3 )]
+position = Vector2( 905.5, 136 )
+
+[node name="AI_pellet330" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 456 )
+
+[node name="AI_pellet329" parent="." instance=ExtResource( 3 )]
+position = Vector2( 857.5, 440 )
+
+[node name="AI_pellet328" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1049.5, 472 )
+
+[node name="AI_pellet327" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1033.5, 472 )
+
+[node name="AI_pellet326" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 472 )
+
+[node name="AI_pellet157" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1001.5, 472 )
+
+[node name="AI_pellet325" parent="." instance=ExtResource( 3 )]
+position = Vector2( 985.5, 472 )
+
+[node name="AI_pellet324" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 472 )
+
+[node name="AI_pellet323" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 488 )
+
+[node name="AI_pellet322" parent="." instance=ExtResource( 3 )]
+position = Vector2( 969.5, 504 )
+
+[node name="AI_pellet321" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1145.5, 584 )
+
+[node name="AI_pellet320" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 584 )
+
+[node name="AI_pellet319" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 600 )
+
+[node name="AI_pellet318" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 616 )
+
+[node name="AI_pellet317" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 632 )
+
+[node name="AI_pellet316" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1145.5, 632 )
+
+[node name="AI_pellet315" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1129.5, 632 )
+
+[node name="AI_pellet314" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1113.5, 632 )
+
+[node name="AI_pellet313" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1097.5, 632 )
+
+[node name="AI_pellet312" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1081.5, 632 )
+
+[node name="AI_pellet311" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1065.5, 632 )
+
+[node name="AI_pellet310" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1049.5, 632 )
+
+[node name="AI_pellet309" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1033.5, 632 )
+
+[node name="AI_pellet308" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 632 )
+
+[node name="AI_pellet307" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1001.5, 632 )
+
+[node name="AI_pellet306" parent="." instance=ExtResource( 3 )]
+position = Vector2( 985.5, 632 )
+
+[node name="AI_pellet305" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 456 )
+
+[node name="AI_pellet304" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1017.5, 440 )
+
+[node name="AI_pellet303" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1161.5, 246 )
+
+[node name="background_black_green" type="Sprite" parent="."]
+show_behind_parent = true
+position = Vector2( 640, 432 )
+scale = Vector2( 1.6832, 1.51 )
+texture = ExtResource( 4 )

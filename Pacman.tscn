@@ -21,7 +21,7 @@ radius = 14.0
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "moving"
-frame = 3
+frame = 2
 speed_scale = 3.0
 playing = true
 

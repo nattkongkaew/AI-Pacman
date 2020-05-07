@@ -1,5 +1,4 @@
-extends Area2D
-
+extends KinematicBody2D
 
 var direction = Vector2(0,0)
 var speed = 100
@@ -21,4 +20,4 @@ func _process(delta):
 		direction = Vector2(1,0)
 		rotation = deg2rad(0)
 		
-	position += speed * direction * delta
+	move_and_collide(speed * direction * delta)

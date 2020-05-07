@@ -18,3 +18,4 @@ shape = SubResource( 1 )
 position = Vector2( -0.0883884, -0.0883865 )
 texture = ExtResource( 1 )
 [connection signal="area_entered" from="." to="." method="_on_Pellet_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Pellet_body_entered"]

@@ -15,15 +15,15 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 14.0
 
-[node name="Pacman" type="Area2D"]
+[node name="Pacman" type="KinematicBody2D"]
 script = ExtResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.740741, 0.740741 )
 frames = SubResource( 1 )
 animation = "moving"
-frame = 1
+frame = 2
 speed_scale = 3.0
 playing = true
 

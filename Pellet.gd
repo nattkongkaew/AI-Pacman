@@ -6,7 +6,5 @@ func _ready():
 	pass
 
 
-
-
-func _on_Pellet_area_entered(_area):
+func _on_Pellet_body_entered(body: Node) -> void:
 	queue_free()

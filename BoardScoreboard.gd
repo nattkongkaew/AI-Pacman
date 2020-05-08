@@ -69,3 +69,13 @@ func update_time_display():
 func update_score_display():
 	var score_string = "%0*d" % [SCORE_LENGTH, current_score]
 	node_score.text = score_string
+
+
+# Add a score value to the total score
+func add_score( score_added ):
+	set_current_score( get_current_score() + score_added )
+
+
+# Reset the clock to 00:00
+func reset_clock():
+	set_current_time( 0 )

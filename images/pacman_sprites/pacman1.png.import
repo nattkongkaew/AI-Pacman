@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/NicePng_start-button-png_1108890.png-67b8d9c098eee15221f855bc89b3890f.stex"
+path="res://.import/pacman1.png-742714c03484cce46daa44124c06e65d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NicePng_start-button-png_1108890.png"
-dest_files=[ "res://.import/NicePng_start-button-png_1108890.png-67b8d9c098eee15221f855bc89b3890f.stex" ]
+source_file="res://images/pacman_sprites/pacman1.png"
+dest_files=[ "res://.import/pacman1.png-742714c03484cce46daa44124c06e65d.stex" ]
 
 [params]
 

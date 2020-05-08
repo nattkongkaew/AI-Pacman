@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/aba.PNG-040792b346e38af37e5f4fc0e960d9a0.stex"
+path="res://.import/aipac.png-9dd473d3f324787a78a402a9a7a10c6c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://aba.PNG"
-dest_files=[ "res://.import/aba.PNG-040792b346e38af37e5f4fc0e960d9a0.stex" ]
+source_file="res://aipac.png"
+dest_files=[ "res://.import/aipac.png-9dd473d3f324787a78a402a9a7a10c6c.stex" ]
 
 [params]
 

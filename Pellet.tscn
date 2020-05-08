@@ -1,8 +1,21 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://images/pellet.png" type="Texture" id=1]
+[ext_resource path="res://Pellet.gd" type="Script" id=2]
 
-[node name="Pellet" type="Sprite"]
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.27951
+
+[node name="Pellet" type="Area2D"]
 position = Vector2( 0.723684, 0.723684 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.0883884, 0 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -0.0883884, -0.0883865 )
 texture = ExtResource( 1 )
-offset = Vector2( 4, 4 )
+[connection signal="area_entered" from="." to="." method="_on_Pellet_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Pellet_body_entered"]

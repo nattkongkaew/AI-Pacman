@@ -15,9 +15,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Godot Project"
-run/main_scene="res://Title screen.tscn"
-
+config/name="Pacman AI"
+run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -29,4 +28,7 @@ window/stretch/aspect="expand"
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"

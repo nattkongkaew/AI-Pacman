@@ -1,0 +1,831 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Pellet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Tiles/tiles.tres" type="TileSet" id=2]
+
+[node name="Walls" type="TileMap"]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 20, 20 )
+cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 524293, 0, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 0, 524304, 3, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 0, 524311, 1, 0, 524312, 1, 0, 524313, 1, 0, 524314, 1, 0, 524315, 4, 0, 589829, 2, 0, 589840, 11, 0, 589851, 5, 0, 655365, 2, 0, 655367, 36, 0, 655368, 39, 0, 655369, 40, 0, 655371, 36, 0, 655372, 39, 0, 655373, 39, 0, 655374, 40, 0, 655376, 1610612747, 0, 655378, 36, 0, 655379, 39, 0, 655380, 39, 0, 655381, 40, 0, 655383, 36, 0, 655384, 39, 0, 655385, 40, 0, 655387, 5, 0, 720901, 2, 0, 720903, 37, 0, 720904, 38, 0, 720905, 41, 0, 720907, 37, 0, 720908, 38, 0, 720909, 38, 0, 720910, 41, 0, 720912, 1610612751, 0, 720914, 37, 0, 720915, 38, 0, 720916, 38, 0, 720917, 41, 0, 720919, 37, 0, 720920, 38, 0, 720921, 41, 0, 720923, 5, 0, 786437, 2, 0, 786459, 5, 0, 851973, 2, 0, 851975, 13, 0, 851976, 28, 0, 851977, 14, 0, 851979, 15, 0, 851981, 13, 0, 851982, -1610612725, 0, 851983, -1610612725, 0, 851984, -1610612694, 0, 851985, -1610612725, 0, 851986, -1073741813, 0, 851987, -1073741808, 0, 851989, -1610612723, 0, 851991, 1610612750, 0, 851992, -1073741813, 0, 851993, 1610612749, 0, 851995, 5, 0, 917509, 2, 0, 917515, 11, 0, 917520, 1610612747, 0, 917525, 1610612747, 0, 917531, -1073741790, 0, 983045, 44, 0, 983046, 45, 0, 983047, 45, 0, 983048, 45, 0, 983049, 46, 0, 983051, 42, 0, 983052, -1610612725, 0, 983053, -1610612725, 0, 983054, -1610612721, 0, 983056, 16, 0, 983058, 1610612750, 0, 983059, 1610612764, 0, 983060, 1610612764, 0, 983061, 1610612778, 0, 983063, 1610612785, 0, 983064, -1073741800, 0, 983065, -1073741800, 0, 983066, -1073741800, 0, 983067, 1610612784, 0, 1048585, -1610612702, 0, 1048587, 11, 0, 1048597, 1610612747, 0, 1048599, -1073741790, 0, 1114121, -1610612702, 0, 1114123, 11, 0, 1114125, -1610612710, 0, 1114126, -1610612712, 0, 1114127, 1610612757, 0, 1114128, 23, 0, 1114129, 21, 0, 1114130, 20, 0, 1114131, 19, 0, 1114133, 1610612747, 0, 1114135, -1073741790, 0, 1179653, 1610612781, 0, 1179654, 1610612781, 0, 1179655, 1610612781, 0, 1179656, 1610612781, 0, 1179657, 49, 0, 1179659, 16, 0, 1179661, -1610612716, 0, 1179667, 24, 0, 1179669, -1610612722, 0, 1179671, 1610612782, 0, 1179672, 1610612781, 0, 1179673, 1610612781, 0, 1179674, 1610612781, 0, 1179675, 1610612756, 0, 1245197, -1610612716, 0, 1245203, 24, 0, 1310725, 1610612781, 0, 1310726, 1610612781, 0, 1310727, 1610612781, 0, 1310728, 1610612781, 0, 1310729, 46, 0, 1310731, 15, 0, 1310733, 24, 0, 1310739, 24, 0, 1310741, 15, 0, 1310743, 1610612785, 0, 1310744, 1610612781, 0, 1310745, 1610612781, 0, 1310746, 1610612781, 0, 1310747, 1610612756, 0, 1376265, -1610612702, 0, 1376267, 11, 0, 1376269, 26, 0, 1376270, 1610612756, 0, 1376271, 1610612756, 0, 1376272, 1610612756, 0, 1376273, 1610612756, 0, 1376274, 1610612756, 0, 1376275, -1073741798, 0, 1376277, 11, 0, 1376279, -1073741790, 0, 1441801, -1610612702, 0, 1441803, 11, 0, 1441813, 11, 0, 1441815, -1073741790, 0, 1507333, 48, 0, 1507334, 1610612781, 0, 1507335, 1610612781, 0, 1507336, 1610612781, 0, 1507337, 49, 0, 1507339, 16, 0, 1507341, 1610612750, 0, 1507342, -1073741813, 0, 1507343, -1073741813, 0, 1507344, -1610612694, 0, 1507345, -1073741813, 0, 1507346, -1073741813, 0, 1507347, 14, 0, 1507349, 16, 0, 1507351, 1610612782, 0, 1507352, 1610612781, 0, 1507353, 1610612781, 0, 1507354, 1610612781, 0, 1507355, 1610612780, 0, 1572869, -1610612702, 0, 1572880, 11, 0, 1572891, -1073741790, 0, 1638405, -1610612702, 0, 1638407, 13, 0, 1638408, -1610612725, 0, 1638409, -1610612689, 0, 1638411, -1073741809, 0, 1638412, -1073741813, 0, 1638413, -1073741813, 0, 1638414, -1073741808, 0, 1638416, 16, 0, 1638418, 13, 0, 1638419, -1073741813, 0, 1638420, -1073741813, 0, 1638421, 14, 0, 1638423, 47, 0, 1638424, -1073741813, 0, 1638425, 14, 0, 1638427, -1073741790, 0, 1703941, -1610612702, 0, 1703945, 1610612747, 0, 1703959, 11, 0, 1703963, -1073741790, 0, 1769477, 31, 0, 1769478, -1073741813, 0, 1769479, 14, 0, 1769481, -1610612722, 0, 1769483, 15, 0, 1769485, -1610612720, 0, 1769486, -1610612725, 0, 1769487, -1610612725, 0, 1769488, -1610612694, 0, 1769489, -1610612725, 0, 1769490, -1073741813, 0, 1769491, -1073741808, 0, 1769493, 15, 0, 1769495, 16, 0, 1769497, -1610612720, 0, 1769498, -1610612725, 0, 1769499, 1610612767, 0, 1835013, -1610612702, 0, 1835019, 11, 0, 1835024, 1610612747, 0, 1835029, 11, 0, 1835035, -1073741790, 0, 1900549, -1610612702, 0, 1900551, -1610612720, 0, 1900552, -1610612725, 0, 1900553, -1610612725, 0, 1900554, -1610612725, 0, 1900555, -1073741782, 0, 1900556, -1610612725, 0, 1900557, -1073741813, 0, 1900558, -1073741808, 0, 1900560, 16, 0, 1900562, 13, 0, 1900563, -1610612725, 0, 1900564, -1610612725, 0, 1900565, -1073741782, 0, 1900566, -1610612725, 0, 1900567, -1610612725, 0, 1900568, -1610612725, 0, 1900569, 14, 0, 1900571, -1073741790, 0, 1966085, -1610612702, 0, 1966107, -1073741790, 0, 2031621, -1073741824, 0, 2031622, 34, 0, 2031623, 34, 0, 2031624, 34, 0, 2031625, 34, 0, 2031626, 34, 0, 2031627, 34, 0, 2031628, 34, 0, 2031629, 34, 0, 2031630, 34, 0, 2031631, 34, 0, 2031632, 34, 0, 2031633, 34, 0, 2031634, 34, 0, 2031635, 34, 0, 2031636, 34, 0, 2031637, 34, 0, 2031638, 34, 0, 2031639, 34, 0, 2031640, 34, 0, 2031641, 34, 0, 2031642, 34, 0, 2031643, -1610612732, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Pellets" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Pellet" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130, 190 )
+collision_mask = 2
+
+[node name="Pellet2" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 150, 190 )
+collision_mask = 2
+
+[node name="Pellet3" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 170, 190 )
+collision_mask = 2
+
+[node name="Pellet4" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 190, 190 )
+collision_mask = 2
+
+[node name="Pellet107" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 190, 190 )
+collision_mask = 2
+
+[node name="Pellet108" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 190, 190 )
+collision_mask = 2
+
+[node name="Pellet5" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210, 190 )
+collision_mask = 2
+
+[node name="Pellet6" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 230, 190 )
+collision_mask = 2
+
+[node name="Pellet7" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 250, 190 )
+collision_mask = 2
+
+[node name="Pellet8" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 270, 190 )
+collision_mask = 2
+
+[node name="Pellet9" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 290, 190 )
+collision_mask = 2
+
+[node name="Pellet10" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 310, 190 )
+collision_mask = 2
+
+[node name="Pellet25" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 350, 190 )
+collision_mask = 2
+
+[node name="Pellet24" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 370, 190 )
+collision_mask = 2
+
+[node name="Pellet23" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 390, 190 )
+collision_mask = 2
+
+[node name="Pellet22" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 410, 190 )
+collision_mask = 2
+
+[node name="Pellet21" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 430, 190 )
+collision_mask = 2
+
+[node name="Pellet20" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450, 190 )
+collision_mask = 2
+
+[node name="Pellet85" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210, 350 )
+collision_mask = 2
+
+[node name="Pellet19" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 470, 190 )
+collision_mask = 2
+
+[node name="Pellet18" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 490, 190 )
+collision_mask = 2
+
+[node name="Pellet17" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 510, 190 )
+collision_mask = 2
+
+[node name="Pellet16" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 530, 190 )
+collision_mask = 2
+
+[node name="Pellet65" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.177, 270 )
+collision_mask = 2
+
+[node name="Pellet69" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.265, 270 )
+collision_mask = 2
+
+[node name="Pellet73" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.442, 350 )
+collision_mask = 2
+
+[node name="Pellet92" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.795, 490 )
+collision_mask = 2
+
+[node name="Pellet84" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.265, 430 )
+collision_mask = 2
+
+[node name="Pellet83" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.442, 510 )
+collision_mask = 2
+
+[node name="Pellet35" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 350, 250 )
+collision_mask = 2
+
+[node name="Pellet34" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 370, 250 )
+collision_mask = 2
+
+[node name="Pellet33" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 390, 250 )
+collision_mask = 2
+
+[node name="Pellet32" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 410, 250 )
+collision_mask = 2
+
+[node name="Pellet31" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 430, 250 )
+collision_mask = 2
+
+[node name="Pellet30" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450, 250 )
+collision_mask = 2
+
+[node name="Pellet205" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 350, 610 )
+collision_mask = 2
+
+[node name="Pellet204" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 370, 610 )
+collision_mask = 2
+
+[node name="Pellet203" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 390, 610 )
+collision_mask = 2
+
+[node name="Pellet202" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 410, 610 )
+collision_mask = 2
+
+[node name="Pellet201" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 430, 610 )
+collision_mask = 2
+
+[node name="Pellet200" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450, 610 )
+collision_mask = 2
+
+[node name="Pellet82" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210, 410 )
+collision_mask = 2
+
+[node name="Pellet29" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 470, 250 )
+collision_mask = 2
+
+[node name="Pellet28" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 490, 250 )
+collision_mask = 2
+
+[node name="Pellet27" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 510, 250 )
+collision_mask = 2
+
+[node name="Pellet26" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 530, 250 )
+collision_mask = 2
+
+[node name="Pellet199" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 470, 610 )
+collision_mask = 2
+
+[node name="Pellet198" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 490, 610 )
+collision_mask = 2
+
+[node name="Pellet197" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 510, 610 )
+collision_mask = 2
+
+[node name="Pellet196" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 530, 610 )
+collision_mask = 2
+
+[node name="Pellet97" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 470, 290 )
+collision_mask = 2
+
+[node name="Pellet96" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 490, 290 )
+collision_mask = 2
+
+[node name="Pellet95" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 510, 290 )
+collision_mask = 2
+
+[node name="Pellet94" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 530, 290 )
+collision_mask = 2
+
+[node name="Pellet106" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 530.619, 270 )
+collision_mask = 2
+
+[node name="Pellet101" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 250, 290 )
+collision_mask = 2
+
+[node name="Pellet100" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 270, 290 )
+collision_mask = 2
+
+[node name="Pellet99" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 290, 290 )
+collision_mask = 2
+
+[node name="Pellet98" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 310, 290 )
+collision_mask = 2
+
+[node name="Pellet105" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 350.177, 290 )
+collision_mask = 2
+
+[node name="Pellet104" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 370.177, 290 )
+collision_mask = 2
+
+[node name="Pellet103" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 390.177, 290 )
+collision_mask = 2
+
+[node name="Pellet102" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 410.177, 290 )
+collision_mask = 2
+
+[node name="Pellet176" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 230.265, 530 )
+collision_mask = 2
+
+[node name="Pellet175" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 250.265, 530 )
+collision_mask = 2
+
+[node name="Pellet174" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 270.265, 530 )
+collision_mask = 2
+
+[node name="Pellet173" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 290.265, 530 )
+collision_mask = 2
+
+[node name="Pellet172" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 330.088, 530 )
+collision_mask = 2
+
+[node name="Pellet171" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 310.088, 530 )
+collision_mask = 2
+
+[node name="Pellet170" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 350.088, 530 )
+collision_mask = 2
+
+[node name="Pellet169" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 370.088, 530 )
+collision_mask = 2
+
+[node name="Pellet160" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 390.088, 530 )
+collision_mask = 2
+
+[node name="Pellet229" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 350, 570 )
+collision_mask = 2
+
+[node name="Pellet234" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 350.354, 590 )
+collision_mask = 2
+
+[node name="Pellet228" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 370, 570 )
+collision_mask = 2
+
+[node name="Pellet227" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 390, 570 )
+collision_mask = 2
+
+[node name="Pellet232" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 270.354, 570 )
+collision_mask = 2
+
+[node name="Pellet231" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 290.354, 570 )
+collision_mask = 2
+
+[node name="Pellet230" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 310.354, 570 )
+collision_mask = 2
+
+[node name="Pellet233" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 310, 590 )
+collision_mask = 2
+
+[node name="Pellet178" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 410.354, 530 )
+collision_mask = 2
+
+[node name="Pellet177" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 430.354, 530 )
+collision_mask = 2
+
+[node name="Pellet117" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 370, 490 )
+collision_mask = 2
+
+[node name="Pellet116" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 390, 490 )
+collision_mask = 2
+
+[node name="Pellet115" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 410, 490 )
+collision_mask = 2
+
+[node name="Pellet114" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 430, 490 )
+collision_mask = 2
+
+[node name="Pellet64" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.177, 330 )
+collision_mask = 2
+
+[node name="Pellet68" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.265, 330 )
+collision_mask = 2
+
+[node name="Pellet72" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.442, 410 )
+collision_mask = 2
+
+[node name="Pellet91" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.619, 470 )
+collision_mask = 2
+
+[node name="Pellet90" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.972, 550 )
+collision_mask = 2
+
+[node name="Pellet93" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.972, 570 )
+collision_mask = 2
+
+[node name="Pellet237" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 510, 570 )
+collision_mask = 2
+
+[node name="Pellet224" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 490.088, 550 )
+collision_mask = 2
+
+[node name="Pellet223" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 490.177, 570 )
+collision_mask = 2
+
+[node name="Pellet226" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 470.088, 570 )
+collision_mask = 2
+
+[node name="Pellet236" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 530.53, 590 )
+collision_mask = 2
+
+[node name="Pellet235" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 529.116, 570 )
+collision_mask = 2
+
+[node name="Pellet81" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.265, 490 )
+collision_mask = 2
+
+[node name="Pellet143" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 230, 490 )
+collision_mask = 2
+
+[node name="Pellet144" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 250, 490 )
+collision_mask = 2
+
+[node name="Pellet164" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130.177, 490 )
+collision_mask = 2
+
+[node name="Pellet206" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130.177, 510 )
+collision_mask = 2
+
+[node name="Pellet207" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130, 530 )
+collision_mask = 2
+
+[node name="Pellet208" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 150.265, 530 )
+collision_mask = 2
+
+[node name="Pellet209" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 170, 530 )
+collision_mask = 2
+
+[node name="Pellet210" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 170.53, 550 )
+collision_mask = 2
+
+[node name="Pellet211" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 170.619, 570 )
+collision_mask = 2
+
+[node name="Pellet212" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 190.53, 570 )
+collision_mask = 2
+
+[node name="Pellet213" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 150.354, 570 )
+collision_mask = 2
+
+[node name="Pellet214" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130.265, 570 )
+collision_mask = 2
+
+[node name="Pellet215" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130, 590 )
+collision_mask = 2
+
+[node name="Pellet163" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 150.177, 490 )
+collision_mask = 2
+
+[node name="Pellet168" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 470, 490 )
+collision_mask = 2
+
+[node name="Pellet167" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 490, 490 )
+collision_mask = 2
+
+[node name="Pellet146" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 270.265, 490 )
+collision_mask = 2
+
+[node name="Pellet147" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 290.265, 490 )
+collision_mask = 2
+
+[node name="Pellet148" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 310, 490 )
+collision_mask = 2
+
+[node name="Pellet162" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 170.442, 490 )
+collision_mask = 2
+
+[node name="Pellet161" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 190.442, 490 )
+collision_mask = 2
+
+[node name="Pellet166" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 510.265, 490 )
+collision_mask = 2
+
+[node name="Pellet165" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 530.265, 490 )
+collision_mask = 2
+
+[node name="Pellet149" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 310, 510 )
+collision_mask = 2
+
+[node name="Pellet150" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 350.265, 490 )
+collision_mask = 2
+
+[node name="Pellet151" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 350.265, 510 )
+collision_mask = 2
+
+[node name="Pellet155" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 250.442, 270 )
+collision_mask = 2
+
+[node name="Pellet156" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 409.823, 270 )
+collision_mask = 2
+
+[node name="Pellet157" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 150, 290 )
+collision_mask = 2
+
+[node name="Pellet158" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 170.177, 290 )
+collision_mask = 2
+
+[node name="Pellet159" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 190.177, 290 )
+collision_mask = 2
+
+[node name="Pellet80" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.442, 570 )
+collision_mask = 2
+
+[node name="Pellet217" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 250.53, 570 )
+collision_mask = 2
+
+[node name="Pellet219" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 410.442, 570 )
+collision_mask = 2
+
+[node name="Pellet45" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 150.088, 250 )
+collision_mask = 2
+
+[node name="Pellet44" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 170.088, 250 )
+collision_mask = 2
+
+[node name="Pellet43" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 190.088, 250 )
+collision_mask = 2
+
+[node name="Pellet42" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.088, 250 )
+collision_mask = 2
+
+[node name="Pellet41" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 230.088, 250 )
+collision_mask = 2
+
+[node name="Pellet40" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 250.088, 250 )
+collision_mask = 2
+
+[node name="Pellet61" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 150.088, 250 )
+collision_mask = 2
+
+[node name="Pellet60" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 170.088, 250 )
+collision_mask = 2
+
+[node name="Pellet59" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 190.088, 250 )
+collision_mask = 2
+
+[node name="Pellet58" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.088, 250 )
+collision_mask = 2
+
+[node name="Pellet57" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 230.088, 250 )
+collision_mask = 2
+
+[node name="Pellet56" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 250.088, 250 )
+collision_mask = 2
+
+[node name="Pellet39" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 270.088, 250 )
+collision_mask = 2
+
+[node name="Pellet38" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 290.088, 250 )
+collision_mask = 2
+
+[node name="Pellet37" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 310.088, 250 )
+collision_mask = 2
+
+[node name="Pellet36" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 330.088, 250 )
+collision_mask = 2
+
+[node name="Pellet195" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 150.088, 610 )
+collision_mask = 2
+
+[node name="Pellet194" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 170.088, 610 )
+collision_mask = 2
+
+[node name="Pellet193" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 190.088, 610 )
+collision_mask = 2
+
+[node name="Pellet192" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.088, 610 )
+collision_mask = 2
+
+[node name="Pellet191" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 230.088, 610 )
+collision_mask = 2
+
+[node name="Pellet190" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 250.088, 610 )
+collision_mask = 2
+
+[node name="Pellet189" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 150.088, 610 )
+collision_mask = 2
+
+[node name="Pellet188" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 170.088, 610 )
+collision_mask = 2
+
+[node name="Pellet187" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 190.088, 610 )
+collision_mask = 2
+
+[node name="Pellet186" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.088, 610 )
+collision_mask = 2
+
+[node name="Pellet185" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 230.088, 610 )
+collision_mask = 2
+
+[node name="Pellet184" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 250.088, 610 )
+collision_mask = 2
+
+[node name="Pellet183" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 270.088, 610 )
+collision_mask = 2
+
+[node name="Pellet182" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 290.088, 610 )
+collision_mask = 2
+
+[node name="Pellet181" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 310.088, 610 )
+collision_mask = 2
+
+[node name="Pellet180" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 330.088, 610 )
+collision_mask = 2
+
+[node name="Pellet11" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130, 210 )
+collision_mask = 2
+
+[node name="Pellet12" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130.088, 230 )
+collision_mask = 2
+
+[node name="Pellet47" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210, 210 )
+collision_mask = 2
+
+[node name="Pellet46" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.088, 230 )
+collision_mask = 2
+
+[node name="Pellet49" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 310.177, 210 )
+collision_mask = 2
+
+[node name="Pellet48" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 310.265, 230 )
+collision_mask = 2
+
+[node name="Pellet51" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 350, 210 )
+collision_mask = 2
+
+[node name="Pellet50" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 350.088, 230 )
+collision_mask = 2
+
+[node name="Pellet53" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.088, 210 )
+collision_mask = 2
+
+[node name="Pellet52" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.177, 230 )
+collision_mask = 2
+
+[node name="Pellet79" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.088, 370 )
+collision_mask = 2
+
+[node name="Pellet78" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.177, 390 )
+collision_mask = 2
+
+[node name="Pellet55" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 530, 210 )
+collision_mask = 2
+
+[node name="Pellet54" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 530.088, 230 )
+collision_mask = 2
+
+[node name="Pellet63" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.177, 290 )
+collision_mask = 2
+
+[node name="Pellet62" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.265, 310 )
+collision_mask = 2
+
+[node name="Pellet67" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.265, 290 )
+collision_mask = 2
+
+[node name="Pellet66" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.354, 310 )
+collision_mask = 2
+
+[node name="Pellet71" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.442, 370 )
+collision_mask = 2
+
+[node name="Pellet70" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.53, 390 )
+collision_mask = 2
+
+[node name="Pellet89" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.619, 430 )
+collision_mask = 2
+
+[node name="Pellet88" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.707, 450 )
+collision_mask = 2
+
+[node name="Pellet87" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.795, 510 )
+collision_mask = 2
+
+[node name="Pellet86" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 450.884, 530 )
+collision_mask = 2
+
+[node name="Pellet222" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 490, 530 )
+collision_mask = 2
+
+[node name="Pellet221" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 530.354, 510 )
+collision_mask = 2
+
+[node name="Pellet220" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 530.442, 530 )
+collision_mask = 2
+
+[node name="Pellet225" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 510, 530 )
+collision_mask = 2
+
+[node name="Pellet77" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.265, 450 )
+collision_mask = 2
+
+[node name="Pellet76" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.354, 470 )
+collision_mask = 2
+
+[node name="Pellet75" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.442, 530 )
+collision_mask = 2
+
+[node name="Pellet74" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 210.53, 550 )
+collision_mask = 2
+
+[node name="Pellet216" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 250.619, 550 )
+collision_mask = 2
+
+[node name="Pellet218" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 410.53, 550 )
+collision_mask = 2
+
+[node name="Pellet13" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130, 250 )
+collision_mask = 2
+
+[node name="Pellet179" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130, 610 )
+collision_mask = 2
+
+[node name="Pellet14" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130, 270 )
+collision_mask = 2
+
+[node name="Pellet15" parent="Pellets" instance=ExtResource( 1 )]
+position = Vector2( 130, 290 )
+collision_mask = 2

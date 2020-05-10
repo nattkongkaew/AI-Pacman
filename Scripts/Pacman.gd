@@ -20,4 +20,4 @@ func _process(delta):
 		direction = Vector2(1,0)
 		rotation = deg2rad(0)
 		
-	move_and_collide(speed * direction * delta)
+	move_and_slide(speed * direction)

@@ -47,8 +47,6 @@ margin_bottom = 152.0
 [node name="PathShape" type="NavigationPolygonInstance" parent="GhostPath"]
 navpoly = SubResource( 2 )
 
-[node name="Pinky" parent="." instance=ExtResource( 5 )]
-
 [node name="Clyde" parent="." instance=ExtResource( 4 )]
 position = Vector2( 360, 392 )
 scale = Vector2( 0.6, 0.6 )
@@ -60,3 +58,6 @@ scale = Vector2( 0.6, 0.6 )
 [node name="Blinky" parent="." instance=ExtResource( 6 )]
 position = Vector2( 329.791, 333.297 )
 scale = Vector2( 0.6, 0.6 )
+
+[node name="Pinky" parent="." instance=ExtResource( 5 )]
+position = Vector2( 340, 320 )

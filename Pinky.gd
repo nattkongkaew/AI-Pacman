@@ -1,15 +1,20 @@
-extends AnimatedSprite
+extends KinematicBody2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+onready var pacman_player = get_parent().get_node("Pacman")
 
+var player_position
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var motion = Vector2()
 
-
-func chase_player_path():
-	pass
+func _physics_process(delta):
+# Pacman position and Pinky position
+	if pacman_player.position.x < position.x:
+		motion.x = -100
+	if pacman_player.position.x > position.x:
+		motion.x = +100
+	if pacman_player.position.y < position.y:
+		motion.y = -100
+	if pacman_player.position.y > position.y:
+		motion.y = +100
+	motion = move_and_slide(motion, motion)

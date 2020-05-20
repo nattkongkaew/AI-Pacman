@@ -1,20 +1,22 @@
-extends KinematicBody2D
+extends Area2D
 
+onready var  walls = get_parent().get_node("Navigation2D/Walls")
+var path = []
+var direction = Vector2(0,0)
+var SPEED = 50
 
-onready var pacman_player = get_parent().get_node("Pacman")
-
-var player_position
-
-var motion = Vector2()
-
+func _ready():
+	position = walls.get_enemy_pos()
+	path = walls.get_path_to_player()
+	
 func _physics_process(delta):
-# Pacman position and Pinky position
-	if pacman_player.position.x < position.x:
-		motion.x = -100
-	if pacman_player.position.x > position.x:
-		motion.x = +100
-	if pacman_player.position.y < position.y:
-		motion.y = -100
-	if pacman_player.position.y > position.y:
-		motion.y = +100
-	motion = move_and_slide(motion, motion)
+	if(path.size() > 1):
+		var pos_to_move = path[0]
+		direction = (pos_to_move - position).normalized()
+		var distance = position.distance_to(path[0])
+		if(distance > 1):
+			position += SPEED * delta * direction
+		else:
+			path.remove(0)
+	else:
+		path = walls.get_path_to_player()

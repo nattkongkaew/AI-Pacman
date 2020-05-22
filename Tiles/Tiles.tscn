@@ -2,12 +2,12 @@
 
 [ext_resource path="res://images/pacman-player-maze.png" type="Texture" id=1]
 
-[sub_resource type="NavigationPolygon" id=51]
+[sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 0, 0, 20, 0, 20, 20, 0, 20 )
 polygons = [ PoolIntArray( 0, 1, 2, 3, 0 ) ]
 outlines = [ PoolVector2Array( 0, 0, 20, 0, 20, 20, 0, 20, 0, 0 ) ]
 
-[sub_resource type="NavigationPolygon" id=50]
+[sub_resource type="NavigationPolygon" id=2]
 vertices = PoolVector2Array( 0, 0, 20, 0, 20, 20, 0, 20 )
 polygons = [ PoolIntArray( 0, 1, 2, 3, 0 ) ]
 outlines = [ PoolVector2Array( 0, 0, 20, 0, 20, 20, 0, 20, 0, 0 ) ]
@@ -280,7 +280,7 @@ region_enabled = true
 region_rect = Rect2( 218, 194, 20, 20 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="23"]
-navpoly = SubResource( 51 )
+navpoly = SubResource( 1 )
 
 [node name="24" type="Sprite" parent="."]
 position = Vector2( 340, -20 )
@@ -376,6 +376,6 @@ region_rect = Rect2( 240, 140, 20, 20 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="50"]
 modulate = Color( 0.729412, 0.180392, 0.180392, 1 )
-navpoly = SubResource( 50 )
+navpoly = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

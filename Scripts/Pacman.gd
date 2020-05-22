@@ -2,7 +2,8 @@ extends KinematicBody2D
 
 var direction = Vector2(0,0)
 var speed = 100
-onready var walls = get_parent().get_node("Navigation2D/Walls")
+
+onready var walls = get_parent().get_node("GhostPath/Walls")
 
 func _ready():
 	$AnimatedSprite.play("moving")

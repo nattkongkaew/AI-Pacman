@@ -37,7 +37,7 @@ height = 1.42011
 collision_mask = 0
 script = ExtResource( 5 )
 
-[node name="ClydeImage" type="AnimatedSprite" parent="."]
+[node name="ClydeAnimation" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.6, 0.6 )
 frames = SubResource( 1 )
 animation = "right"

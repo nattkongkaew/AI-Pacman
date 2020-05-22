@@ -3,6 +3,7 @@ extends KinematicBody2D
 onready var speed : = 80.0
 onready var Player = get_parent().get_node("Pacman")
 onready var GhostPath = get_parent().get_node("GhostPath")
+onready var AnimateClyde = get_node("ClydeAnimation")
 var path_for_ghost = []
 var path_to_base = []
 var start_position = self.position
@@ -20,6 +21,8 @@ func _ready():
 func _process(delta):
 	if(position.distance_to(Player.position) > 150):
 		track_player = true
+	
+	change_clyde_animation()
 	
 	if(position.distance_to(Player.position) > 75 and track_player == true):
 		if(path_for_ghost.size() > 1):
@@ -56,3 +59,14 @@ func move_clyde_to_base(delta: float) -> void:
 		position += speed * delta * direction
 	else:
 		path_to_base.remove(0)
+
+
+func change_clyde_animation():
+	if(direction.y > 0 and direction.y > direction.x):
+		AnimateClyde.set_animation("down")
+	if(direction.y < 0 and direction.y < direction.x):
+		AnimateClyde.set_animation("up")
+	if(direction.x > 0 and direction.x > direction.y):
+		AnimateClyde.set_animation("right")
+	if(direction.x < 0 and direction.x < direction.y):
+		AnimateClyde.set_animation("left")

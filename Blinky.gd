@@ -1,15 +1,19 @@
 extends Area2D
 
 onready var  walls = get_parent().get_node("Navigation2D/Walls")
+onready var blinky_animation = get_node("AnimatedSprite")
 var path = []
 var direction = Vector2(0,0)
 var SPEED = 100
+
 
 func _ready():
 	position = walls.get_blinky_pos()
 	path = walls.get_blinky_path_to_player()
 	
 func _physics_process(delta):
+	blinky_animation()
+	
 	if(path.size() > 1):
 		var pos_to_move = path[0]
 		direction = (pos_to_move - position).normalized()
@@ -20,3 +24,13 @@ func _physics_process(delta):
 			path.remove(0)
 	else:
 		path = walls.get_blinky_path_to_player()
+		
+func blinky_animation():
+	if(direction.y > 0 and direction.y > direction.x):
+		blinky_animation.set_animation("down")
+	if(direction.y < 0 and direction.y < direction.x):
+		blinky_animation.set_animation("up")
+	if(direction.x > 0 and direction.x > direction.y):
+		blinky_animation.set_animation("right")
+	if(direction.x < 0 and direction.x < direction.y):
+		blinky_animation.set_animation("left")

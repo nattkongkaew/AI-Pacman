@@ -2,6 +2,7 @@ extends Area2D
 
 onready var  walls = get_parent().get_node("Navigation2D/Walls")
 onready var player_score = get_parent().get_node("BoardScoreboard")
+onready var inky_animation = get_node("AnimatedSprite")
 var path = []
 var direction = Vector2(0,0)
 var SPEED = 100
@@ -13,7 +14,9 @@ func _ready():
 	pass
 	
 func _physics_process(delta):
-
+	
+	inky_animation()
+	
 	if(player_score.get_current_score() < 300):
 		return
 		
@@ -27,3 +30,13 @@ func _physics_process(delta):
 			path.remove(0)
 	else:
 		path = walls.get_inky_path_to_player()
+
+func inky_animation():
+	if(direction.y > 0 and direction.y > direction.x):
+		inky_animation.set_animation("down")
+	if(direction.y < 0 and direction.y < direction.x):
+		inky_animation.set_animation("up")
+	if(direction.x > 0 and direction.x > direction.y):
+		inky_animation.set_animation("right")
+	if(direction.x < 0 and direction.x < direction.y):
+		inky_animation.set_animation("left")

@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var direction = Vector2(0,0)
 var speed = 100
+onready var walls = get_parent().get_node("Navigation2D/Walls")
 
 func _ready():
 	$AnimatedSprite.play("moving")
@@ -20,4 +21,5 @@ func _process(delta):
 		direction = Vector2(1,0)
 		rotation = deg2rad(0)
 		
-	move_and_collide(speed * direction * delta)
+	move_and_slide(speed * direction)
+

@@ -17,12 +17,15 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=2]
 
 [node name="Pacman" type="KinematicBody2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.740741, 0.740741 )
 frames = SubResource( 1 )
 animation = "moving"
+frame = 2
 speed_scale = 3.0
 playing = true
 

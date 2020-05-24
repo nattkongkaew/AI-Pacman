@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 onready var speed : = 70.0
+onready var PlayerScore = get_parent().get_node("BoardScoreboard")
 onready var Player = get_parent().get_node("Pacman")
 onready var GhostPath = get_parent().get_node("GhostPath")
 onready var AnimateClyde = get_node("ClydeAnimation")
@@ -19,6 +20,9 @@ func _ready():
 
 
 func _process(delta):
+	if(PlayerScore.get_current_score() < 400):
+		return
+	
 	if(position.distance_to(Player.position) > 150):
 		track_player = true
 	

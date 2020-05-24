@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var  walls = get_parent().get_node("Navigation2D/Walls")
+onready var  walls = get_parent().get_node("GhostPath/Walls")
 onready var player_score = get_parent().get_node("BoardScoreboard")
 onready var inky_animation = get_node("AnimatedSprite")
 var path = []

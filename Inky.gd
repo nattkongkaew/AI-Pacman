@@ -13,10 +13,12 @@ func _ready():
 	path = walls.get_inky_path_to_player()
 	pass
 	
+# Inky movement function
 func _physics_process(delta):
 	
 	inky_animation()
 	
+	# Set inky to get out the box whenn pacman eats over 300 pellets
 	if(player_score.get_current_score() < 300):
 		return
 		
@@ -31,6 +33,7 @@ func _physics_process(delta):
 	else:
 		path = walls.get_inky_path_to_player()
 
+# Set Inky to change sprite according to its direction.
 func inky_animation():
 	if(direction.y > 0 and direction.y > direction.x):
 		inky_animation.set_animation("down")

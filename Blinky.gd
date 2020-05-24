@@ -10,7 +10,8 @@ var SPEED = 100
 func _ready():
 	position = walls.get_blinky_pos()
 	path = walls.get_blinky_path_to_player()
-	
+
+# Blinky movement function
 func _physics_process(delta):
 	blinky_animation()
 	
@@ -24,7 +25,8 @@ func _physics_process(delta):
 			path.remove(0)
 	else:
 		path = walls.get_blinky_path_to_player()
-		
+
+# Change Blinky sprite accoring to its diection.
 func blinky_animation():
 	if(direction.y > 0 and direction.y > direction.x):
 		blinky_animation.set_animation("down")

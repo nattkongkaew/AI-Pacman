@@ -16,21 +16,26 @@ func _ready() -> void:
 #	pass
 onready var walls = get_parent().get_node("Walls")
 
+# Get Blinky position
 func get_blinky_pos():
 	var pos = map_to_world(Vector2(16,19))
 	pos.y += half_cell_size.y
 	return pos
 
+# Get Pacman position
 func get_player_pos():
 	return player.position
 
+#get Inky position
 func get_inky_pos():
 	return inky.position
 
+# Get path from Blinky position to Pacman position
 func get_blinky_path_to_player():
 	var path = get_parent().get_simple_path(blinky.position, player.position, false)
 	return path
-	
+
+# Get path from Inky to Pacman
 func get_inky_path_to_player():
 	var desired_coords = player.position	
 	var direction = blinky.position.direction_to(player.position).normalized()

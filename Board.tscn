@@ -13,7 +13,7 @@ script/source = "extends Node2D
 
 
 onready var Scoreboard = $BoardScoreboard
-onready var Pellets = $Walls/Pellets
+onready var Pellets = $GhostPath/Walls/Pellets
 
 
 func _ready():
@@ -30,8 +30,6 @@ outlines = [ PoolVector2Array( 107.812, 169.755, 108.221, 305.691, 188.223, 305.
 [node name="Board" type="Node2D"]
 script = SubResource( 1 )
 
-[node name="Walls" parent="." instance=ExtResource( 2 )]
-
 [node name="Pacman" parent="." instance=ExtResource( 1 )]
 position = Vector2( 330, 530 )
 scale = Vector2( 0.8, 0.8 )
@@ -46,6 +44,8 @@ margin_bottom = 152.0
 
 [node name="PathShape" type="NavigationPolygonInstance" parent="GhostPath"]
 navpoly = SubResource( 2 )
+
+[node name="Walls" parent="GhostPath" instance=ExtResource( 2 )]
 
 [node name="Pinky" parent="." instance=ExtResource( 5 )]
 

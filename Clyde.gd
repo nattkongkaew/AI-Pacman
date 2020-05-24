@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-onready var speed : = 80.0
+onready var speed : = 70.0
 onready var Player = get_parent().get_node("Pacman")
 onready var GhostPath = get_parent().get_node("GhostPath")
 onready var AnimateClyde = get_node("ClydeAnimation")

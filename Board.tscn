@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Pacman.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Walls.tscn" type="PackedScene" id=2]
 [ext_resource path="res://BoardScoreboard.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Clyde.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Pinky.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Blinky.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Inky.tscn" type="PackedScene" id=7]
 
@@ -46,12 +44,6 @@ margin_bottom = 152.0
 navpoly = SubResource( 2 )
 
 [node name="Walls" parent="GhostPath" instance=ExtResource( 2 )]
-
-[node name="Pinky" parent="." instance=ExtResource( 5 )]
-
-[node name="Clyde" parent="." instance=ExtResource( 4 )]
-position = Vector2( 360, 392 )
-scale = Vector2( 0.6, 0.6 )
 
 [node name="Inky" parent="." instance=ExtResource( 7 )]
 position = Vector2( 296, 392 )

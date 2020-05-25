@@ -33,7 +33,7 @@ animations = [ {
 radius = 8.8486
 height = 1.42011
 
-[node name="Clyde" type="KinematicBody2D"]
+[node name="Clyde" type="Area2D"]
 collision_mask = 0
 script = ExtResource( 5 )
 

@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Area2D
 
 onready var speed : = 70.0
 onready var PlayerScore = get_parent().get_node("BoardScoreboard")

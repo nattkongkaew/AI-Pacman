@@ -3,7 +3,7 @@ extends Area2D
 onready var  walls = get_parent().get_node("GhostPath/Walls")
 var path = []
 var direction = Vector2(0,0)
-var SPEED = 65
+var SPEED = 100
 var path1 = []
 var path2 = []
 var path3 = []

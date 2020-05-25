@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var speed : = 70.0
+onready var speed = 100.0
 onready var PlayerScore = get_parent().get_node("BoardScoreboard")
 onready var Player = get_parent().get_node("Pacman")
 onready var GhostPath = get_parent().get_node("GhostPath")

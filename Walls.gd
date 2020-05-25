@@ -5,6 +5,7 @@ onready var half_cell_size = get_cell_size()/2
 onready var player = get_parent().get_parent().get_node("Pacman")
 onready var blinky = get_parent().get_parent().get_node("Blinky")
 onready var inky = get_parent().get_parent().get_node("Inky")
+onready var pinky = get_parent().get_parent().get_node("Pinky")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -55,4 +56,33 @@ func get_inky_path_to_player():
 		desired_coords.y = desired_coords.y+32
 	
 	var path = get_parent().get_simple_path(inky.position, desired_coords, false)
+	return path
+	
+	
+	
+	
+	
+func get_pinky_pos():
+	return pinky.position
+
+
+
+func get_path_to_player():
+	var path = get_parent().get_simple_path(pinky.position,player.position + Vector2(116,0), false)
+	return path
+
+func get_first_path():
+	var path = get_parent().get_simple_path(pinky.position,player.position + Vector2(72,0) , false)
+	return path
+
+func get_second_path():
+	var path = get_parent().get_simple_path(pinky.position,player.position + Vector2(-72,0) , false)
+	return path
+
+func get_third_path():
+	var path = get_parent().get_simple_path(pinky.position,player.position + Vector2(0,72) , false)
+	return path
+
+func get_fourth_path():
+	var path = get_parent().get_simple_path(pinky.position,player.position + Vector2(0,-72) , false)
 	return path

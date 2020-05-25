@@ -1,6 +1,7 @@
 extends Area2D
 
 onready var  walls = get_parent().get_node("GhostPath/Walls")
+onready var player_score = get_parent().get_node("BoardScoreboard")
 var path = []
 var direction = Vector2(0,0)
 var SPEED = 100
@@ -22,6 +23,9 @@ func _ready():
 
 	
 func _physics_process(delta):
+	if(player_score.get_current_score() < 100):
+		return
+		
 	if(path < path1 and path2 and path3 and path4):
 		if(path.size() > 1):
 			move_path(delta)

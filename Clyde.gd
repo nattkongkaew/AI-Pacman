@@ -5,12 +5,12 @@ onready var PlayerScore = get_parent().get_node("BoardScoreboard")
 onready var Player = get_parent().get_node("Pacman")
 onready var GhostPath = get_parent().get_node("GhostPath")
 onready var AnimateClyde = get_node("ClydeAnimation")
+onready var clyde_can_move = false
 var path_for_ghost = []
 var path_to_base = []
 var start_position = self.position
 var direction = Vector2(0,0)
 var track_player = true
-
 
 # Source: https://www.youtube.com/watch?v=2xiE27j4iiw
 func _ready():
@@ -20,6 +20,9 @@ func _ready():
 
 
 func _process(delta):
+	if(get_clyde_can_move() == false):
+		return
+		
 	if(PlayerScore.get_current_score() < 400):
 		return
 	
@@ -74,3 +77,11 @@ func change_clyde_animation():
 		AnimateClyde.set_animation("right")
 	if(direction.x < 0 and direction.x < direction.y):
 		AnimateClyde.set_animation("left")
+
+
+func get_clyde_can_move():
+	return clyde_can_move
+
+
+func set_clyde_can_move(can_move):
+	clyde_can_move = can_move

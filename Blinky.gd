@@ -2,6 +2,7 @@ extends Area2D
 
 onready var  walls = get_parent().get_node("GhostPath/Walls")
 onready var blinky_animation = get_node("AnimatedSprite")
+onready var blinky_can_move = false
 var path = []
 var direction = Vector2(0,0)
 var SPEED = 100
@@ -13,6 +14,9 @@ func _ready():
 
 # Blinky movement function
 func _physics_process(delta):
+	if(get_blinky_can_move() == false):
+		return
+	
 	blinky_animation()
 	
 	if(path.size() > 1):
@@ -36,3 +40,11 @@ func blinky_animation():
 		blinky_animation.set_animation("right")
 	if(direction.x < 0 and direction.x < direction.y):
 		blinky_animation.set_animation("left")
+
+
+func get_blinky_can_move():
+	return blinky_can_move
+
+
+func set_blinky_can_move(can_move):
+	blinky_can_move = can_move

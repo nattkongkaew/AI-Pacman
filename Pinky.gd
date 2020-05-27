@@ -2,6 +2,7 @@ extends Area2D
 
 onready var  walls = get_parent().get_node("GhostPath/Walls")
 onready var player_score = get_parent().get_node("BoardScoreboard")
+onready var pinky_can_move = false
 var path = []
 var direction = Vector2(0,0)
 var SPEED = 100
@@ -23,6 +24,9 @@ func _ready():
 
 	
 func _physics_process(delta):
+	if(get_pinky_can_move() == false):
+		return
+	
 	if(player_score.get_current_score() < 100):
 		return
 		
@@ -127,3 +131,11 @@ func move_path4(delta: float) -> void:
 		position += SPEED * delta * direction
 	else:
 		path4.remove(0)
+
+
+func get_pinky_can_move():
+	return pinky_can_move
+
+
+func set_pinky_can_move(can_move):
+	pinky_can_move = can_move

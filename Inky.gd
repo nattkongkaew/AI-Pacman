@@ -3,6 +3,7 @@ extends Area2D
 onready var  walls = get_parent().get_node("GhostPath/Walls")
 onready var player_score = get_parent().get_node("BoardScoreboard")
 onready var inky_animation = get_node("AnimatedSprite")
+onready var inky_can_move = false
 var path = []
 var direction = Vector2(0,0)
 var SPEED = 100
@@ -15,6 +16,8 @@ func _ready():
 	
 # Inky movement function
 func _physics_process(delta):
+	if(get_inky_can_move() == false):
+		return
 	
 	inky_animation()
 	
@@ -43,3 +46,11 @@ func inky_animation():
 		inky_animation.set_animation("right")
 	if(direction.x < 0 and direction.x < direction.y):
 		inky_animation.set_animation("left")
+
+
+func get_inky_can_move():
+	return inky_can_move
+
+
+func set_inky_can_move(can_move):
+	inky_can_move = can_move

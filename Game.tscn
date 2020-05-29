@@ -20,15 +20,25 @@ z_index = -1
 position = Vector2( 620, 0 )
 z_index = -1
 
-[node name="PlayerText" type="Sprite" parent="."]
-position = Vector2( 320, 680 )
-z_index = -1
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 272.0
+margin_top = 616.0
+margin_right = 372.0
+margin_bottom = 716.0
 texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="AIText" type="Sprite" parent="."]
-position = Vector2( 952, 680 )
-z_index = -1
+[node name="TextureRect2" type="TextureRect" parent="."]
+margin_left = 904.0
+margin_top = 624.0
+margin_right = 1004.0
+margin_bottom = 724.0
 texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="StartButton" type="Button" parent="."]
 margin_left = 520.0
@@ -43,7 +53,7 @@ __meta__ = {
 }
 
 [node name="MessageTimer" type="Timer" parent="."]
-[connection signal="pressed" from="StartButton" to="Player-Board" method="_on_StartButton_pressed"]
 [connection signal="pressed" from="StartButton" to="AI-Board" method="_on_StartButton_pressed"]
-[connection signal="start_game" from="StartButton" to="Player-Board" method="_on_StartButton_start_game"]
+[connection signal="pressed" from="StartButton" to="Player-Board" method="_on_StartButton_pressed"]
 [connection signal="start_game" from="StartButton" to="AI-Board" method="_on_StartButton_start_game"]
+[connection signal="start_game" from="StartButton" to="Player-Board" method="_on_StartButton_start_game"]

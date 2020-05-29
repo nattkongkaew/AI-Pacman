@@ -1,5 +1,7 @@
 extends Area2D
 
+signal hit
+
 onready var speed = 100.0
 onready var PlayerScore = get_parent().get_node("BoardScoreboard")
 onready var Player = get_parent().get_node("Pacman")

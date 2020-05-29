@@ -1,5 +1,7 @@
 extends Area2D
 
+signal hit
+
 onready var  walls = get_parent().get_node("GhostPath/Walls")
 onready var blinky_animation = get_node("AnimatedSprite")
 onready var blinky_can_move = false

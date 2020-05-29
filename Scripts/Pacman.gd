@@ -3,6 +3,8 @@ extends KinematicBody2D
 var direction = Vector2(0,0)
 var speed = 100
 onready var move_pacman = false
+onready var Board = get_parent()
+onready var GameOverScreen = get_parent().get_node("GameOver")
 
 func _ready():
 	$AnimatedSprite.play("moving")
@@ -32,3 +34,32 @@ func set_move_pacman(can_move):
 
 func get_move_pacman():
 	return move_pacman
+
+
+func _on_Clyde_body_entered(body):
+	if(body == self):
+		speed = 0
+		hide()
+		GameOverScreen.show()
+		Board.end_game()
+
+
+func _on_Inky_body_entered(body):
+	if(body == self):
+		speed = 0
+		hide()
+		GameOverScreen.show()
+		Board.end_game()
+
+
+func _on_Blinky_body_entered(body):
+	if(body == self):
+		speed = 0
+		hide()
+		GameOverScreen.show()
+		Board.end_game()
+
+
+func _on_Pinky_body_entered(body):
+	if(body == self):
+		Board.end_game()

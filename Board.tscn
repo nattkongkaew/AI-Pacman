@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Pacman.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Walls.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Inky.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Pinky.gd" type="Script" id=8]
 [ext_resource path="res://images/ghosts/pinky_down.png" type="Texture" id=9]
+[ext_resource path="res://sansation/Sansation-Bold.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://GameOver.gd" type="Script" id=11]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -24,6 +26,7 @@ onready var Inky : Area2D = $Inky
 onready var Clyde : Node2D = $Clyde
 onready var GhostPath : Navigation2D = $GhostPath
 onready var StartButton = get_parent().get_node(\"StartButton\")
+onready var GameOver = get_node(\"GameOver\")
 
 
 func _ready():
@@ -46,6 +49,20 @@ func _on_StartButton_pressed():
 	Inky.set_inky_can_move(true)
 	Clyde.set_clyde_can_move(true)
 	emit_signal(\"start_game\")
+
+
+func end_game():
+	Pacman.set_move_pacman(false)
+	Pacman.hide()
+	Pacman.speed = 0
+	
+	Blinky.set_blinky_can_move(false)
+	Pinky.set_pinky_can_move(false)
+	Inky.set_inky_can_move(false)
+	Clyde.set_clyde_can_move(false)
+	
+	Scoreboard.set_time_updating(false)
+	GameOver.show()
 "
 
 [sub_resource type="NavigationPolygon" id=2]
@@ -54,6 +71,10 @@ polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5 ), PoolIntArray( 6, 7, 8, 9, 10 ), P
 outlines = [ PoolVector2Array( 107.812, 169.755, 108.221, 305.691, 188.223, 305.392, 188.242, 374.696, 100.294, 374.472, 100.129, 405.725, 188.071, 405.822, 188.221, 474.109, 108.95, 474.593, 108.659, 541.728, 160.075, 541.769, 160.331, 558.553, 108.327, 558.597, 108.346, 631.962, 552.045, 631.523, 551.84, 558.123, 499.876, 558.033, 499.945, 541.918, 551.927, 541.809, 551.854, 474.085, 471.78, 474.112, 471.855, 406.387, 560.122, 405.547, 560.086, 374.265, 471.881, 374.33, 471.881, 305.777, 551.735, 305.38, 551.568, 168.038, 338.108, 167.949, 338.108, 240.141, 321.669, 239.986, 321.794, 168.166, 108.885, 168.228 ), PoolVector2Array( 139.758, 203.359, 139.447, 236.625, 199.372, 237.014, 199.45, 203.592 ), PoolVector2Array( 219.643, 203.25, 219.643, 236.672, 299.233, 236.672, 299.355, 203.608 ), PoolVector2Array( 359.829, 203.875, 439.07, 203.234, 439.094, 235.991, 359.915, 236.405 ), PoolVector2Array( 459.583, 203.491, 459.514, 236.35, 519.71, 236.212, 519.227, 203.422 ), PoolVector2Array( 139.365, 261.212, 139.764, 278.562, 199.893, 278.363, 199.993, 261.311 ), PoolVector2Array( 259.683, 278.742, 259.484, 261.291, 400.025, 261.471, 400.424, 278.722, 340.992, 278.822, 338.599, 282.411, 338.699, 320.304, 321.149, 320.902, 321.228, 282.511, 318.835, 278.522 ), PoolVector2Array( 459.675, 261.828, 459.864, 278.627, 520.174, 278.627, 520.237, 261.513 ), PoolVector2Array( 359.851, 301.432, 359.851, 318.344, 418.307, 318.405, 421.206, 322.45, 421.252, 380.278, 438.393, 380.504, 438.347, 259.683, 421.883, 259.683, 421.545, 298.701, 418.387, 301.295 ), PoolVector2Array( 221.164, 260.209, 221.45, 380.273, 238.635, 380.188, 238.623, 321.6, 241.485, 318.595, 300.443, 318.309, 300.443, 301.423, 241.342, 301.566, 239.052, 298.847, 238.909, 260.066 ), PoolVector2Array( 221.555, 399.553, 221.525, 480.174, 238.594, 480.152, 238.501, 399.246 ), PoolVector2Array( 421.582, 400.018, 420.804, 480.18, 438.509, 480.277, 438.607, 399.824 ), PoolVector2Array( 259.551, 461.037, 400.567, 461.746, 400.745, 478.813, 341.107, 478.813, 338.972, 481.517, 338.83, 520.232, 321.181, 520.374, 321.608, 480.948, 318.903, 478.528, 259.55, 478.813 ), PoolVector2Array( 359.941, 501.257, 359.84, 518.59, 440.322, 518.489, 440.322, 501.561 ), PoolVector2Array( 220.222, 501.44, 220.222, 518.671, 300.198, 518.671, 299.995, 501.136 ), PoolVector2Array( 139.521, 518.537, 139.742, 501.389, 198.13, 501.157, 198.732, 559.985, 181.007, 559.87, 181.355, 521.523, 178.69, 518.859 ), PoolVector2Array( 461.085, 560.545, 461.519, 501.907, 520.072, 501.907, 520.241, 518.661, 480.98, 518.661, 478.611, 522.215, 478.905, 560.545 ), PoolVector2Array( 359.904, 598.641, 520.182, 598.497, 520.08, 580.989, 441.036, 581.399, 438.681, 578.839, 438.436, 539.337, 421.951, 539.849, 421.542, 578.45, 418.675, 581.214, 359.945, 581.501 ), PoolVector2Array( 321.527, 600.594, 339.132, 600.926, 338.966, 561.398, 341.125, 559.239, 399.586, 558.907, 400.915, 541.634, 260.076, 541.8, 259.744, 558.242, 317.541, 558.076, 321.195, 562.229 ), PoolVector2Array( 139.5, 581.461, 139.833, 599.066, 299.77, 598.567, 300.102, 581.959, 240.977, 581.129, 238.818, 578.139, 238.601, 539.776, 221.545, 539.608, 221.336, 577.888, 219.054, 580.963 ), PoolVector2Array( 310.495, 345.26, 265.195, 345.719, 265.794, 435.152, 394.354, 434.553, 393.955, 346.317, 349.65, 345.389, 349.65, 354.435, 385.77, 354.502, 385.832, 425.404, 274.777, 425.37, 274.378, 354.702, 310.71, 354.502 ) ]
 
 [sub_resource type="RectangleShape2D" id=3]
+
+[sub_resource type="DynamicFont" id=4]
+size = 26
+font_data = ExtResource( 10 )
 
 [node name="Board" type="Node2D"]
 script = SubResource( 1 )
@@ -101,3 +122,20 @@ texture = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pinky"]
 shape = SubResource( 3 )
+
+[node name="GameOver" type="Label" parent="."]
+margin_left = 264.0
+margin_top = 432.0
+margin_right = 396.0
+margin_bottom = 467.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.745098, 0.176471, 0.176471, 1 )
+text = "Game Over"
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="body_entered" from="Clyde" to="Pacman" method="_on_Clyde_body_entered"]
+[connection signal="body_entered" from="Inky" to="Pacman" method="_on_Inky_body_entered"]
+[connection signal="body_entered" from="Blinky" to="Pacman" method="_on_Blinky_body_entered"]
+[connection signal="body_entered" from="Pinky" to="Pacman" method="_on_Pinky_body_entered"]

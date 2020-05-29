@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Pellet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Tiles/tiles.tres" type="TileSet" id=2]
 [ext_resource path="res://Walls.gd" type="Script" id=3]
+[ext_resource path="res://PowerPellet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Fruit.tscn" type="PackedScene" id=5]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 210.35, 251.15, 0, 0, 0, 0, 209.6, 490.4, 0, 0, 0, 0, 310.1, 490.65, 0, 0, 0, 0, 309.6, 530.65, 0, 0, 0, 0, 349.85, 530.4, 0, 0, 0, 0, 350.1, 489.65, 0, 0, 0, 0, 450.1, 489.9, 0, 0, 0, 0, 449.1, 250.4, 0, 0, 0, 0, 409.35, 250.15, 0, 0, 0, 0, 409.85, 289.4, 0, 0, 0, 0, 350.1, 289.65, 0, 0, 0, 0, 350.35, 330.4, 0, 0, 0, 0, 311.1, 329.9, 0, 0, 0, 0, 310.1, 290.15, 0, 0, 0, 0, 249.85, 290.15, 0, 0, 0, 0, 250.85, 250.15, 0, 0, 0, 0, 210.6, 251.4, 0, 0, 0, 0, 210.1, 249.65, 0, 0, 0, 0, 210.35, 251.15 )
+}
 
 [node name="Walls" type="TileMap"]
 tile_set = ExtResource( 2 )
@@ -404,10 +411,6 @@ collision_mask = 2
 position = Vector2( 470.088, 570 )
 collision_mask = 2
 
-[node name="Pellet236" parent="Pellets" instance=ExtResource( 1 )]
-position = Vector2( 530.53, 590 )
-collision_mask = 2
-
 [node name="Pellet235" parent="Pellets" instance=ExtResource( 1 )]
 position = Vector2( 529.116, 570 )
 collision_mask = 2
@@ -462,10 +465,6 @@ collision_mask = 2
 
 [node name="Pellet214" parent="Pellets" instance=ExtResource( 1 )]
 position = Vector2( 130.265, 570 )
-collision_mask = 2
-
-[node name="Pellet215" parent="Pellets" instance=ExtResource( 1 )]
-position = Vector2( 130, 590 )
 collision_mask = 2
 
 [node name="Pellet163" parent="Pellets" instance=ExtResource( 1 )]
@@ -680,10 +679,6 @@ collision_mask = 2
 position = Vector2( 330.088, 610 )
 collision_mask = 2
 
-[node name="Pellet11" parent="Pellets" instance=ExtResource( 1 )]
-position = Vector2( 130, 210 )
-collision_mask = 2
-
 [node name="Pellet12" parent="Pellets" instance=ExtResource( 1 )]
 position = Vector2( 130.088, 230 )
 collision_mask = 2
@@ -726,10 +721,6 @@ collision_mask = 2
 
 [node name="Pellet78" parent="Pellets" instance=ExtResource( 1 )]
 position = Vector2( 210.177, 390 )
-collision_mask = 2
-
-[node name="Pellet55" parent="Pellets" instance=ExtResource( 1 )]
-position = Vector2( 530, 210 )
 collision_mask = 2
 
 [node name="Pellet54" parent="Pellets" instance=ExtResource( 1 )]
@@ -831,3 +822,26 @@ collision_mask = 2
 [node name="Pellet15" parent="Pellets" instance=ExtResource( 1 )]
 position = Vector2( 130, 290 )
 collision_mask = 2
+
+[node name="PowerPellets" type="Node2D" parent="."]
+
+[node name="PowerPellet1" parent="PowerPellets" instance=ExtResource( 4 )]
+position = Vector2( 526.088, 211.071 )
+
+[node name="PowerPellet2" parent="PowerPellets" instance=ExtResource( 4 )]
+position = Vector2( 124.461, 209.657 )
+
+[node name="PowerPellet3" parent="PowerPellets" instance=ExtResource( 4 )]
+position = Vector2( 124.961, 588.657 )
+
+[node name="PowerPellet4" parent="PowerPellets" instance=ExtResource( 4 )]
+position = Vector2( 526.961, 589.657 )
+
+[node name="FruitSpawnPath" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="FruitSpawnLocation" type="PathFollow2D" parent="FruitSpawnPath"]
+position = Vector2( 210.35, 251.15 )
+rotation = 1.57392
+
+[node name="Fruit" parent="." instance=ExtResource( 5 )]

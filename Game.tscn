@@ -20,12 +20,12 @@ z_index = -1
 position = Vector2( 620, 0 )
 z_index = -1
 
-[node name="TextureRect" type="Sprite" parent="."]
+[node name="PlayerText" type="Sprite" parent="."]
 position = Vector2( 320, 672 )
 z_index = -1
 texture = ExtResource( 2 )
 
-[node name="TextureRect2" type="Sprite" parent="."]
+[node name="AIPlayerText" type="Sprite" parent="."]
 position = Vector2( 952, 672 )
 z_index = -1
 texture = ExtResource( 3 )

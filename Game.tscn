@@ -11,31 +11,24 @@
 
 [node name="UI" parent="." instance=ExtResource( 6 )]
 show_behind_parent = true
+z_index = -1
 
 [node name="Player-Board" parent="." instance=ExtResource( 1 )]
+z_index = -1
 
 [node name="AI-Board" parent="." instance=ExtResource( 1 )]
 position = Vector2( 620, 0 )
+z_index = -1
 
-[node name="TextureRect" type="TextureRect" parent="."]
-margin_left = 280.0
-margin_top = 630.0
-margin_right = 380.0
-margin_bottom = 730.0
+[node name="PlayerText" type="Sprite" parent="."]
+position = Vector2( 320, 680 )
+z_index = -1
 texture = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="TextureRect2" type="TextureRect" parent="."]
-margin_left = 900.0
-margin_top = 630.0
-margin_right = 1000.0
-margin_bottom = 730.0
+[node name="AIText" type="Sprite" parent="."]
+position = Vector2( 952, 680 )
+z_index = -1
 texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="StartButton" type="Button" parent="."]
 margin_left = 520.0

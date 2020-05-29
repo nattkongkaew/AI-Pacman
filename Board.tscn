@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Pacman.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Walls.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://images/ghosts/pinky_down.png" type="Texture" id=9]
 [ext_resource path="res://sansation/Sansation-Bold.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://GameOver.gd" type="Script" id=11]
+[ext_resource path="res://YouWon.gd" type="Script" id=12]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -20,6 +21,7 @@ signal start_game
 onready var Scoreboard = $BoardScoreboard
 onready var Pellets = $Walls/Pellets
 onready var Pacman : KinematicBody2D = $Pacman
+onready var AnimatePacman : AnimatedSprite = $Pacman/AnimatedSprite
 onready var Blinky : Area2D = $Blinky
 onready var Pinky : Area2D = $Pinky
 onready var Inky : Area2D = $Inky
@@ -27,6 +29,8 @@ onready var Clyde : Node2D = $Clyde
 onready var GhostPath : Navigation2D = $GhostPath
 onready var StartButton = get_parent().get_node(\"StartButton\")
 onready var GameOver = get_node(\"GameOver\")
+onready var YouWon = get_node(\"YouWon\")
+onready var Overlay = get_parent().get_node(\"UI\").get_node(\"overlay\")
 
 
 func _ready():
@@ -35,9 +39,9 @@ func _ready():
 		pellet.connect( \"pellet_collected\", Scoreboard, \"add_score\" )
 
 
-
-func _on_StartButton_start_game():
-	pass
+func _process(delta):
+	if(Scoreboard.get_current_score() == 2020):
+		game_won()
 
 
 func _on_StartButton_pressed():
@@ -48,6 +52,8 @@ func _on_StartButton_pressed():
 	Pinky.set_pinky_can_move(true)
 	Inky.set_inky_can_move(true)
 	Clyde.set_clyde_can_move(true)
+	self.z_index = 0
+	Overlay.hide()
 	emit_signal(\"start_game\")
 
 
@@ -63,6 +69,20 @@ func end_game():
 	
 	Scoreboard.set_time_updating(false)
 	GameOver.show()
+
+
+func game_won():
+	Pacman.set_move_pacman(false)
+	AnimatePacman.set_animation(\"stop\")
+	Pacman.speed = 0
+	
+	Blinky.set_blinky_can_move(false)
+	Pinky.set_pinky_can_move(false)
+	Inky.set_inky_can_move(false)
+	Clyde.set_clyde_can_move(false)
+	
+	Scoreboard.set_time_updating(false)
+	YouWon.show()
 "
 
 [sub_resource type="NavigationPolygon" id=2]
@@ -73,6 +93,10 @@ outlines = [ PoolVector2Array( 107.812, 169.755, 108.221, 305.691, 188.223, 305.
 [sub_resource type="RectangleShape2D" id=3]
 
 [sub_resource type="DynamicFont" id=4]
+size = 26
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=5]
 size = 26
 font_data = ExtResource( 10 )
 
@@ -132,6 +156,19 @@ custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.745098, 0.176471, 0.176471, 1 )
 text = "Game Over"
 script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YouWon" type="Label" parent="."]
+margin_left = 272.0
+margin_top = 432.0
+margin_right = 387.0
+margin_bottom = 462.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.780392, 0.886275, 0.176471, 1 )
+text = "You Won!"
+script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

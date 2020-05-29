@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/strawberry.png-4a114c2e670395aaa7b5aab7972e4c13.stex"
+path="res://.import/strawberry.png-fb1c35a41ca1ee0288a0b69c428020bd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/fruits/strawberry.png"
-dest_files=[ "res://.import/strawberry.png-4a114c2e670395aaa7b5aab7972e4c13.stex" ]
+source_file="res://images/strawberry.png"
+dest_files=[ "res://.import/strawberry.png-fb1c35a41ca1ee0288a0b69c428020bd.stex" ]
 
 [params]
 

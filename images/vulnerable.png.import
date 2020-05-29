@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pacman0.png-ff4d83b8281461b64997041b8925cc2e.stex"
+path="res://.import/vulnerable.png-74bd2bc9f1a4c4dcd66ad6a91d131d2b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/pacman_sprites/pacman0.png"
-dest_files=[ "res://.import/pacman0.png-ff4d83b8281461b64997041b8925cc2e.stex" ]
+source_file="res://images/vulnerable.png"
+dest_files=[ "res://.import/vulnerable.png-74bd2bc9f1a4c4dcd66ad6a91d131d2b.stex" ]
 
 [params]
 

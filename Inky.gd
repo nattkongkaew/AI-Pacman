@@ -1,22 +1,25 @@
 extends Area2D
 
-onready var  walls = get_parent().get_node("GhostPath/Walls")
+onready var walls = get_parent().get_node("GhostPath/Walls")
 onready var player_score = get_parent().get_node("BoardScoreboard")
 onready var inky_animation = get_node("AnimatedSprite")
+var base = Vector2(330, 390)
+var start_position = self.position
 var path = []
 var direction = Vector2(0,0)
 var SPEED = 100
+var vulnerable = 0
 
 
 func _ready():
-	position = walls.get_inky_pos()
-	path = walls.get_inky_path_to_player()
-	pass
+		position = walls.get_inky_pos()
+		path = walls.get_inky_path_to_player()
+		pass
 	
 # Inky movement function
 func _physics_process(delta):
 	
-	inky_animation()
+	set_inky_animation()
 	
 	# Set inky to get out the box whenn pacman eats over 300 pellets
 	if(player_score.get_current_score() < 300):
@@ -31,10 +34,14 @@ func _physics_process(delta):
 		else:
 			path.remove(0)
 	else:
-		path = walls.get_inky_path_to_player()
+			path = walls.get_inky_path_to_player()
 
 # Set Inky to change sprite according to its direction.
-func inky_animation():
+func set_inky_animation():
+	if(vulnerable == 1):
+		inky_animation.set_animation("vulnerable")
+		return
+	
 	if(direction.y > 0 and direction.y > direction.x):
 		inky_animation.set_animation("down")
 	if(direction.y < 0 and direction.y < direction.x):
@@ -43,3 +50,9 @@ func inky_animation():
 		inky_animation.set_animation("right")
 	if(direction.x < 0 and direction.x < direction.y):
 		inky_animation.set_animation("left")
+
+func go_vulnerable() -> void:
+	vulnerable = 1
+
+func reengage() -> void:
+	vulnerable = 0

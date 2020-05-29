@@ -2,6 +2,8 @@ extends Area2D
 
 onready var  walls = get_parent().get_node("GhostPath/Walls")
 onready var player_score = get_parent().get_node("BoardScoreboard")
+onready var pinky_animation = get_node("AnimatedSprite")
+var base = Vector2(330, 390)
 var path = []
 var direction = Vector2(0,0)
 var SPEED = 100
@@ -9,6 +11,8 @@ var path1 = []
 var path2 = []
 var path3 = []
 var path4 = []
+
+var vulnerable = 0
 
 onready var player = get_parent().get_parent().get_node("Pacman")
 onready var pinky = get_parent().get_parent().get_node("Pinky")
@@ -25,6 +29,9 @@ func _ready():
 func _physics_process(delta):
 	if(player_score.get_current_score() < 100):
 		return
+	
+	pinky_change_animation()
+
 		
 	if(path < path1 and path2 and path3 and path4):
 		if(path.size() > 1):
@@ -127,3 +134,22 @@ func move_path4(delta: float) -> void:
 		position += SPEED * delta * direction
 	else:
 		path4.remove(0)
+
+func go_vulnerable() -> void:
+	vulnerable = 1
+	
+func reengage() -> void:
+	vulnerable = 0
+
+func pinky_change_animation():
+	if(vulnerable == 1):
+		pinky_animation.set_animation("vulnerable")
+	else:	
+		if(direction.y > 0 and direction.y > direction.x):
+			pinky_animation.set_animation("down")
+		if(direction.y < 0 and direction.y < direction.x):
+			pinky_animation.set_animation("up")
+		if(direction.x > 0 and direction.x > direction.y):
+			pinky_animation.set_animation("right")
+		if(direction.x < 0 and direction.x < direction.y):
+			pinky_animation.set_animation("left")

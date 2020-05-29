@@ -79,3 +79,7 @@ func add_score( score_added ):
 # Reset the clock to 00:00
 func reset_clock():
 	set_current_time( 0 )
+	
+func add_fruit_score():
+	print("run")
+	set_current_score( get_current_score() + 1000)

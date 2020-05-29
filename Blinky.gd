@@ -1,10 +1,13 @@
 extends Area2D
 
+signal hit
+
 onready var  walls = get_parent().get_node("GhostPath/Walls")
 onready var blinky_animation = get_node("AnimatedSprite")
 var vulnerable = 0
 var base = Vector2(330,390)
 var start_position = self.position
+onready var blinky_can_move = false
 var path = []
 var direction = Vector2(0,0)
 var SPEED = 100
@@ -16,6 +19,9 @@ func _ready():
 
 # Blinky movement function
 func _physics_process(delta):
+	if(get_blinky_can_move() == false):
+		return
+	
 	blinky_change_animation()
 	
 	if(path.size() > 1):
@@ -49,3 +55,10 @@ func go_vulnerable() -> void:
 	
 func reengage() -> void:
 	vulnerable = 0
+
+func get_blinky_can_move():
+	return blinky_can_move
+
+
+func set_blinky_can_move(can_move):
+	blinky_can_move = can_move

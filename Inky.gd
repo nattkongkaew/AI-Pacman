@@ -5,6 +5,9 @@ onready var player_score = get_parent().get_node("BoardScoreboard")
 onready var inky_animation = get_node("AnimatedSprite")
 var base = Vector2(330, 390)
 var start_position = self.position
+signal hit
+
+onready var inky_can_move = false
 var path = []
 var direction = Vector2(0,0)
 var SPEED = 100
@@ -18,6 +21,8 @@ func _ready():
 	
 # Inky movement function
 func _physics_process(delta):
+	if(get_inky_can_move() == false):
+		return
 	
 	set_inky_animation()
 	
@@ -56,3 +61,10 @@ func go_vulnerable() -> void:
 
 func reengage() -> void:
 	vulnerable = 0
+
+func get_inky_can_move():
+	return inky_can_move
+
+
+func set_inky_can_move(can_move):
+	inky_can_move = can_move

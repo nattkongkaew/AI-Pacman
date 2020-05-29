@@ -295,10 +295,6 @@ collision_mask = 2
 position = Vector2( 290.265, 530 )
 collision_mask = 2
 
-[node name="Pellet172" parent="Pellets" instance=ExtResource( 1 )]
-position = Vector2( 330.088, 530 )
-collision_mask = 2
-
 [node name="Pellet171" parent="Pellets" instance=ExtResource( 1 )]
 position = Vector2( 310.088, 530 )
 collision_mask = 2

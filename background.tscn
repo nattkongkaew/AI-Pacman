@@ -1,12 +1,19 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://images/background_black_green.png" type="Texture" id=1]
+[ext_resource path="res://images/semi-transparent-background.png" type="Texture" id=2]
 
 [node name="UI" type="TileMap"]
 position = Vector2( 16, -8 )
 cell_size = Vector2( 6, 6 )
 cell_custom_transform = Transform2D( 13, 0, 0, 13, 0, 0 )
 format = 1
+
+[node name="overlay" type="Sprite" parent="."]
+position = Vector2( 628.309, 505.696 )
+scale = Vector2( 4.94307, 4.52893 )
+z_index = 1
+texture = ExtResource( 2 )
 
 [node name="background_black_green" type="Sprite" parent="."]
 show_behind_parent = true

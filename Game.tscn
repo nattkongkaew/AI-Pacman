@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Board.tscn" type="PackedScene" id=1]
 [ext_resource path="res://pixil-frame-0.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://images/zxxxc.png" type="Texture" id=4]
 [ext_resource path="res://StartButton.gd" type="Script" id=5]
 [ext_resource path="res://background.tscn" type="PackedScene" id=6]
+[ext_resource path="res://BoardAI.tscn" type="PackedScene" id=7]
 
 [node name="Game" type="Node2D"]
 
@@ -16,9 +17,8 @@ z_index = -1
 [node name="Player-Board" parent="." instance=ExtResource( 1 )]
 z_index = -1
 
-[node name="AI-Board" parent="." instance=ExtResource( 1 )]
-position = Vector2( 620, 0 )
-z_index = -1
+[node name="AI-Board" parent="." instance=ExtResource( 7 )]
+position = Vector2( 620.583, 1.94843 )
 
 [node name="PlayerText" type="Sprite" parent="."]
 position = Vector2( 320, 672 )
@@ -44,6 +44,4 @@ __meta__ = {
 
 [node name="MessageTimer" type="Timer" parent="."]
 [connection signal="pressed" from="StartButton" to="Player-Board" method="_on_StartButton_pressed"]
-[connection signal="pressed" from="StartButton" to="AI-Board" method="_on_StartButton_pressed"]
 [connection signal="start_game" from="StartButton" to="Player-Board" method="_on_StartButton_start_game"]
-[connection signal="start_game" from="StartButton" to="AI-Board" method="_on_StartButton_start_game"]

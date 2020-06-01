@@ -1,13 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Pacman.tscn" type="PackedScene" id=1]
-[ext_resource path="res://WallsAI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://PacmanAI.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Walls.tscn" type="PackedScene" id=2]
 [ext_resource path="res://BoardScoreboard.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Clyde.tscn" type="PackedScene" id=4]
+[ext_resource path="res://WallsAI.gd" type="Script" id=4]
 [ext_resource path="res://GhostPath.gd" type="Script" id=5]
-[ext_resource path="res://Blinky.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Inky.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Pinky.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Tunnel.tscn" type="PackedScene" id=9]
 [ext_resource path="res://GameOver.gd" type="Script" id=10]
 [ext_resource path="res://YouWon.gd" type="Script" id=11]
@@ -18,21 +15,17 @@ script/source = "extends Node2D
 signal start_game
 
 onready var Scoreboard = $BoardScoreboard
-onready var Pellets = $Walls/Pellets
-onready var PowerPellets = $Walls/PowerPellets
-onready var Pacman : KinematicBody2D = $Pacman
-onready var AnimatePacman : AnimatedSprite = $Pacman/AnimatedSprite
-onready var Clyde : Area2D = $Clyde
-onready var Pinky : Area2D = $Pinky
-onready var Blinky : Area2D = $Blinky
-onready var Inky : Area2D = $Inky
+onready var Pellets = $WallsAI/Pellets
+onready var PowerPellets = $WallsAI/PowerPellets
+onready var Pacman : KinematicBody2D = $PacmanAI
+onready var AnimatePacman : AnimatedSprite = $PacmanAI/AnimatedSprite
 onready var GhostPath : Navigation2D = $GhostPath
-onready var Walls : Navigation2D = $GhostPath/Walls
-onready var Fruit : Area2D = $Walls/Fruit
+onready var Walls : Navigation2D = $GhostPath/WallsAI
+onready var Fruit : Area2D = $WallsAI/Fruit
 onready var StartButton = get_parent().get_node(\"StartButton\")
 onready var GameOver = get_node(\"GameOver\")
 onready var YouWon = get_node(\"YouWon\")
-onready var Overlay = get_parent().get_node(\"UI\").get_node(\"overlay\")
+#onready var Overlay = get_parent().get_node(\"UI\").get_node(\"overlay\")
 
 var vulnerable_time
 var fruit_generated = 0
@@ -53,27 +46,18 @@ func _process(delta):
 func _ready():
 
 	# Connect the pellets' collected signal to the scoreboard
-	for pellet in Pellets.get_children():
-		pellet.connect( \"pellet_collected\", Scoreboard, \"add_score\" )
-		
-	for ppellet in PowerPellets.get_children():
-		ppellet.connect( \"power_pellet_collected\", Pinky, \"go_vulnerable\")
-		ppellet.connect( \"power_pellet_collected\", Blinky, \"go_vulnerable\")
-		ppellet.connect( \"power_pellet_collected\", Inky, \"go_vulnerable\")
-		ppellet.connect( \"power_pellet_collected\", Clyde, \"go_vulnerable\")
-		ppellet.connect( \"power_pellet_collected\", Walls, \"set_vulnerability\")
+	#for pellet in Pellets.get_children():
+	#	pellet.connect( \"pellet_collected\", Scoreboard, \"add_score\" )
+	#
+	pass	
 
 
 func _on_StartButton_pressed():
 	StartButton.hide()
 	Scoreboard.set_time_updating(true)
 	Pacman.set_move_pacman(true)
-	Blinky.set_blinky_can_move(true)
-	Pinky.set_pinky_can_move(true)
-	Inky.set_inky_can_move(true)
-	Clyde.set_clyde_can_move(true)
 	self.z_index = 0
-	Overlay.hide()
+	#Overlay.hide()
 	emit_signal(\"start_game\")
 
 
@@ -82,10 +66,7 @@ func end_game():
 	Pacman.hide()
 	Pacman.speed = 0
 	
-	Blinky.set_blinky_can_move(false)
-	Pinky.set_pinky_can_move(false)
-	Inky.set_inky_can_move(false)
-	Clyde.set_clyde_can_move(false)
+
 	
 	Scoreboard.set_time_updating(false)
 	GameOver.show()
@@ -96,10 +77,6 @@ func game_won():
 	AnimatePacman.set_animation(\"stop\")
 	Pacman.speed = 0
 	
-	Blinky.set_blinky_can_move(false)
-	Pinky.set_pinky_can_move(false)
-	Inky.set_inky_can_move(false)
-	Clyde.set_clyde_can_move(false)
 	
 	Scoreboard.set_time_updating(false)
 	YouWon.show()
@@ -117,19 +94,14 @@ __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
 
-[node name="Walls" parent="." instance=ExtResource( 2 )]
-
 [node name="BoardScoreboard" parent="." instance=ExtResource( 3 )]
 margin_left = 288.0
 margin_top = 112.0
 margin_right = 379.0
 margin_bottom = 144.0
 
-[node name="Pacman" parent="." instance=ExtResource( 1 )]
-position = Vector2( 330, 530 )
-scale = Vector2( 0.8, 0.8 )
-collision_layer = 5
-collision_mask = 5
+[node name="PacmanAI" parent="." instance=ExtResource( 1 )]
+position = Vector2( 328.348, 530.523 )
 
 [node name="GhostPath" type="Navigation2D" parent="."]
 script = ExtResource( 5 )
@@ -137,22 +109,8 @@ script = ExtResource( 5 )
 [node name="PathShape" type="NavigationPolygonInstance" parent="GhostPath"]
 navpoly = SubResource( 2 )
 
-[node name="Walls" parent="GhostPath" instance=ExtResource( 2 )]
-
-[node name="Clyde" parent="." instance=ExtResource( 4 )]
-position = Vector2( 360, 392 )
-
-[node name="Inky" parent="." instance=ExtResource( 7 )]
-position = Vector2( 296, 392 )
-scale = Vector2( 0.6, 0.6 )
-
-[node name="Blinky" parent="." instance=ExtResource( 6 )]
-position = Vector2( 329.791, 333.297 )
-scale = Vector2( 0.6, 0.6 )
-
-[node name="Pinky" parent="." instance=ExtResource( 8 )]
-position = Vector2( 328, 392 )
-scale = Vector2( 0.6, 0.6 )
+[node name="WallsAI" parent="GhostPath" instance=ExtResource( 2 )]
+script = ExtResource( 4 )
 
 [node name="Tunnel1" parent="." instance=ExtResource( 9 )]
 position = Vector2( 94.4999, 390.25 )
@@ -183,9 +141,3 @@ script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="body_entered" from="Clyde" to="Pacman" method="_on_Clyde_body_entered"]
-[connection signal="body_entered" from="Inky" to="Pacman" method="_on_Inky_body_entered"]
-[connection signal="body_entered" from="Blinky" to="Pacman" method="_on_Blinky_body_entered"]
-[connection signal="body_entered" from="Pinky" to="Pacman" method="_on_Pinky_body_entered"]
-[connection signal="body_entered" from="Tunnel1" to="Pacman" method="_on_Tunnel1_body_entered"]
-[connection signal="body_entered" from="Tunnel2" to="Pacman" method="_on_Tunnel2_body_entered"]

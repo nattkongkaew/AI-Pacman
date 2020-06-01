@@ -17,7 +17,6 @@ onready var node_score = $Score
 func _ready():
 	set_current_time( 0 )
 	set_current_score( 0 )
-#	set_time_updating( false )
 	set_time_updating( false )
 
 

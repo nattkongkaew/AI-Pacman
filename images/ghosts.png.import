@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/clyde_down.png-c21dcbf90252be34efb5dec514f213ef.stex"
+path="res://.import/ghosts.png-85d04eda0518a4bc068ced2d1d3c9814.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/ghosts/clyde_down.png"
-dest_files=[ "res://.import/clyde_down.png-c21dcbf90252be34efb5dec514f213ef.stex" ]
+source_file="res://images/ghosts.png"
+dest_files=[ "res://.import/ghosts.png-85d04eda0518a4bc068ced2d1d3c9814.stex" ]
 
 [params]
 

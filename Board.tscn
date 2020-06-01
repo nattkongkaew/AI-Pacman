@@ -27,7 +27,7 @@ onready var Pinky : Area2D = $Pinky
 onready var Blinky : Area2D = $Blinky
 onready var Inky : Area2D = $Inky
 onready var GhostPath : Navigation2D = $GhostPath
-onready var Walls : Navigation2D = $GhostPath/Walls
+onready var Walls : Navigation2D = $Walls
 onready var Fruit : Area2D = $Walls/Fruit
 onready var StartButton = get_parent().get_node(\"StartButton\")
 onready var GameOver = get_node(\"GameOver\")
@@ -37,7 +37,7 @@ onready var Overlay = get_parent().get_node(\"UI\").get_node(\"overlay\")
 var vulnerable_time
 var fruit_generated = 0
 
-func _process(delta):
+func _process(_delta):
 	
 	if(Scoreboard.get_current_score() != 700):
 		pass
@@ -68,10 +68,10 @@ func _on_StartButton_pressed():
 	StartButton.hide()
 	Scoreboard.set_time_updating(true)
 	Pacman.set_move_pacman(true)
-	Blinky.set_blinky_can_move(true)
-	Pinky.set_pinky_can_move(true)
-	Inky.set_inky_can_move(true)
-	Clyde.set_clyde_can_move(true)
+	Blinky.set_game_enabled(true)
+	Pinky.set_game_enabled(true)
+	Inky.set_game_enabled(true)
+	Clyde.set_game_enabled(true)
 	self.z_index = 0
 	Overlay.hide()
 	emit_signal(\"start_game\")
@@ -82,10 +82,10 @@ func end_game():
 	Pacman.hide()
 	Pacman.speed = 0
 	
-	Blinky.set_blinky_can_move(false)
-	Pinky.set_pinky_can_move(false)
-	Inky.set_inky_can_move(false)
-	Clyde.set_clyde_can_move(false)
+	Blinky.set_game_enabled(false)
+	Pinky.set_game_enabled(false)
+	Inky.set_game_enabled(false)
+	Clyde.set_game_enabled(false)
 	
 	Scoreboard.set_time_updating(false)
 	GameOver.show()
@@ -96,10 +96,10 @@ func game_won():
 	AnimatePacman.set_animation(\"stop\")
 	Pacman.speed = 0
 	
-	Blinky.set_blinky_can_move(false)
-	Pinky.set_pinky_can_move(false)
-	Inky.set_inky_can_move(false)
-	Clyde.set_clyde_can_move(false)
+	Blinky.set_game_enabled(false)
+	Pinky.set_game_enabled(false)
+	Inky.set_game_enabled(false)
+	Clyde.set_game_enabled(false)
 	
 	Scoreboard.set_time_updating(false)
 	YouWon.show()
@@ -138,10 +138,9 @@ script = ExtResource( 5 )
 [node name="PathShape" type="NavigationPolygonInstance" parent="GhostPath"]
 navpoly = SubResource( 2 )
 
-[node name="Walls" parent="GhostPath" instance=ExtResource( 2 )]
-
 [node name="Clyde" parent="." instance=ExtResource( 4 )]
 position = Vector2( 360, 392 )
+scale = Vector2( 0.6, 0.6 )
 
 [node name="Inky" parent="." instance=ExtResource( 7 )]
 position = Vector2( 296, 392 )

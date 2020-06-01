@@ -1,109 +1,52 @@
-extends Area2D
+extends "res://Ghost.gd"
 
-signal hit
 
-onready var speed = 100.0
-onready var PlayerScore = get_parent().get_node("BoardScoreboard")
-onready var Player = get_parent().get_node("Pacman")
-onready var GhostPath = get_parent().get_node("GhostPath")
-onready var Walls = get_parent().get_node("GhostPath/Walls")
-onready var AnimateClyde = get_node("ClydeAnimation")
-onready var base = Vector2(330, 390)
+var _track_player = false
+var _current_path = []
+var _path_player = []
+var _path_base = []
 
-var vulnerable = 0
-onready var clyde_can_move = false
-var path_for_ghost = []
-var path_to_base = []
-var direction = Vector2(0,0)
-var track_player = true
+var _base = Vector2(330, 390)
 
-# Source: https://www.youtube.com/watch?v=2xiE27j4iiw
+
 func _ready():
-	position = self.position
-	path_for_ghost = GhostPath.get_simple_path(self.position, Player.position, false)
-	path_to_base = GhostPath.get_simple_path(self.position, base, false)
+	_ghost_name = "clyde"
 
 
-func _process(delta):
-	if(get_clyde_can_move() == false):
-		return
-		
-	if(PlayerScore.get_current_score() < 400):
-		return
+func can_move():
+	return PlayerScore.get_current_score() >= 400
+
+
+func get_ghost_path():
+	var player_distance = position.distance_to(Player.position)
 	
-	if(position.distance_to(Player.position) > 150):
-		track_player = true
+	if player_distance > 150:
+		_track_player = true
 	
-	change_clyde_animation()
-	
-	if(position.distance_to(Player.position) > 75 and track_player == true):
-		if(path_for_ghost.size() > 1):
-			move_clyde_to_player(delta)
+	if player_distance > 75 and _track_player:
+		if _path_player.size() > 1:
+			_current_path = _path_player
 		else:
-			path_for_ghost = GhostPath.get_simple_path(self.position, Player.position, false)
-		path_to_base = GhostPath.get_simple_path(self.position, base, false)
-	elif(position.distance_to(base) > 75):
-		if(path_to_base.size() > 1):
-			track_player = false
-			move_clyde_to_base(delta)
-		else:
-			path_to_base = GhostPath.get_simple_path(self.position, base, false)
-			track_player = true
-		path_for_ghost = GhostPath.get_simple_path(self.position, Player.position, false)
-
-
-func move_clyde_to_player(delta: float) -> void:
-	var pos_to_move = path_for_ghost[0]
-	direction = (pos_to_move - position).normalized()
-	var distance_to_next_pos = position.distance_to(path_for_ghost[0])
-	
-	if(distance_to_next_pos > 1):
-		position += speed * delta * direction
-	else:
-		path_for_ghost.remove(0)
-
-func move_clyde_to_base(delta: float) -> void:	
-	var pos_to_move = path_to_base[0]
-	direction = (pos_to_move - position).normalized()
-	var distance_to_base = position.distance_to(path_to_base[0])
-	
-	if(distance_to_base > 1):
-		position += speed * delta * direction
-	else:
-		path_to_base.remove(0)
-
-
-func change_clyde_animation():
-	if(vulnerable == 1):
-		AnimateClyde.set_animation("vulnerable")
-	else:
-		if(direction.y > 0 and direction.y > direction.x):
-			AnimateClyde.set_animation("down")
-		if(direction.y < 0 and direction.y < direction.x):
-			AnimateClyde.set_animation("up")
-		if(direction.x > 0 and direction.x > direction.y):
-			AnimateClyde.set_animation("right")
-		if(direction.x < 0 and direction.x < direction.y):
-			AnimateClyde.set_animation("left")
+			_path_player = GhostPath.get_simple_path(position, Player.position, false)
 		
-func go_vulnerable() -> void:
-	vulnerable = 1
+		_path_base = GhostPath.get_simple_path(position, _base, false)
+	elif position.distance_to( _base ) > 75:
+		if _path_base.size() > 1:
+			_track_player = false
+			_current_path = _path_base
+		else:
+			_path_base = GhostPath.get_simple_path(position, _base, false)
+			_track_player = true
+		
+		_path_player = GhostPath.get_simple_path(position, Player.position, false)
 	
-func reengage() -> void:
-	vulnerable = 0
-	if(direction.y > 0 and direction.y > direction.x):
-		AnimateClyde.set_animation("down")
-	if(direction.y < 0 and direction.y < direction.x):
-		AnimateClyde.set_animation("up")
-	if(direction.x > 0 and direction.x > direction.y):
-		AnimateClyde.set_animation("right")
-	if(direction.x < 0 and direction.x < direction.y):
-		AnimateClyde.set_animation("left")
+	return _current_path
 
 
-func get_clyde_can_move():
-	return clyde_can_move
-
-
-func set_clyde_can_move(can_move):
-	clyde_can_move = can_move
+func ghost_path_node_reached():
+	_current_path.remove(0)
+	
+	if _track_player:
+		_path_player.remove(0)
+	else:
+		_path_base.remove(0)

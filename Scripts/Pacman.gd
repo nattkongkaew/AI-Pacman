@@ -9,7 +9,7 @@ onready var GameOverScreen = get_parent().get_node("GameOver")
 func _ready():
 	$AnimatedSprite.play("moving")
 
-func _process(delta):
+func _process(_delta):
 	if(get_move_pacman() == true):
 		if Input.is_action_pressed("ui_up"):
 			direction = Vector2(0,-1)

@@ -6,6 +6,6 @@ func _ready():
 	pass
 
 
-func _on_PowerPellet_body_entered(body: Node) -> void:
+func _on_PowerPellet_body_entered(_body: Node) -> void:
 	emit_signal("power_pellet_collected")
 	queue_free()

@@ -1,70 +1,24 @@
-extends Area2D
+extends "res://Ghost.gd"
 
-onready var walls = get_parent().get_node("GhostPath/Walls")
-onready var player_score = get_parent().get_node("BoardScoreboard")
-onready var inky_animation = get_node("AnimatedSprite")
-var base = Vector2(330, 390)
-var start_position = self.position
-signal hit
 
-onready var inky_can_move = false
-var path = []
-var direction = Vector2(0,0)
-var SPEED = 100
-var vulnerable = 0
+onready var Blinky = get_parent().get_node("Blinky")
 
 
 func _ready():
-		position = walls.get_inky_pos()
-		path = walls.get_inky_path_to_player()
-		pass
+	_ghost_name = "inky"
+
+
+func can_move():
+	return PlayerScore.get_current_score() >= 300
+
+
+func get_ghost_path():
+	var pacman_front = Player.position + Player.direction * 36
+	var blinky_pacman_vector = pacman_front - Blinky.position
+	var desired_coords = Blinky.position + 2 * blinky_pacman_vector
 	
-# Inky movement function
-func _physics_process(delta):
-	if(get_inky_can_move() == false):
-		return
-	
-	set_inky_animation()
-	
-	# Set inky to get out the box whenn pacman eats over 300 pellets
-	if(player_score.get_current_score() < 300):
-		return
-		
-	if(path.size() > 1):
-		var pos_to_move = path[0]
-		direction = (pos_to_move - position).normalized()
-		var distance = position.distance_to(path[0])
-		if(distance > 1):
-			position += SPEED * delta * direction
-		else:
-			path.remove(0)
-	else:
-			path = walls.get_inky_path_to_player()
-
-# Set Inky to change sprite according to its direction.
-func set_inky_animation():
-	if(vulnerable == 1):
-		inky_animation.set_animation("vulnerable")
-		return
-	
-	if(direction.y > 0 and direction.y > direction.x):
-		inky_animation.set_animation("down")
-	if(direction.y < 0 and direction.y < direction.x):
-		inky_animation.set_animation("up")
-	if(direction.x > 0 and direction.x > direction.y):
-		inky_animation.set_animation("right")
-	if(direction.x < 0 and direction.x < direction.y):
-		inky_animation.set_animation("left")
-
-func go_vulnerable() -> void:
-	vulnerable = 1
-
-func reengage() -> void:
-	vulnerable = 0
-
-func get_inky_can_move():
-	return inky_can_move
+	return GhostPath.get_simple_path(position, desired_coords, false)
 
 
-func set_inky_can_move(can_move):
-	inky_can_move = can_move
+func ghost_path_node_reached():
+	pass

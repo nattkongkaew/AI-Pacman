@@ -19,7 +19,7 @@ onready var Animation = get_node("AnimatedSprite")
 onready var GhostPath = get_parent().get_node("GhostPath")
 onready var Player = get_parent().get_node("Pacman")
 onready var PlayerScore = get_parent().get_node("BoardScoreboard")
-onready var Walls = get_parent().get_node("GhostPath/Walls")
+onready var Walls = get_parent().get_node("Walls")
 
 
 func _ready():
@@ -27,11 +27,12 @@ func _ready():
 
 
 func _physics_process(delta):
-	if !can_move():
+	update_animation()
+	
+	if !game_enabled() or !can_move():
 		return
 	
 	ghost_move(delta)
-	update_animation()
 
 
 func can_move():
@@ -65,25 +66,28 @@ func update_animation():
 	elif _direction.y < 0 and _direction.y < _direction.x:
 		anim_name += "_up"
 	elif _direction.x > 0 and _direction.x > _direction.y:
-		anim_name += "right"
+		anim_name += "_right"
 	elif _direction.x < 0 and _direction.x < _direction.y:
-		anim_name += "left"
+		anim_name += "_left"
+	else:
+		anim_name += "_down" # Default
 	
 	Animation.set_animation(anim_name)
 
 
 func ghost_move(delta):
-	_ghost_path = get_ghost_path()
-	
-	var target_pos = _ghost_path[ 0 ]
-	_direction = (target_pos-position).normalized()
-	var distance = position.distance_to(target_pos)
-	
-	if distance > 1:
-		position += SPEED * delta * _direction
+	if _ghost_path.size() > 1:
+		var target_pos = _ghost_path[ 0 ]
+		_direction = (target_pos-position).normalized()
+		var distance = position.distance_to(target_pos)
+		
+		if distance > 1:
+			position += SPEED * delta * _direction
+		else:
+			_ghost_path.remove( 0 )
+			ghost_path_node_reached()
 	else:
-		_ghost_path.remove( 0 )
-		ghost_path_node_reached()
+		_ghost_path = get_ghost_path()
 
 
 func get_ghost_path():
@@ -92,3 +96,11 @@ func get_ghost_path():
 
 func ghost_path_node_reached():
 	pass # Implement in children
+
+
+func go_vulnerable():
+	set_vulnerable( true )
+
+
+func reengage():
+	set_vulnerable( false )

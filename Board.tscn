@@ -103,6 +103,15 @@ func game_won():
 	
 	Scoreboard.set_time_updating(false)
 	YouWon.show()
+
+
+func _on_Tunnel1_body_entered(_body):
+	Pacman.position = Vector2(545, 390)
+	
+
+
+func _on_Tunnel2_body_entered(body):
+	Pacman.position = Vector2(115, 390)
 "
 
 [sub_resource type="NavigationPolygon" id=2]
@@ -187,5 +196,5 @@ __meta__ = {
 [connection signal="body_entered" from="Inky" to="Pacman" method="_on_Inky_body_entered"]
 [connection signal="body_entered" from="Blinky" to="Pacman" method="_on_Blinky_body_entered"]
 [connection signal="body_entered" from="Pinky" to="Pacman" method="_on_Pinky_body_entered"]
-[connection signal="body_entered" from="Tunnel1" to="Pacman" method="_on_Tunnel1_body_entered"]
-[connection signal="body_entered" from="Tunnel2" to="Pacman" method="_on_Tunnel2_body_entered"]
+[connection signal="body_entered" from="Tunnel1" to="." method="_on_Tunnel1_body_entered"]
+[connection signal="body_entered" from="Tunnel2" to="." method="_on_Tunnel2_body_entered"]

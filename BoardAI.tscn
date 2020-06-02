@@ -59,7 +59,7 @@ func _calculate_new_path():
 	# Finds path
 	var position_to_go = walls.pellet
 	print(position_to_go)
-	var path = navigation_map.get_astar_path(position_to_go.position, player.position)
+	var path = navigation_map.get_astar_path(player.position,position_to_go.position)
 
 	# If we got a path...
 	if path:

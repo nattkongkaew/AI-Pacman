@@ -7,74 +7,47 @@ onready var Board = get_parent()
 onready var GameOverScreen = get_parent().get_node("GameOver")
 onready var walls = get_parent().get_node("GhostPath/WallsAI")
 
-var path = []
-var _path = []
 
-var _target_point_world = Vector2()
-var _target_position = Vector2()
+# path before moving on to the next one
+const POINT_RADIUS = 5
 
-var _velocity = Vector2()
+signal WHISTLE
 
-func _ready():
-	$AnimatedSprite.play("moving")
+# Path that the sidekick must follow - undefined by default
+var path
 
+var velocity = Vector2()
+
+
+# Performed on each step
 func _process(delta):
-	_target_position = walls.get_pellet_pos()
-	var _arrived_to_next_point = _move_to(_target_point_world)
-	if _arrived_to_next_point:
-		_path.remove(0)
-		_target_point_world = _path[0]
-
-func _move_to(world_position):
-	var MASS = 10.0
-	var ARRIVE_DISTANCE = 10.0
-
-	var desired_velocity = (world_position - position).normalized() * speed
-	var steering = desired_velocity - _velocity
-	_velocity += steering / MASS
-	position += _velocity * get_process_delta_time()
-	rotation = _velocity.angle()
-	return position.distance_to(world_position) < ARRIVE_DISTANCE
-
-
-
-
-
-func set_move_pacman(can_move):
-	move_pacman = can_move
 	
+	#testing by press spacebar
+	if Input.is_action_just_pressed("ui_accept"):
+		emit_signal("WHISTLE")
+	# Only do stuff if we have a current path
+	if path:
+
+		# The next point is the first member of the path array
+		var target = path[0]
+
+		var MASS = 3.0
+		# Determine direction pacman have to move
+		var desired_velocity = (target - position).normalized() * speed
+		var steering = desired_velocity - velocity
+		velocity += steering / MASS
+		
+		# Move pacman
+		position += velocity * delta
+		
 
 
-func get_move_pacman():
-	return move_pacman
+		# If pacman have reached the point
+		if position.distance_to(target) < POINT_RADIUS:
 
+			# Remove first path point
+			path.remove(0)
 
-func _on_Clyde_body_entered(body):
-	if(body == self):
-		speed = 0
-		hide()
-		GameOverScreen.show()
-		Board.end_game()
-
-
-func _on_Inky_body_entered(body):
-	if(body == self):
-		speed = 0
-		hide()
-		GameOverScreen.show()
-		Board.end_game()
-
-
-func _on_Blinky_body_entered(body):
-	if(body == self):
-		speed = 0
-		hide()
-		GameOverScreen.show()
-		Board.end_game()
-
-
-func _on_Pinky_body_entered(body):
-	if(body == self):
-		Board.end_game()
-
-
+			# If we have no points left, remove path
+			if path.size() == 0:
+				path = null

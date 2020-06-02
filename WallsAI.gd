@@ -1,7 +1,7 @@
 extends TileMap
 
 
-onready var half_cell_size = get_cell_size()/2
+onready var half_cell_size = cell_size / 2
 onready var player = get_parent().get_parent().get_node("PacmanAI")
 onready var walls = get_parent().get_node("Walls")
 onready var fruitpath = get_node("FruitSpawnPath/FruitSpawnLocation")
@@ -10,122 +10,100 @@ onready var fruit_animation = fruit.get_node("AnimatedSprite")
 onready var scoreboard = get_parent().get_parent().get_node("BoardScoreboard")
 onready var tunnel1 = $Tunnel1
 onready var tunnel2 = $Tunnel2
-onready var pellet = get_node("Pellets").get_node("Pellet7")
+onready var pellet = get_node("Pellets").get_node("Pellet105")
 onready var start_position = self.position
 
-onready var astar_node = AStar.new()
-export(Vector2) var map_size = Vector2(26,30)
-var _point_path = []
-var _half_cell_size = Vector2()
+onready var astar = AStar.new()
+onready var used_rect = get_used_rect()
 onready var movable_tile = get_used_cells_by_id(50)  #50 is the index of tile that have navigation polygon --refer to tileset
 
-var path_start_position = Vector2() setget _set_path_start_position
-var path_end_position = Vector2() setget _set_path_end_position
+
 
 var vulnerable = 0
 var vulnerable_time = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	randomize()
-	get_pellet_pos()
-	print(pellet.position) 
-	print(player.position)
-	var walkable_cells_list = astar_add_walkable_cells(movable_tile)
-	astar_connect_walkable_cells(walkable_cells_list)
+	#add tiles to the navigation grid
+	astar_add_walkable_tiles(movable_tile)
+	#connect all tiles
+	astar_connect_walkable_tiles(movable_tile)
 
 	
-func astar_add_walkable_cells(movable_tile = []):
-	var points_array = []
-	print(movable_tile)
-	for y in range(map_size.y):
-		for x in range(map_size.x):
-			var point = Vector2(x,y)
-			if point in movable_tile:
-				point = Vector2(x,y)
-				points_array.append(point)
-				var point_index = calculate_point_index(point)
-				astar_node.add_point(point_index, Vector3(point.x, point.y, 0.0))
-	return points_array
+func astar_add_walkable_tiles(movable_tile):
+	# Loop over all tiles
+	for tile in movable_tile:
+
+		# Determine the ID of the tile
+		var id = _get_id_for_point(tile)
+
+		# Add the tile to the AStar navigation
+		# NOTE: We use Vector3 as AStar is, internally, 3D. We just don't use Z.
+		astar.add_point(id, Vector3(tile.x, tile.y, 0))
+
 	
-func astar_connect_walkable_cells(points_array):
-	for point in points_array:
-		var point_index = calculate_point_index(point)
-		var points_relative = PoolVector2Array([
-			point + Vector2.RIGHT,
-			point + Vector2.LEFT,
-			point + Vector2.DOWN,
-			point + Vector2.UP,
-		])
-		for point_relative in points_relative:
-			var point_relative_index = calculate_point_index(point_relative)
-			if is_outside_map_bounds(point_relative):
-				continue
-			if not astar_node.has_point(point_relative_index):
-				continue
-			# If you set this value to false, it becomes a one-way path.
-			astar_node.connect_points(point_index, point_relative_index, false)
-			
+func astar_connect_walkable_tiles(movable_tile):
+	# Loop over all tiles
+	for tile in movable_tile:
 
+		# Determine the ID of the tile
+		var id = _get_id_for_point(tile)
 
-func calculate_point_index(point):
-	return point.x + map_size.x * point.y
+		# Loops used to search around player (range(3) returns 0, 1, and 2)
+		for x in range(3):
+			for y in range(3):
 
-func is_outside_map_bounds(point):
-	return point.x < 0 or point.y < 0 or point.x >= map_size.x or point.y >= map_size.y
+				# Determines target, converting range variable to -1, 0, and 1
+				var target = tile + Vector2(x - 1, y - 1)
 
-func get_astar_path(world_start, world_end):
-	player.position = world_to_map(world_start)
-	pellet.position = world_to_map(world_end)
-	_recalculate_path()
+				# Determines target ID
+				var target_id = _get_id_for_point(target)
+
+				# Do not connect if point is same or point does not exist on astar
+				if tile == target or not astar.has_point(target_id):
+					continue
+
+				# Connect points
+				astar.connect_points(id, target_id, true)
+
+func get_astar_path(start, end):
+	# Convert positions to cell coordinates
+	var start_tile = world_to_map(start)
+	var end_tile = world_to_map(end)
+
+	# Determines IDs
+	var start_id = _get_id_for_point(start_tile)
+	var end_id = _get_id_for_point(end_tile)
+
+	# Return null if navigation is impossible
+	if not astar.has_point(start_id) or not astar.has_point(end_id):
+		return null
+
+	# Otherwise, find the map
+	var path_map = astar.get_point_path(start_id, end_id)
+
+	# Convert Vector3 array
 	var path_world = []
-	for point in _point_path:
-		var point_world = map_to_world(Vector2(point.x, point.y)) + _half_cell_size
+	for point in path_map:
+		var point_world = map_to_world(Vector2(point.x, point.y)) + half_cell_size
 		path_world.append(point_world)
 	return path_world
 
-func _recalculate_path():
-	var start_point_index = calculate_point_index(path_start_position)
-	var end_point_index = calculate_point_index(path_end_position)
-	_point_path = astar_node.get_point_path(start_point_index, end_point_index)
-	update()
-	
+# Determines a unique ID for a given point on the map
+func _get_id_for_point(point):
 
-# Setters for the start and end path values.
-func _set_path_start_position(value):
-	#if value not in movable_tile:
-	#	return
-	if is_outside_map_bounds(value):
-		return
+	# Offset position of tile with the bounds of the tilemap
+	# This prevents ID's of less than 0
+	var x = point.x - used_rect.position.x
+	var y = point.y - used_rect.position.y
 
-	set_cell(path_start_position.x, path_start_position.y, -1)
-	set_cell(value.x, value.y, 1)
-	path_start_position = value
-	if path_end_position and path_end_position != path_start_position:
-		_recalculate_path()
-
-func _set_path_end_position(value):
-	#if value not in movable_tile:
-	#	return
-	if is_outside_map_bounds(value):
-		return
-
-	set_cell(path_start_position.x, path_start_position.y, -1)
-	set_cell(value.x, value.y, 2)
-	path_end_position = value
-	if path_start_position != value:
-		_recalculate_path()
-
+	# Returns the unique ID for the point on the map
+	return x + y * used_rect.size.x
 
 
 func _process(delta):
 	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
-
-# Get Blinky position
 
 # Get pellet7 position
 func get_pellet_pos():
@@ -154,3 +132,9 @@ func _on_Tunnel2Area2D_body_entered(_body):
 func _on_Tunnel1Area2D_body_entered(_body):
 	player.position = Vector2(16,19)
 	
+func get_player_pos():
+	return player.position
+
+func get_to_pellet():
+	var path = get_parent().get_simple_path(player.position, pellet.position, false)
+	return path

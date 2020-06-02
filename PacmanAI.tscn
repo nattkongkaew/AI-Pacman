@@ -20,7 +20,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 8.0
+radius = 9.5
 
 [sub_resource type="MeshTexture" id=3]
 

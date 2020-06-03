@@ -62,4 +62,7 @@ func _on_Blinky_body_entered(body):
 
 func _on_Pinky_body_entered(body):
 	if(body == self):
+		speed = 0
+		hide()
+		GameOverScreen.show()
 		Board.end_game()

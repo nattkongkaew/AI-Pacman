@@ -41,7 +41,7 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="StartButton" to="Player-Board" method="_on_StartButton_pressed"]
 [connection signal="pressed" from="StartButton" to="AI-Board" method="_on_StartButton_pressed"]
-[connection signal="start_game" from="StartButton" to="Player-Board" method="_on_StartButton_start_game"]
+[connection signal="pressed" from="StartButton" to="Player-Board" method="_on_StartButton_pressed"]
 [connection signal="start_game" from="StartButton" to="AI-Board" method="_on_StartButton_start_game"]
+[connection signal="start_game" from="StartButton" to="Player-Board" method="_on_StartButton_start_game"]

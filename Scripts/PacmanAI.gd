@@ -21,7 +21,7 @@ func _process(_delta):
 	emit_signal("WHISTLE")
 	
 	# Only do stuff if we have a current path
-	if path:
+	if path and get_move_pacman():
 		# The next point is the first member of the path array
 		var target = path[0]
 		var MASS = 2.0
@@ -29,6 +29,7 @@ func _process(_delta):
 		var desired_velocity = (target - position).normalized() * speed
 		var steering = desired_velocity - velocity
 		velocity += steering / MASS
+		rotation = velocity.angle()
 		
 		# Move pacman
 		position += velocity * _delta

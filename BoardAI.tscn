@@ -76,9 +76,10 @@ func _ready():
 
 
 func _on_StartButton_pressed():
+	print( \"Start\" )
 	#StartButton.hide()
 	Scoreboard.set_time_updating(true)
-	#Pacman.set_move_pacman(true)
+	Pacman.set_move_pacman(true)
 	Blinky.set_game_enabled(true)
 	Pinky.set_game_enabled(true)
 	Inky.set_game_enabled(true)
@@ -234,6 +235,10 @@ __meta__ = {
 [node name="NewGameTimer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
+[connection signal="body_entered" from="Clyde" to="Pacman" method="_on_Clyde_body_entered"]
+[connection signal="body_entered" from="Inky" to="Pacman" method="_on_Inky_body_entered"]
+[connection signal="body_entered" from="Blinky" to="Pacman" method="_on_Blinky_body_entered"]
+[connection signal="body_entered" from="Pinky" to="Pacman" method="_on_Pinky_body_entered"]
 [connection signal="body_entered" from="Tunnel1" to="." method="_on_Tunnel1_body_entered"]
 [connection signal="body_entered" from="Tunnel2" to="." method="_on_Tunnel2_body_entered"]
 [connection signal="timeout" from="NewGameTimer" to="." method="_on_NewGameTimer_timeout"]

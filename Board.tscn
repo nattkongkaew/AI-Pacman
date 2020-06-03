@@ -33,6 +33,7 @@ onready var StartButton = get_parent().get_node(\"StartButton\")
 onready var GameOver = get_node(\"GameOver\")
 onready var YouWon = get_node(\"YouWon\")
 onready var Overlay = get_parent().get_node(\"UI\").get_node(\"overlay\")
+onready var NewGameTimer = get_node(\"NewGameTimer\")
 
 var vulnerable_time
 var fruit_generated = 0
@@ -78,22 +79,18 @@ func _on_StartButton_pressed():
 
 
 func end_game():
-	Pacman.set_move_pacman(false)
-	Pacman.hide()
-	Pacman.speed = 0
-	
-	Blinky.set_game_enabled(false)
-	Pinky.set_game_enabled(false)
-	Inky.set_game_enabled(false)
-	Clyde.set_game_enabled(false)
-	
-	Scoreboard.set_time_updating(false)
 	GameOver.show()
+	stop_movement()
 
 
 func game_won():
-	Pacman.set_move_pacman(false)
 	AnimatePacman.set_animation(\"stop\")
+	YouWon.show()
+	stop_movement()
+
+
+func stop_movement():
+	Pacman.set_move_pacman(false)
 	Pacman.speed = 0
 	
 	Blinky.set_game_enabled(false)
@@ -102,7 +99,7 @@ func game_won():
 	Clyde.set_game_enabled(false)
 	
 	Scoreboard.set_time_updating(false)
-	YouWon.show()
+	NewGameTimer.start()
 
 
 func _on_Tunnel1_body_entered(_body):
@@ -112,6 +109,10 @@ func _on_Tunnel1_body_entered(_body):
 
 func _on_Tunnel2_body_entered(body):
 	Pacman.position = Vector2(115, 390)
+
+
+func _on_NewGameTimer_timeout():
+	get_tree().reload_current_scene()
 "
 
 [sub_resource type="NavigationPolygon" id=2]
@@ -192,9 +193,14 @@ script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="NewGameTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
 [connection signal="body_entered" from="Clyde" to="Pacman" method="_on_Clyde_body_entered"]
 [connection signal="body_entered" from="Inky" to="Pacman" method="_on_Inky_body_entered"]
 [connection signal="body_entered" from="Blinky" to="Pacman" method="_on_Blinky_body_entered"]
 [connection signal="body_entered" from="Pinky" to="Pacman" method="_on_Pinky_body_entered"]
 [connection signal="body_entered" from="Tunnel1" to="." method="_on_Tunnel1_body_entered"]
 [connection signal="body_entered" from="Tunnel2" to="." method="_on_Tunnel2_body_entered"]
+[connection signal="timeout" from="NewGameTimer" to="." method="_on_NewGameTimer_timeout"]

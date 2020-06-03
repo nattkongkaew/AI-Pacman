@@ -33,7 +33,7 @@ onready var Fruit : Area2D = $Walls/Fruit
 #onready var StartButton = get_parent().get_node(\"StartButton\")
 onready var GameOver = get_node(\"GameOver\")
 onready var YouWon = get_node(\"YouWon\")
-#onready var Overlay = get_parent().get_node(\"UI\").get_node(\"overlay\")
+onready var Overlay = get_parent().get_node(\"UI\").get_node(\"overlay\")
 onready var NewGameTimer = get_node(\"NewGameTimer\")
 
 onready var navigation_map = $Walls
@@ -46,6 +46,7 @@ onready var closest_pellet
 
 var vulnerable_time
 var fruit_generated = 0
+var end_game = false
 
 func _process(_delta):
 	
@@ -85,11 +86,11 @@ func _on_StartButton_pressed():
 	Inky.set_game_enabled(true)
 	Clyde.set_game_enabled(true)
 	self.z_index = 0
-	#Overlay.hide()
+	Overlay.hide()
 	emit_signal(\"start_game\")
 
 
-func end_game():
+func game_lost():
 	GameOver.show()
 	stop_movement()
 
@@ -110,7 +111,7 @@ func stop_movement():
 	Clyde.set_game_enabled(false)
 	
 	Scoreboard.set_time_updating(false)
-	NewGameTimer.start()
+	end_game = true
 
 
 func _on_Tunnel1_body_entered(_body):
@@ -121,9 +122,6 @@ func _on_Tunnel1_body_entered(_body):
 func _on_Tunnel2_body_entered(body):
 	Pacman.position = Vector2(115, 390)
 
-
-func _on_NewGameTimer_timeout():
-	get_tree().reload_current_scene()
 
 func get_closest_pellet():
 	var min_dist = 99999
@@ -231,14 +229,9 @@ script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="NewGameTimer" type="Timer" parent="."]
-wait_time = 4.0
-one_shot = true
 [connection signal="body_entered" from="Clyde" to="Pacman" method="_on_Clyde_body_entered"]
 [connection signal="body_entered" from="Inky" to="Pacman" method="_on_Inky_body_entered"]
 [connection signal="body_entered" from="Blinky" to="Pacman" method="_on_Blinky_body_entered"]
 [connection signal="body_entered" from="Pinky" to="Pacman" method="_on_Pinky_body_entered"]
 [connection signal="body_entered" from="Tunnel1" to="." method="_on_Tunnel1_body_entered"]
 [connection signal="body_entered" from="Tunnel2" to="." method="_on_Tunnel2_body_entered"]
-[connection signal="timeout" from="NewGameTimer" to="." method="_on_NewGameTimer_timeout"]

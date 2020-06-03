@@ -23,15 +23,15 @@ var velocity = Vector2()
 func _process(delta):
 	
 	#testing by press spacebar
-	if Input.is_action_just_pressed("ui_accept"):
-		emit_signal("WHISTLE")
+	#if Input.is_action_just_pressed("ui_accept"):
+	emit_signal("WHISTLE")
 	# Only do stuff if we have a current path
 	if path:
 
 		# The next point is the first member of the path array
 		var target = path[0]
 
-		var MASS = 5.0
+		var MASS = 2.0
 		# Determine direction pacman have to move
 		var desired_velocity = (target - position).normalized() * speed
 		var steering = desired_velocity - velocity

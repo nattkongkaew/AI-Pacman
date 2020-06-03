@@ -61,6 +61,7 @@ func _ready():
 	#pellet_point = walls.get_pellet_child(pellet_child)
 	#when hit space bar
 	player.connect(\"WHISTLE\", self, \"_calculate_new_path\")
+	
 
 	
 func get_closest_pellet():

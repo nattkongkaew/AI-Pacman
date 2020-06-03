@@ -31,7 +31,7 @@ func _process(delta):
 		# The next point is the first member of the path array
 		var target = path[0]
 
-		var MASS = 3.0
+		var MASS = 5.0
 		# Determine direction pacman have to move
 		var desired_velocity = (target - position).normalized() * speed
 		var steering = desired_velocity - velocity
@@ -40,7 +40,6 @@ func _process(delta):
 		# Move pacman
 		position += velocity * delta
 		
-
 
 		# If pacman have reached the point
 		if position.distance_to(target) < POINT_RADIUS:

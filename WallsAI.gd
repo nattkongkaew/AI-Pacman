@@ -16,7 +16,7 @@ onready var start_position = self.position
 onready var astar = AStar.new()
 onready var used_rect = get_used_rect()
 onready var movable_tile = get_used_cells_by_id(50)  #50 is the index of tile that have navigation polygon --refer to tileset
-
+onready var pellet_child = get_node("Pellets")
 
 
 var vulnerable = 0
@@ -101,8 +101,23 @@ func _get_id_for_point(point):
 	return x + y * used_rect.size.x
 
 
+# get all node position and store in pellet_point
+func get_pellet_child(pellet_child):
+	var pellet_point=[]
+	for N in pellet_child.get_children():
+		if N.get_child_count()>0:
+			var point = N.position
+			pellet_point.append(point)
+			#print(point)
+			#print(N.get_name())
+			get_pellet_child(N)
+	return pellet_point
+	#for x in pellet_point:
+	#	print(x)
+
+
 func _process(delta):
-	pass
+	get_pellet_child(pellet_child)
 
 
 # Get pellet7 position

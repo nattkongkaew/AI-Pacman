@@ -20,7 +20,6 @@ onready var used_rect = get_used_rect()
 onready var movable_tile = get_used_cells_by_id(50)  #50 is the index of tile that have navigation polygon --refer to tileset
 onready var pellet_child = get_node("Pellets")
 onready var _half_cell_size = cell_size / 2
-var pellet_count = 0
 
 var vulnerable = 0
 var vulnerable_time = 0
@@ -163,11 +162,3 @@ func get_pellet_child(pellet_child):
 	return pellet_point
 	#for x in pellet_point:
 	#	print(x)
-	
-
-func add_pellet_count():
-	pellet_count += 1
-
-
-func get_pellet_count():
-	return pellet_count

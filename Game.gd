@@ -21,3 +21,6 @@ func _process(delta):
 
 func _on_NewGameTimer_timeout():
 	get_tree().reload_current_scene()
+	
+
+		

@@ -61,15 +61,70 @@ func _process(_delta):
 func get_closest_pellet( pellets ):
 	var min_dist = 99999
 	var min_pellet
+	var min_free_dist = 99999
+	var min_free_pellet
+	var min_vuln_ghost_dist = 99999
+	var min_vuln_ghost
 	for pellet in pellets:
-		if blocked_by_ghost( pellet, Blinky ) or blocked_by_ghost( pellet, Pinky ) or blocked_by_ghost( pellet, Inky ) or blocked_by_ghost( pellet, Clyde ):
-			continue
-		
 		var dist = position.distance_to(pellet)
 		if (dist < min_dist):
 			min_dist = dist
 			min_pellet = pellet
+			
+		if Blinky.is_vulnerable():
+			var target_ghost = Blinky.position
+			var gdist = position.distance_to( target_ghost )
+			var blinky_block = !Blinky.is_vulnerable() and blocked_by_ghost( target_ghost, Blinky )
+			var pinky_block = !Pinky.is_vulnerable() and blocked_by_ghost( target_ghost, Pinky )
+			var inky_block = !Inky.is_vulnerable() and blocked_by_ghost( target_ghost, Inky )
+			var clyde_block = !Clyde.is_vulnerable() and blocked_by_ghost( target_ghost, Clyde )
+			if gdist < min_vuln_ghost_dist and !blinky_block and !pinky_block and !inky_block and !clyde_block:
+				min_vuln_ghost_dist = gdist
+				min_vuln_ghost = target_ghost
+			
+		if Pinky.is_vulnerable():
+			var target_ghost = Pinky.position
+			var gdist = position.distance_to( target_ghost )
+			var blinky_block = !Blinky.is_vulnerable() and blocked_by_ghost( target_ghost, Blinky )
+			var pinky_block = !Pinky.is_vulnerable() and blocked_by_ghost( target_ghost, Pinky )
+			var inky_block = !Inky.is_vulnerable() and blocked_by_ghost( target_ghost, Inky )
+			var clyde_block = !Clyde.is_vulnerable() and blocked_by_ghost( target_ghost, Clyde )
+			if gdist < min_vuln_ghost_dist and !blinky_block and !pinky_block and !inky_block and !clyde_block:
+				min_vuln_ghost_dist = gdist
+				min_vuln_ghost = target_ghost
+			
+		if Inky.is_vulnerable():
+			var target_ghost = Inky.position
+			var gdist = position.distance_to( target_ghost )
+			var blinky_block = !Blinky.is_vulnerable() and blocked_by_ghost( target_ghost, Blinky )
+			var pinky_block = !Pinky.is_vulnerable() and blocked_by_ghost( target_ghost, Pinky )
+			var inky_block = !Inky.is_vulnerable() and blocked_by_ghost( target_ghost, Inky )
+			var clyde_block = !Clyde.is_vulnerable() and blocked_by_ghost( target_ghost, Clyde )
+			if gdist < min_vuln_ghost_dist and !blinky_block and !pinky_block and !inky_block and !clyde_block:
+				min_vuln_ghost_dist = gdist
+				min_vuln_ghost = target_ghost
+			
+		if Clyde.is_vulnerable():
+			var target_ghost = Clyde.position
+			var gdist = position.distance_to( target_ghost )
+			var blinky_block = !Blinky.is_vulnerable() and blocked_by_ghost( target_ghost, Blinky )
+			var pinky_block = !Pinky.is_vulnerable() and blocked_by_ghost( target_ghost, Pinky )
+			var inky_block = !Inky.is_vulnerable() and blocked_by_ghost( target_ghost, Inky )
+			var clyde_block = !Clyde.is_vulnerable() and blocked_by_ghost( target_ghost, Clyde )
+			if gdist < min_vuln_ghost_dist and !blinky_block and !pinky_block and !inky_block and !clyde_block:
+				min_vuln_ghost_dist = gdist
+				min_vuln_ghost = target_ghost
+		
+		if blocked_by_ghost( pellet, Blinky ) or blocked_by_ghost( pellet, Pinky ) or blocked_by_ghost( pellet, Inky ) or blocked_by_ghost( pellet, Clyde ):
+			continue
+		if dist < min_free_dist:
+			min_free_dist = dist
+			min_free_pellet = pellet
 	#print(min_pellet)
+	if min_vuln_ghost:
+		return min_vuln_ghost
+	if min_free_pellet:
+		return min_free_pellet
 	return min_pellet
 
 

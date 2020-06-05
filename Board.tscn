@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Pacman.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Walls.tscn" type="PackedScene" id=2]
@@ -7,33 +7,109 @@
 [ext_resource path="res://GhostPath.gd" type="Script" id=5]
 [ext_resource path="res://Blinky.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Inky.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Pinky.gd" type="Script" id=8]
-[ext_resource path="res://images/ghosts/pinky_down.png" type="Texture" id=9]
+[ext_resource path="res://Pinky.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Tunnel.tscn" type="PackedScene" id=9]
+[ext_resource path="res://GameOver.gd" type="Script" id=10]
+[ext_resource path="res://YouWon.gd" type="Script" id=11]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
+signal start_game
 
 onready var Scoreboard = $BoardScoreboard
 onready var Pellets = $Walls/Pellets
+onready var PowerPellets = $Walls/PowerPellets
 onready var Pacman : KinematicBody2D = $Pacman
-onready var Clyde : Node2D = $Clyde
+onready var AnimatePacman : AnimatedSprite = $Pacman/AnimatedSprite
+onready var Clyde : Area2D = $Clyde
+onready var Pinky : Area2D = $Pinky
+onready var Blinky : Area2D = $Blinky
+onready var Inky : Area2D = $Inky
 onready var GhostPath : Navigation2D = $GhostPath
+onready var Walls : Navigation2D = $Walls
+onready var Fruit : Area2D = $Walls/Fruit
+onready var StartButton = get_parent().get_node(\"StartButton\")
+onready var GameOver = get_node(\"GameOver\")
+onready var YouWon = get_node(\"YouWon\")
+onready var Overlay = get_parent().get_node(\"UI\").get_node(\"overlay\")
+onready var NewGameTimer = get_node(\"NewGameTimer\")
 
+var vulnerable_time
+var fruit_generated = 0
+var end_game = false
 
+func _process(_delta):
+	
+	if(Scoreboard.get_current_score() != 700):
+		pass
+	else:
+		if(fruit_generated == 0):
+			Walls.generate_fruit()
+			fruit_generated = 1
+		pass
+		
+	if(Scoreboard.get_current_score() == 1980):
+		game_won()
+	
 func _ready():
+
 	# Connect the pellets' collected signal to the scoreboard
 	for pellet in Pellets.get_children():
 		pellet.connect( \"pellet_collected\", Scoreboard, \"add_score\" )
+		
+	for ppellet in PowerPellets.get_children():
+		ppellet.connect( \"power_pellet_collected\", Pinky, \"go_vulnerable\")
+		ppellet.connect( \"power_pellet_collected\", Blinky, \"go_vulnerable\")
+		ppellet.connect( \"power_pellet_collected\", Inky, \"go_vulnerable\")
+		ppellet.connect( \"power_pellet_collected\", Clyde, \"go_vulnerable\")
+		ppellet.connect( \"power_pellet_collected\", Walls, \"set_vulnerability\")
 
 
+func _on_StartButton_pressed():
+	StartButton.hide()
+	Scoreboard.set_time_updating(true)
+	Pacman.set_move_pacman(true)
+	Blinky.set_game_enabled(true)
+	Pinky.set_game_enabled(true)
+	Inky.set_game_enabled(true)
+	Clyde.set_game_enabled(true)
+	self.z_index = 0
+	Overlay.hide()
+	emit_signal(\"start_game\")
 
 
+func game_lost():
+	GameOver.show()
+	stop_movement()
 
 
+func game_won():
+	AnimatePacman.set_animation(\"stop\")
+	YouWon.show()
+	stop_movement()
 
 
+func stop_movement():
+	Pacman.set_move_pacman(false)
+	Pacman.speed = 0
+	
+	Blinky.set_game_enabled(false)
+	Pinky.set_game_enabled(false)
+	Inky.set_game_enabled(false)
+	Clyde.set_game_enabled(false)
+	
+	Scoreboard.set_time_updating(false)
+	end_game = true
 
+
+func _on_Tunnel1_body_entered(_body):
+	Pacman.position = Vector2(545, 390)
+	
+
+
+func _on_Tunnel2_body_entered(body):
+	Pacman.position = Vector2(115, 390)
 "
 
 [sub_resource type="NavigationPolygon" id=2]
@@ -41,23 +117,27 @@ vertices = PoolVector2Array( 438.607, 399.824, 438.393, 380.504, 471.881, 374.33
 polygons = [ PoolIntArray( 0, 1, 2, 3, 4, 5 ), PoolIntArray( 6, 7, 8, 9, 10 ), PoolIntArray( 11, 12, 13, 14 ), PoolIntArray( 15, 10, 9 ), PoolIntArray( 16, 17, 18, 19, 20 ), PoolIntArray( 21, 22, 23, 24, 25, 26 ), PoolIntArray( 15, 9, 27, 28 ), PoolIntArray( 29, 30, 31, 32, 33, 34 ), PoolIntArray( 35, 36, 37, 38 ), PoolIntArray( 39, 35, 38, 40, 41 ), PoolIntArray( 42, 37, 36, 43, 44 ), PoolIntArray( 45, 8, 7, 46, 47 ), PoolIntArray( 48, 49, 50, 51, 52 ), PoolIntArray( 53, 54, 55, 56, 57 ), PoolIntArray( 58, 59, 60, 61 ), PoolIntArray( 62, 63, 64, 65, 66, 67 ), PoolIntArray( 68, 18, 17, 69 ), PoolIntArray( 70, 71, 68, 69, 58, 61 ), PoolIntArray( 72, 12, 11, 73 ), PoolIntArray( 72, 73, 74, 75, 76 ), PoolIntArray( 41, 20, 19, 39 ), PoolIntArray( 59, 41, 40, 77 ), PoolIntArray( 78, 76, 75, 79 ), PoolIntArray( 70, 0, 5, 71 ), PoolIntArray( 27, 2, 1, 80, 28 ), PoolIntArray( 81, 28, 80 ), PoolIntArray( 82, 48, 52, 83, 84 ), PoolIntArray( 85, 84, 83, 86, 87 ), PoolIntArray( 88, 89, 90, 91, 92, 93 ), PoolIntArray( 94, 95, 96, 97, 98 ), PoolIntArray( 70, 61, 99, 22 ), PoolIntArray( 100, 101, 22, 99, 102 ), PoolIntArray( 103, 102, 99, 104 ), PoolIntArray( 105, 94, 98, 106, 107 ), PoolIntArray( 44, 107, 106, 42 ), PoolIntArray( 54, 44, 43 ), PoolIntArray( 55, 54, 43, 108 ), PoolIntArray( 108, 43, 109, 110 ), PoolIntArray( 64, 110, 109, 111, 112 ), PoolIntArray( 32, 113, 114, 33 ), PoolIntArray( 115, 29, 34, 66 ), PoolIntArray( 30, 29, 116, 117 ), PoolIntArray( 59, 77, 118, 60 ), PoolIntArray( 104, 60, 118, 96 ), PoolIntArray( 104, 96, 95, 119, 103 ), PoolIntArray( 113, 103, 119 ), PoolIntArray( 67, 114, 113, 119, 120 ), PoolIntArray( 121, 122, 123, 124, 125 ), PoolIntArray( 126, 74, 73, 122, 121 ), PoolIntArray( 127, 6, 10, 81, 80 ), PoolIntArray( 127, 80, 128, 46 ), PoolIntArray( 129, 128, 80, 50 ), PoolIntArray( 129, 50, 49, 130, 131 ), PoolIntArray( 46, 128, 47 ), PoolIntArray( 45, 47, 132 ), PoolIntArray( 131, 45, 132, 129 ), PoolIntArray( 13, 131, 130 ), PoolIntArray( 122, 14, 13, 130, 133 ), PoolIntArray( 134, 135, 136, 137, 124, 138 ), PoolIntArray( 139, 140, 141, 142, 143, 144 ), PoolIntArray( 1, 0, 21, 26 ), PoolIntArray( 145, 26, 25, 146 ), PoolIntArray( 85, 87, 139, 144, 90, 89 ), PoolIntArray( 147, 57, 56, 148, 149 ), PoolIntArray( 147, 149, 120, 119 ), PoolIntArray( 67, 120, 62 ), PoolIntArray( 34, 67, 66 ), PoolIntArray( 22, 101, 23 ), PoolIntArray( 24, 23, 117, 150 ), PoolIntArray( 151, 150, 117, 116, 152 ), PoolIntArray( 86, 146, 25, 87 ), PoolIntArray( 153, 91, 90, 151, 154 ), PoolIntArray( 152, 154, 151 ), PoolIntArray( 124, 152, 116, 138 ), PoolIntArray( 155, 93, 92, 156, 157 ), PoolIntArray( 155, 157, 133, 130 ), PoolIntArray( 122, 133, 123 ), PoolIntArray( 126, 121, 158, 79 ), PoolIntArray( 78, 79, 158 ), PoolIntArray( 78, 158, 159 ), PoolIntArray( 160, 78, 159, 125 ), PoolIntArray( 160, 125, 124, 137 ), PoolIntArray( 161, 134, 138, 115, 66 ), PoolIntArray( 161, 66, 162, 163 ), PoolIntArray( 164, 163, 162, 165 ), PoolIntArray( 166, 164, 165, 167, 168 ), PoolIntArray( 166, 168, 112, 111 ), PoolIntArray( 64, 112, 65 ) ]
 outlines = [ PoolVector2Array( 107.812, 169.755, 108.221, 305.691, 188.223, 305.392, 188.242, 374.696, 100.294, 374.472, 100.129, 405.725, 188.071, 405.822, 188.221, 474.109, 108.95, 474.593, 108.659, 541.728, 160.075, 541.769, 160.331, 558.553, 108.327, 558.597, 108.346, 631.962, 552.045, 631.523, 551.84, 558.123, 499.876, 558.033, 499.945, 541.918, 551.927, 541.809, 551.854, 474.085, 471.78, 474.112, 471.855, 406.387, 560.122, 405.547, 560.086, 374.265, 471.881, 374.33, 471.881, 305.777, 551.735, 305.38, 551.568, 168.038, 338.108, 167.949, 338.108, 240.141, 321.669, 239.986, 321.794, 168.166, 108.885, 168.228 ), PoolVector2Array( 139.758, 203.359, 139.447, 236.625, 199.372, 237.014, 199.45, 203.592 ), PoolVector2Array( 219.643, 203.25, 219.643, 236.672, 299.233, 236.672, 299.355, 203.608 ), PoolVector2Array( 359.829, 203.875, 439.07, 203.234, 439.094, 235.991, 359.915, 236.405 ), PoolVector2Array( 459.583, 203.491, 459.514, 236.35, 519.71, 236.212, 519.227, 203.422 ), PoolVector2Array( 139.365, 261.212, 139.764, 278.562, 199.893, 278.363, 199.993, 261.311 ), PoolVector2Array( 259.683, 278.742, 259.484, 261.291, 400.025, 261.471, 400.424, 278.722, 340.992, 278.822, 338.599, 282.411, 338.699, 320.304, 321.149, 320.902, 321.228, 282.511, 318.835, 278.522 ), PoolVector2Array( 459.675, 261.828, 459.864, 278.627, 520.174, 278.627, 520.237, 261.513 ), PoolVector2Array( 359.851, 301.432, 359.851, 318.344, 418.307, 318.405, 421.206, 322.45, 421.252, 380.278, 438.393, 380.504, 438.347, 259.683, 421.883, 259.683, 421.545, 298.701, 418.387, 301.295 ), PoolVector2Array( 221.164, 260.209, 221.45, 380.273, 238.635, 380.188, 238.623, 321.6, 241.485, 318.595, 300.443, 318.309, 300.443, 301.423, 241.342, 301.566, 239.052, 298.847, 238.909, 260.066 ), PoolVector2Array( 221.555, 399.553, 221.525, 480.174, 238.594, 480.152, 238.501, 399.246 ), PoolVector2Array( 421.582, 400.018, 420.804, 480.18, 438.509, 480.277, 438.607, 399.824 ), PoolVector2Array( 259.551, 461.037, 400.567, 461.746, 400.745, 478.813, 341.107, 478.813, 338.972, 481.517, 338.83, 520.232, 321.181, 520.374, 321.608, 480.948, 318.903, 478.528, 259.55, 478.813 ), PoolVector2Array( 359.941, 501.257, 359.84, 518.59, 440.322, 518.489, 440.322, 501.561 ), PoolVector2Array( 220.222, 501.44, 220.222, 518.671, 300.198, 518.671, 299.995, 501.136 ), PoolVector2Array( 139.521, 518.537, 139.742, 501.389, 198.13, 501.157, 198.732, 559.985, 181.007, 559.87, 181.355, 521.523, 178.69, 518.859 ), PoolVector2Array( 461.085, 560.545, 461.519, 501.907, 520.072, 501.907, 520.241, 518.661, 480.98, 518.661, 478.611, 522.215, 478.905, 560.545 ), PoolVector2Array( 359.904, 598.641, 520.182, 598.497, 520.08, 580.989, 441.036, 581.399, 438.681, 578.839, 438.436, 539.337, 421.951, 539.849, 421.542, 578.45, 418.675, 581.214, 359.945, 581.501 ), PoolVector2Array( 321.527, 600.594, 339.132, 600.926, 338.966, 561.398, 341.125, 559.239, 399.586, 558.907, 400.915, 541.634, 260.076, 541.8, 259.744, 558.242, 317.541, 558.076, 321.195, 562.229 ), PoolVector2Array( 139.5, 581.461, 139.833, 599.066, 299.77, 598.567, 300.102, 581.959, 240.977, 581.129, 238.818, 578.139, 238.601, 539.776, 221.545, 539.608, 221.336, 577.888, 219.054, 580.963 ), PoolVector2Array( 310.495, 345.26, 265.195, 345.719, 265.794, 435.152, 394.354, 434.553, 393.955, 346.317, 349.65, 345.389, 349.65, 354.435, 385.77, 354.502, 385.832, 425.404, 274.777, 425.37, 274.378, 354.702, 310.71, 354.502 ) ]
 
-[sub_resource type="RectangleShape2D" id=3]
-
 [node name="Board" type="Node2D"]
 script = SubResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ],
+"_edit_vertical_guides_": [  ]
+}
 
 [node name="Walls" parent="." instance=ExtResource( 2 )]
 tile_data = PoolIntArray( 524293, 0, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 0, 524304, 3, 0, 524305, 1, 0, 524306, 1, 0, 524307, 1, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 0, 524311, 1, 0, 524312, 1, 0, 524313, 1, 0, 524314, 1, 0, 524315, 4, 0, 589829, 2, 0, 589840, 11, 0, 589851, 5, 0, 655365, 2, 0, 655367, 36, 0, 655368, 39, 0, 655369, 40, 0, 655371, 36, 0, 655372, 39, 0, 655373, 39, 0, 655374, 40, 0, 655376, 1610612747, 0, 655378, 36, 0, 655379, 39, 0, 655380, 39, 0, 655381, 40, 0, 655383, 36, 0, 655384, 39, 0, 655385, 40, 0, 655387, 5, 0, 720901, 2, 0, 720903, 37, 0, 720904, 38, 0, 720905, 41, 0, 720907, 37, 0, 720908, 38, 0, 720909, 38, 0, 720910, 41, 0, 720912, 1610612751, 0, 720914, 37, 0, 720915, 38, 0, 720916, 38, 0, 720917, 41, 0, 720919, 37, 0, 720920, 38, 0, 720921, 41, 0, 720923, 5, 0, 786437, 2, 0, 786459, 5, 0, 851973, 2, 0, 851975, 13, 0, 851976, 28, 0, 851977, 14, 0, 851979, 15, 0, 851981, 13, 0, 851982, -1610612725, 0, 851983, -1610612725, 0, 851984, -1610612694, 0, 851985, -1610612725, 0, 851986, -1073741813, 0, 851987, -1073741808, 0, 851989, -1610612723, 0, 851991, 1610612750, 0, 851992, -1073741813, 0, 851993, 1610612749, 0, 851995, 5, 0, 917509, 2, 0, 917515, 11, 0, 917520, 1610612747, 0, 917525, 1610612747, 0, 917531, -1073741790, 0, 983045, 44, 0, 983046, 45, 0, 983047, 45, 0, 983048, 45, 0, 983049, 46, 0, 983051, 42, 0, 983052, -1610612725, 0, 983053, -1610612725, 0, 983054, -1610612721, 0, 983056, 16, 0, 983058, 1610612750, 0, 983059, 1610612764, 0, 983060, 1610612764, 0, 983061, 1610612778, 0, 983063, 1610612785, 0, 983064, -1073741800, 0, 983065, -1073741800, 0, 983066, -1073741800, 0, 983067, 1610612784, 0, 1048585, -1610612702, 0, 1048587, 11, 0, 1048597, 1610612747, 0, 1048599, -1073741790, 0, 1114121, -1610612702, 0, 1114123, 11, 0, 1114125, -1610612710, 0, 1114126, -1610612712, 0, 1114127, 1610612757, 0, 1114129, 21, 0, 1114130, 20, 0, 1114131, 19, 0, 1114133, 1610612747, 0, 1114135, -1073741790, 0, 1179653, 1610612781, 0, 1179654, 1610612781, 0, 1179655, 1610612781, 0, 1179656, 1610612781, 0, 1179657, 49, 0, 1179659, 16, 0, 1179661, -1610612716, 0, 1179667, 24, 0, 1179669, -1610612722, 0, 1179671, 1610612782, 0, 1179672, 1610612781, 0, 1179673, 1610612781, 0, 1179674, 1610612781, 0, 1179675, 1610612756, 0, 1245197, -1610612716, 0, 1245203, 24, 0, 1310725, 1610612781, 0, 1310726, 1610612781, 0, 1310727, 1610612781, 0, 1310728, 1610612781, 0, 1310729, 46, 0, 1310731, 15, 0, 1310733, 24, 0, 1310739, 24, 0, 1310741, 15, 0, 1310743, 1610612785, 0, 1310744, 1610612781, 0, 1310745, 1610612781, 0, 1310746, 1610612781, 0, 1310747, 1610612756, 0, 1376265, -1610612702, 0, 1376267, 11, 0, 1376269, 26, 0, 1376270, 1610612756, 0, 1376271, 1610612756, 0, 1376272, 1610612756, 0, 1376273, 1610612756, 0, 1376274, 1610612756, 0, 1376275, -1073741798, 0, 1376277, 11, 0, 1376279, -1073741790, 0, 1441801, -1610612702, 0, 1441803, 11, 0, 1441813, 11, 0, 1441815, -1073741790, 0, 1507333, 48, 0, 1507334, 1610612781, 0, 1507335, 1610612781, 0, 1507336, 1610612781, 0, 1507337, 49, 0, 1507339, 16, 0, 1507341, 1610612750, 0, 1507342, -1073741813, 0, 1507343, -1073741813, 0, 1507344, -1610612694, 0, 1507345, -1073741813, 0, 1507346, -1073741813, 0, 1507347, 14, 0, 1507349, 16, 0, 1507351, 1610612782, 0, 1507352, 1610612781, 0, 1507353, 1610612781, 0, 1507354, 1610612781, 0, 1507355, 1610612780, 0, 1572869, -1610612702, 0, 1572880, 11, 0, 1572891, -1073741790, 0, 1638405, -1610612702, 0, 1638407, 13, 0, 1638408, -1610612725, 0, 1638409, -1610612689, 0, 1638411, -1073741809, 0, 1638412, -1073741813, 0, 1638413, -1073741813, 0, 1638414, -1073741808, 0, 1638416, 16, 0, 1638418, 13, 0, 1638419, -1073741813, 0, 1638420, -1073741813, 0, 1638421, 14, 0, 1638423, 47, 0, 1638424, -1073741813, 0, 1638425, 14, 0, 1638427, -1073741790, 0, 1703941, -1610612702, 0, 1703945, 1610612747, 0, 1703959, 11, 0, 1703963, -1073741790, 0, 1769477, 31, 0, 1769478, -1073741813, 0, 1769479, 14, 0, 1769481, -1610612722, 0, 1769483, 15, 0, 1769485, -1610612720, 0, 1769486, -1610612725, 0, 1769487, -1610612725, 0, 1769488, -1610612694, 0, 1769489, -1610612725, 0, 1769490, -1073741813, 0, 1769491, -1073741808, 0, 1769493, 15, 0, 1769495, 16, 0, 1769497, -1610612720, 0, 1769498, -1610612725, 0, 1769499, 1610612767, 0, 1835013, -1610612702, 0, 1835019, 11, 0, 1835024, 1610612747, 0, 1835029, 11, 0, 1835035, -1073741790, 0, 1900549, -1610612702, 0, 1900551, -1610612720, 0, 1900552, -1610612725, 0, 1900553, -1610612725, 0, 1900554, -1610612725, 0, 1900555, -1073741782, 0, 1900556, -1610612725, 0, 1900557, -1073741813, 0, 1900558, -1073741808, 0, 1900560, 16, 0, 1900562, 13, 0, 1900563, -1610612725, 0, 1900564, -1610612725, 0, 1900565, -1073741782, 0, 1900566, -1610612725, 0, 1900567, -1610612725, 0, 1900568, -1610612725, 0, 1900569, 14, 0, 1900571, -1073741790, 0, 1966085, -1610612702, 0, 1966107, -1073741790, 0, 2031621, -1073741824, 0, 2031622, 34, 0, 2031623, 34, 0, 2031624, 34, 0, 2031625, 34, 0, 2031626, 34, 0, 2031627, 34, 0, 2031628, 34, 0, 2031629, 34, 0, 2031630, 34, 0, 2031631, 34, 0, 2031632, 34, 0, 2031633, 34, 0, 2031634, 34, 0, 2031635, 34, 0, 2031636, 34, 0, 2031637, 34, 0, 2031638, 34, 0, 2031639, 34, 0, 2031640, 34, 0, 2031641, 34, 0, 2031642, 34, 0, 2031643, -1610612732, 0 )
 
+[node name="BoardScoreboard" parent="." instance=ExtResource( 3 )]
+margin_left = 288.0
+margin_top = 112.0
+margin_right = 379.0
+margin_bottom = 144.0
+
 [node name="Pacman" parent="." instance=ExtResource( 1 )]
 position = Vector2( 330, 530 )
 scale = Vector2( 0.8, 0.8 )
-
-[node name="BoardScoreboard" parent="." instance=ExtResource( 3 )]
-margin_left = 285.0
-margin_top = 120.0
-margin_right = 376.0
-margin_bottom = 152.0
+collision_layer = 5
+collision_mask = 5
 
 [node name="GhostPath" type="Navigation2D" parent="."]
 script = ExtResource( 5 )
@@ -65,10 +145,9 @@ script = ExtResource( 5 )
 [node name="PathShape" type="NavigationPolygonInstance" parent="GhostPath"]
 navpoly = SubResource( 2 )
 
-[node name="Walls" parent="GhostPath" instance=ExtResource( 2 )]
-
 [node name="Clyde" parent="." instance=ExtResource( 4 )]
 position = Vector2( 360, 392 )
+scale = Vector2( 0.6, 0.6 )
 
 [node name="Inky" parent="." instance=ExtResource( 7 )]
 position = Vector2( 296, 392 )
@@ -78,14 +157,42 @@ scale = Vector2( 0.6, 0.6 )
 position = Vector2( 329.791, 333.297 )
 scale = Vector2( 0.6, 0.6 )
 
-[node name="Pinky" type="Area2D" parent="."]
-position = Vector2( 330, 390 )
-script = ExtResource( 8 )
+[node name="Pinky" parent="." instance=ExtResource( 8 )]
+position = Vector2( 328, 392 )
+scale = Vector2( 0.6, 0.6 )
 
-[node name="Sprite" type="Sprite" parent="Pinky"]
-position = Vector2( -0.418123, 0.836262 )
-scale = Vector2( 0.632053, 0.609752 )
-texture = ExtResource( 9 )
+[node name="Tunnel1" parent="." instance=ExtResource( 9 )]
+position = Vector2( 94.4999, 390.25 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pinky"]
-shape = SubResource( 3 )
+[node name="Tunnel2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 567.762, 389.836 )
+
+[node name="GameOver" type="Label" parent="."]
+margin_left = 296.0
+margin_top = 440.0
+margin_right = 369.0
+margin_bottom = 454.0
+custom_colors/font_color = Color( 0.878431, 0.137255, 0.137255, 1 )
+text = "Game Over"
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YouWon" type="Label" parent="."]
+margin_left = 304.0
+margin_top = 440.0
+margin_right = 361.0
+margin_bottom = 454.0
+custom_colors/font_color = Color( 0.913725, 0.905882, 0.298039, 1 )
+text = "You won!"
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="body_entered" from="Clyde" to="Pacman" method="_on_Clyde_body_entered"]
+[connection signal="body_entered" from="Inky" to="Pacman" method="_on_Inky_body_entered"]
+[connection signal="body_entered" from="Blinky" to="Pacman" method="_on_Blinky_body_entered"]
+[connection signal="body_entered" from="Pinky" to="Pacman" method="_on_Pinky_body_entered"]
+[connection signal="body_entered" from="Tunnel1" to="." method="_on_Tunnel1_body_entered"]
+[connection signal="body_entered" from="Tunnel2" to="." method="_on_Tunnel2_body_entered"]

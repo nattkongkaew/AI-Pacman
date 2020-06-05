@@ -1,5 +1,7 @@
 extends GridContainer
 
+signal start_game
+
 const SCORE_LENGTH = 6			# Number of digits for the score
 const TIME_DENOMINATION = 60	# Upper limit for right time segment (60 = seconds or minutes)
 const TIME_LENGTH = 2			# Number of digits in each time "segment"
@@ -15,8 +17,7 @@ onready var node_score = $Score
 func _ready():
 	set_current_time( 0 )
 	set_current_score( 0 )
-#	set_time_updating( false )
-	set_time_updating( true )
+	set_time_updating( false )
 
 
 # Frame-by-frame updates
@@ -79,3 +80,7 @@ func add_score( score_added ):
 # Reset the clock to 00:00
 func reset_clock():
 	set_current_time( 0 )
+	
+func add_fruit_score():
+	print("run")
+	set_current_score( get_current_score() + 1000)

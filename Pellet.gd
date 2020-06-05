@@ -10,6 +10,6 @@ const COLLECTION_SCORE = 10
 func _ready():
 	pass
 
-func _on_Pellet_body_entered(body: Node) -> void:
+func _on_Pellet_body_entered(_body: Node) -> void:
 	emit_signal( "pellet_collected", COLLECTION_SCORE )
 	queue_free()

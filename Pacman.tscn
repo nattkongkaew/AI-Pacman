@@ -1,14 +1,20 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://images/pacman_sprites/pacman0.png" type="Texture" id=1]
-[ext_resource path="res://images/pacman_sprites/pacman1.png" type="Texture" id=2]
-[ext_resource path="res://images/pacman_sprites/pacman2.png" type="Texture" id=3]
-[ext_resource path="res://images/pacman_sprites/pacman4.png" type="Texture" id=4]
+[ext_resource path="res://images/pacman_action/3.png" type="Texture" id=2]
+[ext_resource path="res://images/pacman_action/2.png" type="Texture" id=3]
+[ext_resource path="res://images/pacman_action/4.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Pacman.gd" type="Script" id=5]
+[ext_resource path="res://images/pacman_action/1.png" type="Texture" id=6]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "stop",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "moving",
 "speed": 5.0
@@ -24,8 +30,7 @@ script = ExtResource( 5 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.740741, 0.740741 )
 frames = SubResource( 1 )
-animation = "moving"
-frame = 2
+animation = "stop"
 speed_scale = 3.0
 playing = true
 

@@ -43,7 +43,7 @@ func set_vulnerability() -> void:
 	vulnerable_time = 0
 
 func run_vulnerable(delta) -> void:
-	if(vulnerable_time < 10):
+	if(vulnerable_time < 7):
 		vulnerable_time = vulnerable_time + delta
 
 	else:

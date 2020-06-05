@@ -40,9 +40,10 @@ func _process(delta):
 
 func set_vulnerability() -> void:
 	vulnerable = 1
+	vulnerable_time = 0
 
 func run_vulnerable(delta) -> void:
-	if(vulnerable_time < 5):
+	if(vulnerable_time < 7):
 		vulnerable_time = vulnerable_time + delta
 
 	else:

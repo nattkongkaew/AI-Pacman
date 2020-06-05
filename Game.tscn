@@ -11,6 +11,10 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 8 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ],
+"_edit_vertical_guides_": [  ]
+}
 
 [node name="UI" parent="." instance=ExtResource( 6 )]
 show_behind_parent = true
@@ -48,8 +52,8 @@ __meta__ = {
 [node name="NewGameTimer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
-[connection signal="pressed" from="StartButton" to="Player-Board" method="_on_StartButton_pressed"]
 [connection signal="pressed" from="StartButton" to="AI-Board" method="_on_StartButton_pressed"]
-[connection signal="start_game" from="StartButton" to="Player-Board" method="_on_StartButton_start_game"]
+[connection signal="pressed" from="StartButton" to="Player-Board" method="_on_StartButton_pressed"]
 [connection signal="start_game" from="StartButton" to="AI-Board" method="_on_StartButton_pressed"]
+[connection signal="start_game" from="StartButton" to="Player-Board" method="_on_StartButton_start_game"]
 [connection signal="timeout" from="NewGameTimer" to="." method="_on_NewGameTimer_timeout"]

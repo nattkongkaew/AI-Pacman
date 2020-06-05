@@ -2,7 +2,7 @@ extends "res://Ghost.gd"
 
 
 onready var Blinky = get_parent().get_node("Blinky")
-onready var Home = Vector2(295,395)
+onready var _ghost_home = get_parent().get_node( "GhostHome" )
 
 func _ready():
 	_ghost_name = "inky"
@@ -14,7 +14,7 @@ func can_move():
 
 func get_ghost_path():
 	if is_eaten():
-		return GhostPath.get_simple_path(position, Home, false)
+		return GhostPath.get_simple_path(position, _ghost_home.position, false)
 	else:
 		var pacman_front = Player.position + Player.direction * 36
 		var blinky_pacman_vector = pacman_front - Blinky.position

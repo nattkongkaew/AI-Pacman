@@ -231,6 +231,9 @@ script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="GhostHome" type="Node2D" parent="."]
+position = Vector2( 330, 390 )
 [connection signal="body_entered" from="Clyde" to="Pacman" method="_on_Clyde_body_entered"]
 [connection signal="body_entered" from="Inky" to="Pacman" method="_on_Inky_body_entered"]
 [connection signal="body_entered" from="Blinky" to="Pacman" method="_on_Blinky_body_entered"]

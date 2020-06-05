@@ -71,7 +71,7 @@ func get_closest_pellet( pellets ):
 			min_dist = dist
 			min_pellet = pellet
 			
-		if Blinky.is_vulnerable():
+		if Blinky.is_vulnerable() and not Blinky.is_eaten():
 			var target_ghost = Blinky.position
 			var gdist = position.distance_to( target_ghost )
 			var blinky_block = !Blinky.is_vulnerable() and blocked_by_ghost( target_ghost, Blinky )
@@ -82,7 +82,7 @@ func get_closest_pellet( pellets ):
 				min_vuln_ghost_dist = gdist
 				min_vuln_ghost = target_ghost
 			
-		if Pinky.is_vulnerable():
+		if Pinky.is_vulnerable() and not Pinky.is_eaten():
 			var target_ghost = Pinky.position
 			var gdist = position.distance_to( target_ghost )
 			var blinky_block = !Blinky.is_vulnerable() and blocked_by_ghost( target_ghost, Blinky )
@@ -93,7 +93,7 @@ func get_closest_pellet( pellets ):
 				min_vuln_ghost_dist = gdist
 				min_vuln_ghost = target_ghost
 			
-		if Inky.is_vulnerable():
+		if Inky.is_vulnerable() and not Inky.is_eaten():
 			var target_ghost = Inky.position
 			var gdist = position.distance_to( target_ghost )
 			var blinky_block = !Blinky.is_vulnerable() and blocked_by_ghost( target_ghost, Blinky )
@@ -104,7 +104,7 @@ func get_closest_pellet( pellets ):
 				min_vuln_ghost_dist = gdist
 				min_vuln_ghost = target_ghost
 			
-		if Clyde.is_vulnerable():
+		if Clyde.is_vulnerable() and not Clyde.is_eaten():
 			var target_ghost = Clyde.position
 			var gdist = position.distance_to( target_ghost )
 			var blinky_block = !Blinky.is_vulnerable() and blocked_by_ghost( target_ghost, Blinky )
@@ -148,32 +148,48 @@ func get_move_pacman():
 
 
 func _on_Clyde_body_entered(body):
+
 	if(body == self):
-		speed = 0
-		hide()
-		GameOverScreen.show()
-		Board.game_lost()
+		if Clyde.is_vulnerable():
+			Clyde.set_eaten(true)
+		else:
+			speed = 0
+			hide()
+			GameOverScreen.show()
+			Board.game_lost()
 
 
 func _on_Inky_body_entered(body):
-	if(body == self):
-		speed = 0
-		hide()
-		GameOverScreen.show()
-		Board.game_lost()
+
+	if(body==self):
+		if Inky.is_vulnerable():
+			Inky.set_eaten(true)
+		else:
+			speed = 0
+			hide()
+			GameOverScreen.show()
+			Board.game_lost()
 
 
 func _on_Blinky_body_entered(body):
-	if(body == self):
-		speed = 0
-		hide()
-		GameOverScreen.show()
-		Board.game_lost()
+
+	if(body==self):
+		if Blinky.is_vulnerable():
+			Blinky.set_eaten(true)
+		else:
+			speed = 0
+			hide()
+			GameOverScreen.show()
+			Board.game_lost()
 
 
 func _on_Pinky_body_entered(body):
+	
 	if(body == self):
-		speed = 0
-		hide()
-		GameOverScreen.show()
-		Board.game_lost()
+		if Pinky.is_vulnerable():
+			Pinky.set_eaten(true)
+		else:
+			speed = 0
+			hide()
+			GameOverScreen.show()
+			Board.game_lost()

@@ -1,11 +1,17 @@
 extends KinematicBody2D
 
 var direction = Vector2(0,0)
-var speed = 100
+var speed = 110
 onready var move_pacman = false
 onready var Board = get_parent()
 onready var GameOverScreen = get_parent().get_node("GameOver")
 onready var walls = get_parent().get_node("Walls")
+onready var Blinky = get_parent().get_node( "Blinky" )
+onready var Pinky = get_parent().get_node( "Pinky" )
+onready var Inky = get_parent().get_node( "Inky" )
+onready var Clyde = get_parent().get_node( "Clyde" )
+onready var Pellets = walls.pellet_child
+const MAX_GHOST_DIST_PRE_FLEE = 92
 
 # path before moving on to the next one
 const POINT_RADIUS = 5
@@ -18,7 +24,15 @@ func _ready():
 	$AnimatedSprite.play("moving")
 
 func _process(_delta):
-	emit_signal("WHISTLE")
+	var pellets = walls.get_pellet_child( Pellets )
+	
+	var target_pos = get_closest_pellet( pellets )
+	
+	path = walls.get_astar_path( position, target_pos )
+	# If we got a path...
+	if path:
+		# Remove the first point 
+		path.remove(0)
 	
 	# Only do stuff if we have a current path
 	if path and get_move_pacman():
@@ -27,6 +41,7 @@ func _process(_delta):
 		var MASS = 2.0
 		# Determine direction pacman have to move
 		var desired_velocity = (target - position).normalized() * speed
+		
 		var steering = desired_velocity - velocity
 		velocity += steering / MASS
 		rotation = velocity.angle()
@@ -42,6 +57,31 @@ func _process(_delta):
 			if path.size() == 0:
 				path = null
 
+
+func get_closest_pellet( pellets ):
+	var min_dist = 99999
+	var min_pellet
+	for pellet in pellets:
+		if blocked_by_ghost( pellet, Blinky ) or blocked_by_ghost( pellet, Pinky ) or blocked_by_ghost( pellet, Inky ) or blocked_by_ghost( pellet, Clyde ):
+			continue
+		
+		var dist = position.distance_to(pellet)
+		if (dist < min_dist):
+			min_dist = dist
+			min_pellet = pellet
+	#print(min_pellet)
+	return min_pellet
+
+
+func blocked_by_ghost( pellet, ghost ):
+	var dir_to_pellet = pellet - position
+	var dir_to_ghost = ghost.position - position
+	var ghost_to_pellet = ghost.position - pellet
+	var projected = dir_to_pellet.dot( dir_to_ghost ) / dir_to_pellet.length_squared()
+	
+	var flee_from_ghost_near_pellet = ghost_to_pellet.length_squared() < MAX_GHOST_DIST_PRE_FLEE * MAX_GHOST_DIST_PRE_FLEE
+	#return projected < 1 or ghost_to_pellet.length_squared() < MAX_GHOST_DIST_PRE_FLEE
+	return flee_from_ghost_near_pellet
 
 func set_move_pacman(can_move):
 	move_pacman = can_move

@@ -15,7 +15,7 @@ onready var scoreboard = get_parent().get_node("BoardScoreboard")
 onready var tunnel1 = get_parent().get_node("Tunnel1")
 onready var tunnel2 = get_parent().get_node("Tunnel2")
 
-onready var astar = AStar.new()
+onready var astar = AStar2D.new()
 onready var used_rect = get_used_rect()
 onready var movable_tile = get_used_cells_by_id(50)  #50 is the index of tile that have navigation polygon --refer to tileset
 onready var pellet_child = get_node("Pellets")
@@ -86,8 +86,7 @@ func astar_add_walkable_tiles(movable_tile):
 		var id = _get_id_for_point(tile)
 
 		# Add the tile to the AStar navigation
-		# NOTE: We use Vector3 as AStar is, internally, 3D. We just don't use Z.
-		astar.add_point(id, Vector3(tile.x, tile.y, 0))
+		astar.add_point(id, Vector2(tile.x, tile.y))
 
 	
 func astar_connect_walkable_tiles(movable_tile):
@@ -100,9 +99,12 @@ func astar_connect_walkable_tiles(movable_tile):
 		# Loops used to search around player (range(3) returns 0, 1, and 2)
 		for x in range(3):
 			for y in range(3):
+				var offset = Vector2( x-1, y-1 )
+				if offset.x != 0 and offset.y != 0:
+					continue # Skip corners
 
 				# Determines target, converting range variable to -1, 0, and 1
-				var target = tile + Vector2(x - 1, y - 1)
+				var target = tile + offset
 
 				# Determines target ID
 				var target_id = _get_id_for_point(target)
@@ -120,8 +122,10 @@ func get_astar_path(start, end):
 	var end_tile = world_to_map(end)
 
 	# Determines IDs
-	var start_id = _get_id_for_point(start_tile)
-	var end_id = _get_id_for_point(end_tile)
+	#var start_id = _get_id_for_point(start_tile)
+	#var end_id = _get_id_for_point(end_tile)
+	var start_id = astar.get_closest_point( start_tile )
+	var end_id = astar.get_closest_point( end_tile )
 
 	# Return null if navigation is impossible
 	if not astar.has_point(start_id) or not astar.has_point(end_id):

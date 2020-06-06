@@ -105,7 +105,7 @@ func stop_movement():
 
 func _on_Tunnel1_body_entered(_body):
 	Pacman.position = Vector2(545, 390)
-	
+
 
 
 func _on_Tunnel2_body_entered(body):

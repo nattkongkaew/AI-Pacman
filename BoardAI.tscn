@@ -58,7 +58,7 @@ func _process(_delta):
 			fruit_generated = 1
 		pass
 		
-	if(Scoreboard.get_current_score() == 1980):
+	if(Walls.get_pellet_count() == 198):
 		game_won()
 	
 func _ready():

@@ -23,6 +23,7 @@ onready var _half_cell_size = cell_size / 2
 
 var vulnerable = 0
 var vulnerable_time = 0
+var pellet_count = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -162,3 +163,11 @@ func get_pellet_child(pellet_child):
 	return pellet_point
 	#for x in pellet_point:
 	#	print(x)
+
+
+func add_pellet_count():
+	pellet_count += 1
+
+
+func get_pellet_count():
+	return pellet_count

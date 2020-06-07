@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var direction = Vector2(0,0)
-var speed = 110
+var speed = 100
 onready var move_pacman = false
 onready var Board = get_parent()
 onready var GameOverScreen = get_parent().get_node("GameOver")

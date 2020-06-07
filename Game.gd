@@ -12,7 +12,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if PlayerBoard.end_game == true and AIBoard.end_game == true:
 		NewGameTimer.start()
 		PlayerBoard.end_game = false

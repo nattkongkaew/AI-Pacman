@@ -108,7 +108,7 @@ func _on_Tunnel1_body_entered(_body):
 	
 
 
-func _on_Tunnel2_body_entered(body):
+func _on_Tunnel2_body_entered(_body):
 	Pacman.position = Vector2(115, 390)
 "
 

@@ -15,7 +15,7 @@ const MAX_GHOST_DIST_PRE_FLEE = 92
 
 # path before moving on to the next one
 const POINT_RADIUS = 5
-signal WHISTLE
+
 # Path that the sidekick must follow - undefined by default
 var path
 var velocity = Vector2()
@@ -145,10 +145,10 @@ func get_closest_pellet( pellets ):
 
 
 func blocked_by_ghost( pellet, ghost ):
-	var dir_to_pellet = pellet - position
-	var dir_to_ghost = ghost.position - position
+	#var dir_to_pellet = pellet - position
+	#var dir_to_ghost = ghost.position - position
 	var ghost_to_pellet = ghost.position - pellet
-	var projected = dir_to_pellet.dot( dir_to_ghost ) / dir_to_pellet.length_squared()
+	#var projected = dir_to_pellet.dot( dir_to_ghost ) / dir_to_pellet.length_squared()
 	
 	var flee_from_ghost_near_pellet = ghost_to_pellet.length_squared() < MAX_GHOST_DIST_PRE_FLEE * MAX_GHOST_DIST_PRE_FLEE
 	#return projected < 1 or ghost_to_pellet.length_squared() < MAX_GHOST_DIST_PRE_FLEE

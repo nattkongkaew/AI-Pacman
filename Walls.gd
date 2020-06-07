@@ -79,9 +79,9 @@ func _on_Tunnel2Area2D_body_entered(_body):
 func _on_Tunnel1Area2D_body_entered(_body):
 	player.position = Vector2(16,19)
 
-func astar_add_walkable_tiles(movable_tile):
+func astar_add_walkable_tiles(movable_tiles):
 	# Loop over all tiles
-	for tile in movable_tile:
+	for tile in movable_tiles:
 
 		# Determine the ID of the tile
 		var id = _get_id_for_point(tile)
@@ -90,9 +90,9 @@ func astar_add_walkable_tiles(movable_tile):
 		astar.add_point(id, Vector2(tile.x, tile.y))
 
 	
-func astar_connect_walkable_tiles(movable_tile):
+func astar_connect_walkable_tiles(movable_tiles):
 	# Loop over all tiles
-	for tile in movable_tile:
+	for tile in movable_tiles:
 
 		# Determine the ID of the tile
 		var id = _get_id_for_point(tile)
@@ -155,9 +155,9 @@ func _get_id_for_point(point):
 
 
 # get all node position and store in pellet_point
-func get_pellet_child(pellet_child):
+func get_pellet_child(pellet_children):
 	var pellet_point=[]
-	for N in pellet_child.get_children():
+	for N in pellet_children.get_children():
 		if N.get_child_count()>0:
 			var point = N.position
 			pellet_point.append(point)

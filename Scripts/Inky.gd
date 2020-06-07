@@ -1,4 +1,4 @@
-extends "res://Ghost.gd"
+extends "res://Scripts/Ghost.gd"
 
 
 onready var Blinky = get_parent().get_node("Blinky")

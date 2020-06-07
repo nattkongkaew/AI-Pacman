@@ -1,4 +1,4 @@
-extends "res://Ghost.gd"
+extends "res://Scripts/Ghost.gd"
 
 
 var _track_player = false

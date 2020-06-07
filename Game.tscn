@@ -4,10 +4,10 @@
 [ext_resource path="res://pixil-frame-0.png" type="Texture" id=2]
 [ext_resource path="res://aiplayer.png" type="Texture" id=3]
 [ext_resource path="res://images/zxxxc.png" type="Texture" id=4]
-[ext_resource path="res://StartButton.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/StartButton.gd" type="Script" id=5]
 [ext_resource path="res://background.tscn" type="PackedScene" id=6]
 [ext_resource path="res://BoardAI.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Game.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/Game.gd" type="Script" id=8]
 [ext_resource path="res://sounds/tset3.ogg" type="AudioStream" id=9]
 
 [node name="Game" type="Node2D"]
@@ -60,8 +60,8 @@ stream = ExtResource( 9 )
 autoplay = true
 max_distance = 3000.0
 attenuation = 0.25
-[connection signal="pressed" from="StartButton" to="AI-Board" method="_on_StartButton_pressed"]
 [connection signal="pressed" from="StartButton" to="Player-Board" method="_on_StartButton_pressed"]
-[connection signal="start_game" from="StartButton" to="AI-Board" method="_on_StartButton_pressed"]
+[connection signal="pressed" from="StartButton" to="AI-Board" method="_on_StartButton_pressed"]
 [connection signal="start_game" from="StartButton" to="Player-Board" method="_on_StartButton_start_game"]
+[connection signal="start_game" from="StartButton" to="AI-Board" method="_on_StartButton_pressed"]
 [connection signal="timeout" from="NewGameTimer" to="." method="_on_NewGameTimer_timeout"]

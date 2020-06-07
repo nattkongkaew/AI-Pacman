@@ -4,10 +4,7 @@
 
 # Project: AI Pac-man
 
-# commit test by Natt
-
-# Commit test by Rebekah
-
-# Commit test by Violet
-
-# Commit test by Cam
+# References
+- Pathfinding on a Tilemap: [GDQuest](https://www.youtube.com/watch?v=0fPOt0Jw52s)
+- Tilesets: [AngelCrew Studios](https://www.youtube.com/watch?v=S-jBJdRKWQM)
+- Enemy movement: [AngelCrew Studios](https://www.youtube.com/watch?v=2xiE27j4iiw)

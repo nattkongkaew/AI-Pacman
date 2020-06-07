@@ -56,8 +56,8 @@ stream = ExtResource( 9 )
 autoplay = true
 max_distance = 3000.0
 attenuation = 0.25
-[connection signal="pressed" from="StartButton" to="Player-Board" method="_on_StartButton_pressed"]
 [connection signal="pressed" from="StartButton" to="AI-Board" method="_on_StartButton_pressed"]
-[connection signal="start_game" from="StartButton" to="Player-Board" method="_on_StartButton_start_game"]
+[connection signal="pressed" from="StartButton" to="Player-Board" method="_on_StartButton_pressed"]
 [connection signal="start_game" from="StartButton" to="AI-Board" method="_on_StartButton_pressed"]
+[connection signal="start_game" from="StartButton" to="Player-Board" method="_on_StartButton_start_game"]
 [connection signal="timeout" from="NewGameTimer" to="." method="_on_NewGameTimer_timeout"]

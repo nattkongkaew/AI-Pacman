@@ -8,6 +8,7 @@
 - General Godot programming: [Godot Documentation](https://docs.godotengine.org/en/stable/index.html)
 - Maze: [seekpng.com](https://www.seekpng.com/ima/u2q8q8r5y3w7r5u2/)
 - Pellets: [pixilart.com](https://www.pixilart.com/krizmsmith67/likes)
+- Semi-transparent background: [ya-webdesign.com](https://ya-webdesign.com/image/transparent-gray-half/1230741.html)
 - Pathfinding on a Tilemap: [GDQuest](https://www.youtube.com/watch?v=0fPOt0Jw52s)
 - Pathfinding: [Davide Pesce](https://www.davidepesce.com/2019/11/19/godot-tutorial-how-to-use-navigation2d-for-pathfinding/)
 - Tilesets: [AngelCrew Studios](https://www.youtube.com/watch?v=S-jBJdRKWQM)

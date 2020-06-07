@@ -11,3 +11,4 @@
 - Pathfinding on a Tilemap: [GDQuest](https://www.youtube.com/watch?v=0fPOt0Jw52s)
 - Tilesets: [AngelCrew Studios](https://www.youtube.com/watch?v=S-jBJdRKWQM)
 - Enemy movement: [AngelCrew Studios](https://www.youtube.com/watch?v=2xiE27j4iiw)
+- Restarting the game: [Godot Engine Q&A](https://godotengine.org/qa/30028/how-do-i-re-spawn-or-restart-a-game)

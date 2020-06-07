@@ -1,5 +1,6 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
+[ext_resource path="res://images/eaten.png" type="Texture" id=1]
 [ext_resource path="res://Ghost.gd" type="Script" id=2]
 [ext_resource path="res://images/inky/down.png" type="Texture" id=3]
 [ext_resource path="res://images/clyde/down.png" type="Texture" id=4]
@@ -19,8 +20,13 @@
 [ext_resource path="res://images/clyde/top.png" type="Texture" id=18]
 [ext_resource path="res://images/imageing/1.png" type="Texture" id=19]
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "eaten",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "blinky_right",
@@ -122,7 +128,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=6]
+[sub_resource type="CapsuleShape2D" id=2]
 radius = 13.3
 height = 5.7
 
@@ -130,8 +136,8 @@ height = 5.7
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 5 )
-animation = "blinky_down"
+frames = SubResource( 1 )
+animation = "eaten"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 6 )
+shape = SubResource( 2 )

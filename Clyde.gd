@@ -6,7 +6,8 @@ var _current_path = []
 var _path_player = []
 var _path_base = []
 
-var _base = Vector2(330, 390)
+var _base = Vector2(360, 390)
+onready var _ghost_home = get_parent().get_node( "GhostHome" )
 
 
 func _ready():
@@ -18,29 +19,33 @@ func can_move():
 
 
 func get_ghost_path():
-	var player_distance = position.distance_to(Player.position)
+	if is_eaten():
+		return GhostPath.get_simple_path(position, _ghost_home.position, false)
 	
-	if player_distance > 150:
-		_track_player = true
-	
-	if player_distance > 75 and _track_player:
-		if _path_player.size() > 1:
-			_current_path = _path_player
-		else:
-			_path_player = GhostPath.get_simple_path(position, Player.position, false)
+	else:
+		var player_distance = position.distance_to(Player.position)
 		
-		_path_base = GhostPath.get_simple_path(position, _base, false)
-	elif position.distance_to( _base ) > 75:
-		if _path_base.size() > 1:
-			_track_player = false
-			_current_path = _path_base
-		else:
-			_path_base = GhostPath.get_simple_path(position, _base, false)
+		if player_distance > 150:
 			_track_player = true
 		
-		_path_player = GhostPath.get_simple_path(position, Player.position, false)
-	
-	return _current_path
+		if player_distance > 75 and _track_player:
+			if _path_player.size() > 1:
+				_current_path = _path_player
+			else:
+				_path_player = GhostPath.get_simple_path(position, Player.position, false)
+			
+			_path_base = GhostPath.get_simple_path(position, _base, false)
+		elif position.distance_to( _base ) > 75:
+			if _path_base.size() > 1:
+				_track_player = false
+				_current_path = _path_base
+			else:
+				_path_base = GhostPath.get_simple_path(position, _base, false)
+				_track_player = true
+			
+			_path_player = GhostPath.get_simple_path(position, Player.position, false)
+		
+		return _current_path
 
 
 func ghost_path_node_reached():

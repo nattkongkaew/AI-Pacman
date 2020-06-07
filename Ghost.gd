@@ -11,6 +11,7 @@ var _direction = Vector2(0, 0)
 var _game_enabled = false
 var _ghost_path = []
 var _vulnerable = false
+var _eaten = false
 
 var _ghost_name = "vulnerable" # Set in _ready in children
 
@@ -59,7 +60,11 @@ func update_animation():
 	var anim_name = _ghost_name
 	
 	if is_vulnerable():
-		anim_name = "vulnerable"
+		if is_eaten():
+			Animation.set_animation("eaten")
+			return
+		else:
+			anim_name = "vulnerable"
 	
 	if _direction.y > 0 and _direction.y > _direction.x:
 		anim_name += "_down"
@@ -72,7 +77,8 @@ func update_animation():
 	else:
 		anim_name += "_down" # Default
 	
-	Animation.set_animation(anim_name)
+	if !is_eaten():
+		Animation.set_animation(anim_name)
 
 
 func ghost_move(delta):
@@ -101,6 +107,12 @@ func ghost_path_node_reached():
 func go_vulnerable():
 	set_vulnerable( true )
 
-
 func reengage():
 	set_vulnerable( false )
+	set_eaten(false)
+
+func set_eaten(eaten):
+	_eaten = eaten
+
+func is_eaten():
+	return _eaten

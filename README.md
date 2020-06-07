@@ -1,8 +1,29 @@
 # The Quaranteam
+- Violet Kurtz
+- Rebekah Koon
+- Cameron James O'Brien
+- Natthaphong Kongkaew
+- Xufeng Liu
 
 # CS 361 - 400 Spring 2020
 
 # Project: AI Pac-man
+
+Welcome to AI pac-man. You can start game simply click on the start button.
+
+You will be control pacman using up, down, left, right key on keyboard.
+
+Left side maze are control by you, and Right side maze are control by AI, Lets see which pacman can get higher score and live longer.
+
+The main point is escape from ghost chasing, if ghost eat you, game over.
+
+There will be 4 power pellets in the map, and it looks bigger than normal pellets. After you eat the power pellets, you have the ability to eat ghost. If ghost get eaten, they will be harmless for a while and returning to base. 
+
+Power pellets have time limits, the ghost will turn back to normal after that time limit.
+
+Thats all for the instruction of this game, Having fun and win the AI!
+
+
 
 # References
 - General Godot programming: [Godot Documentation](https://docs.godotengine.org/en/stable/index.html)

@@ -34,3 +34,4 @@ That's all for the instructions of this game.  Have fun and win the AI!
 - Tilesets: [AngelCrew Studios](https://www.youtube.com/watch?v=S-jBJdRKWQM)
 - Enemy movement: [AngelCrew Studios](https://www.youtube.com/watch?v=2xiE27j4iiw)
 - Restarting the game: [Godot Engine Q&A](https://godotengine.org/qa/30028/how-do-i-re-spawn-or-restart-a-game)
+- A* Path finding for AI Pac-man: [GDQuest](https://www.youtube.com/watch?v=Ad6Us73smNs&t=836s)

@@ -5,22 +5,20 @@
 - Natthaphong Kongkaew
 - Xufeng Liu
 
-# CS 361 - 400 Spring 2020
-
 # Project: AI Pac-man
 
 Welcome to AI Pac-man. You can start the game by simply clicking on the start button.
 
 You will be controlling Pac-man using up, down, left, right keys on the keyboard.
 
-Left side maze is controlled by you, and Right side maze is controlled by AI. Lets see which Pac-man can get the higher score and live longer.
+The left side of the maze is controlled by you, and the right side of the maze is controlled by AI. Let's see which Pac-man can get the higher score and live longer!
 
-The main point is to escape from the ghosts.  If the ghost eats you the game is over.
+The main point is to escape from the ghosts.  If the ghost eats you, the game is over.
 
-There will be 4 power pellets on the map, and it looks bigger than normal pellets. After you eat the power pellets, you have the ability to eat the ghosts. If a ghost is eaten, they will be harmless for awhile as they return to base. 
-Power pellets have time limits, the ghost will turn back to normal after that time limit.
+There will be 4 power pellets on the map, which look bigger than normal pellets. After you eat the power pellets, you have the ability to eat the ghosts. If a ghost is eaten, they will be harmless for awhile as they return to their base. 
+Power pellets have time limits, so the ghost will turn back to normal after that time limit.
 
-That's all for the instructions of this game.  Have fun and win the AI!
+That's all for the instructions of this game.  Have fun and win against the AI!
 
 
 
